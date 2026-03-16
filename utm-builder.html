@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UTM Link Builder — PageGuides</title>
+    <meta name="description"
+        content="Free UTM Campaign Builder. Generate tracking links for Google Analytics campaigns quickly and accurately.">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --accent: #10b981;
+            --accent-glow: rgba(16, 185, 129, 0.15);
+            --bg-dark: #050508;
+            --bg-light: #111827;
+            --card-bg: rgba(30, 41, 59, 0.4);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --text: #f8fafc;
+            --text-muted: #94a3b8;
+            --warn: #f59e0b;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: radial-gradient(circle at top center, var(--bg-light) 0%, var(--bg-dark) 100%);
+            background-attachment: fixed;
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* NAV */
+        nav {
+            padding: 1.25rem 2rem;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            background: rgba(5, 5, 8, 0.8);
+            backdrop-filter: blur(12px);
+        }
+
+        .logo {
+            font-weight: 700;
+            font-size: 1.25rem;
+            letter-spacing: -0.02em;
+            color: var(--text);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo span { color: var(--accent); }
+
+        .back-link {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: color 0.2s;
+            font-weight: 500;
+        }
+
+        .back-link:hover { color: var(--text); }
+
+        /* CONTAINER */
+        .container {
+            max-width: 900px;
+            margin: 4rem auto 6rem;
+            padding: 0 1.5rem;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .tool-icon {
+            width: 64px;
+            height: 64px;
+            background: linear-gradient(135deg, rgba(16,185,129,0.15), rgba(16,185,129,0.05));
+            border: 1px solid rgba(16,185,129,0.2);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin: 0 auto 1.5rem;
+            box-shadow: inset 0 2px 4px rgba(255,255,255,0.05), 0 8px 16px rgba(0,0,0,0.2);
+        }
+
+        h1 {
+            font-size: clamp(2rem, 4vw, 2.75rem);
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+            font-weight: 300;
+            line-height: 1.5;
+        }
+
+        /* CARD */
+        .card {
+            background: var(--card-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
+            position: relative;
+        }
+
+        /* FORMS */
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+
+        @media (min-width: 768px) {
+            .form-grid { grid-template-columns: 1fr 1fr; }
+            .full-width { grid-column: 1 / -1; }
+        }
+
+        .form-group {
+            position: relative;
+        }
+
+        label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+            letter-spacing: 0.02em;
+        }
+
+        .required { color: var(--accent); }
+
+        input[type="text"] {
+            width: 100%;
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            padding: 0.875rem 1rem;
+            color: var(--text);
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.95rem;
+            transition: all 0.2s;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: rgba(16,185,129,0.5);
+            background: rgba(15, 23, 42, 0.8);
+            box-shadow: 0 0 0 3px rgba(16,185,129,0.1), inset 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .hint {
+            display: block;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-top: 0.35rem;
+            opacity: 0.8;
+        }
+
+        /* OUTPUT */
+        .output-section {
+            margin-top: 2.5rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .output-title {
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--accent);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .result-box {
+            background: rgba(5, 5, 8, 0.8);
+            border: 1px solid rgba(16,185,129,0.3);
+            border-radius: 12px;
+            padding: 1.25rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            color: var(--accent);
+            word-break: break-all;
+            min-height: 80px;
+            display: flex;
+            align-items: center;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
+            transition: all 0.2s;
+        }
+
+        .btn-col {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .btn {
+            background: var(--accent);
+            color: #000;
+            border: none;
+            padding: 0.875rem 1.5rem;
+            border-radius: 12px;
+            font-family: 'Outfit', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            flex: 1;
+            justify-content: center;
+        }
+
+        .btn:hover {
+            background: #0ea5e9;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(14, 165, 233, 0.2);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--text);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .btn-outline:hover {
+            background: rgba(255,255,255,0.05);
+            border-color: rgba(255,255,255,0.3);
+            transform: none;
+            box-shadow: none;
+        }
+
+        @media (max-width: 768px) {
+            nav { padding: 1rem; }
+            .container { margin: 2rem auto 4rem; }
+            .card { padding: 1.5rem; }
+            .btn-col { flex-direction: column; }
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <a href="index.html" class="logo">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+            </svg>
+            PageGuides<span>.</span>
+        </a>
+        <a href="index.html" class="back-link">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+            All Tools
+        </a>
+    </nav>
+
+    <main class="container">
+        <header>
+            <div class="tool-icon">🔗</div>
+            <h1>UTM Link Builder</h1>
+            <p class="subtitle">Properly track your marketing campaigns in Google Analytics by appending custom parameters to your URLs.</p>
+        </header>
+
+        <div class="card">
+            <div class="form-grid">
+                <div class="form-group full-width">
+                    <label>Website URL <span class="required">*</span></label>
+                    <input type="text" id="inUrl" placeholder="https://example.com/landing-page" required>
+                    <span class="hint">The full website URL (e.g. https://www.example.com)</span>
+                </div>
+
+                <div class="form-group">
+                    <label>Campaign Source <span class="required">*</span></label>
+                    <input type="text" id="inSource" placeholder="google, newsletter, facebook">
+                    <span class="hint">The referrer (e.g. google, newsletter)</span>
+                </div>
+
+                <div class="form-group">
+                    <label>Campaign Medium <span class="required">*</span></label>
+                    <input type="text" id="inMedium" placeholder="cpc, banner, email">
+                    <span class="hint">Marketing medium (e.g. cpc, banner, email)</span>
+                </div>
+
+                <div class="form-group full-width">
+                    <label>Campaign Name <span class="required">*</span></label>
+                    <input type="text" id="inName" placeholder="spring_sale, launch_promo">
+                    <span class="hint">Product, promo code, or slogan (e.g. spring_sale)</span>
+                </div>
+
+                <div class="form-group">
+                    <label>Campaign Term</label>
+                    <input type="text" id="inTerm" placeholder="running+shoes">
+                    <span class="hint">Identify paid keywords</span>
+                </div>
+
+                <div class="form-group">
+                    <label>Campaign Content</label>
+                    <input type="text" id="inContent" placeholder="logolink, textlink">
+                    <span class="hint">Use to differentiate ads</span>
+                </div>
+            </div>
+
+            <div class="output-section">
+                <div class="output-title">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <polyline points="12 16 16 12 12 8"></polyline>
+                        <line x1="8" y1="12" x2="16" y2="12"></line>
+                    </svg>
+                    Generated URL
+                </div>
+                
+                <div class="result-box" id="resultUrl">Fill out the required fields above to generate your UTM link...</div>
+                
+                <div class="btn-col">
+                    <button class="btn" id="btnCopy" disabled>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                        Copy Link
+                    </button>
+                    <button class="btn btn-outline" id="btnClear">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"></path></svg>
+                        Clear Fields
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const inputs = ['inUrl', 'inSource', 'inMedium', 'inName', 'inTerm', 'inContent'].map(id => document.getElementById(id));
+            const btnCopy = document.getElementById('btnCopy');
+            const resultUrl = document.getElementById('resultUrl');
+            
+            let finalUrl = '';
+
+            function generateUTM() {
+                const [url, source, medium, name, term, content] = inputs.map(el => el.value.trim());
+                
+                if (!url || !source || !medium || !name) {
+                    resultUrl.textContent = 'Please fill out all required (*) fields to generate the link.';
+                    resultUrl.style.color = 'var(--text-muted)';
+                    btnCopy.disabled = true;
+                    btnCopy.style.opacity = '0.5';
+                    btnCopy.style.cursor = 'not-allowed';
+                    return;
+                }
+
+                try {
+                    let baseUrl = url;
+                    if (!/^https?:\/\//i.test(baseUrl)) {
+                        baseUrl = 'https://' + baseUrl;
+                    }
+
+                    const parsedUrl = new URL(baseUrl);
+                    
+                    if (source) parsedUrl.searchParams.set('utm_source', encodeURIComponent(source));
+                    if (medium) parsedUrl.searchParams.set('utm_medium', encodeURIComponent(medium));
+                    if (name) parsedUrl.searchParams.set('utm_campaign', encodeURIComponent(name));
+                    if (term) parsedUrl.searchParams.set('utm_term', encodeURIComponent(term));
+                    if (content) parsedUrl.searchParams.set('utm_content', encodeURIComponent(content));
+
+                    // Google Analytics suggests replacing %2520 with + or %20 if already encoded, but URL handles this cleanly if we just set normally
+                    // We'll trust native searchParams
+                    let output = parsedUrl.toString();
+                    
+                    finalUrl = output;
+                    resultUrl.textContent = finalUrl;
+                    resultUrl.style.color = 'var(--accent)';
+                    
+                    btnCopy.disabled = false;
+                    btnCopy.style.opacity = '1';
+                    btnCopy.style.cursor = 'pointer';
+                } catch (e) {
+                    resultUrl.textContent = 'Invalid URL format. Please ensure your Website URL is correct.';
+                    resultUrl.style.color = 'var(--warn)';
+                    btnCopy.disabled = true;
+                }
+            }
+
+            inputs.forEach(input => input.addEventListener('input', generateUTM));
+
+            btnCopy.addEventListener('click', () => {
+                if (!finalUrl) return;
+                
+                navigator.clipboard.writeText(finalUrl).then(() => {
+                    const originalText = btnCopy.innerHTML;
+                    btnCopy.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Copied!';
+                    btnCopy.style.background = '#0ea5e9';
+                    
+                    setTimeout(() => {
+                        btnCopy.innerHTML = originalText;
+                        btnCopy.style.background = 'var(--accent)';
+                    }, 2000);
+                });
+            });
+
+            document.getElementById('btnClear').addEventListener('click', () => {
+                inputs.forEach(input => input.value = '');
+                generateUTM();
+                inputs[0].focus();
+            });
+        });
+    </script>
+</body>
+</html>

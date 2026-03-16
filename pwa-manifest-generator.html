@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PWA Manifest Generator — PageGuides</title>
+    <meta name="description" content="Generate a manifest.json file for your Progressive Web App. Configure name, icons, theme colors, and display mode for a better mobile experience.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-hover: #4f46e5;
+            --bg: #0f172a;
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --text: #f8fafc;
+            --text-muted: #94a3b8;
+            --border: rgba(255, 255, 255, 0.1);
+            --code-bg: #1e293b;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg);
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.15) 0px, transparent 50%),
+                radial-gradient(at 100% 0%, rgba(16, 185, 129, 0.1) 0px, transparent 50%);
+            color: var(--text);
+            min-height: 100vh;
+            line-height: 1.6;
+            padding: 2rem 1rem;
+        }
+
+        nav {
+            max-width: 900px;
+            margin: 0 auto 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo span { color: var(--primary); }
+
+        .back-link {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .back-link:hover { color: var(--text); }
+
+        main {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .hero {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: linear-gradient(to right, #fff, #94a3b8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .tool-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 2rem;
+        }
+
+        .config-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 2rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        .input-group {
+            margin-bottom: 1.25rem;
+        }
+
+        label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+        }
+
+        input, select {
+            width: 100%;
+            background: rgba(15, 23, 42, 0.5);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            color: var(--text);
+            padding: 0.75rem 1rem;
+            font-size: 0.95rem;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        input:focus, select:focus {
+            border-color: var(--primary);
+        }
+
+        .color-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .color-input-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(15, 23, 42, 0.5);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 0.25rem 0.5rem;
+        }
+
+        input[type="color"] {
+            width: 30px;
+            height: 30px;
+            padding: 0;
+            border: none;
+            background: none;
+            cursor: pointer;
+        }
+
+        .output-card {
+            background: var(--code-bg);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .code-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .code-title {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-transform: uppercase;
+        }
+
+        pre {
+            background: transparent;
+            color: #e2e8f0;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.9rem;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            flex-grow: 1;
+        }
+
+        .btn {
+            padding: 0.8rem 1.5rem;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 1px solid transparent;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            width: 100%;
+            margin-top: 1rem;
+        }
+
+        .btn-primary { background: var(--primary); color: white; }
+        .btn-primary:hover { background: var(--primary-hover); transform: translateY(-1px); }
+
+        .btn-outline { background: rgba(255, 255, 255, 0.05); color: var(--text); border-color: var(--border); }
+        .btn-outline:hover { background: rgba(255, 255, 255, 0.1); }
+
+        .copy-toast {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--primary);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 99px;
+            font-weight: 600;
+            transform: translateY(100px);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 100;
+        }
+
+        .copy-toast.show { transform: translateY(0); }
+
+        @media (max-width: 800px) {
+            .tool-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="/" class="logo">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                <line x1="12" y1="22.08" x2="12" y2="12"></line>
+            </svg>
+            Page<span>Guides</span>
+        </a>
+        <a href="/" class="back-link">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+            Back to Tools
+        </a>
+    </nav>
+
+    <main>
+        <div class="hero">
+            <h1>PWA Manifest Generator</h1>
+            <p class="subtitle">Quickly create a valid web app manifest for your site. Configure how your app appears on mobile devices when installed.</p>
+        </div>
+
+        <div class="tool-grid">
+            <div class="config-card">
+                <div class="input-group">
+                    <label>App Name</label>
+                    <input type="text" id="name" placeholder="e.g. PageGuides SEO Tools" value="My Progressive App">
+                </div>
+                <div class="input-group">
+                    <label>Short Name</label>
+                    <input type="text" id="short_name" placeholder="e.g. PageGuides" value="My App">
+                </div>
+                <div class="input-group">
+                    <label>Description</label>
+                    <input type="text" id="description" placeholder="Short description of your app">
+                </div>
+                <div class="input-group">
+                    <label>Start URL</label>
+                    <input type="text" id="start_url" value="/">
+                </div>
+                <div class="color-row">
+                    <div class="input-group">
+                        <label>Theme Color</label>
+                        <div class="color-input-wrapper">
+                            <input type="color" id="theme_color_picker" value="#6366f1">
+                            <input type="text" id="theme_color" value="#6366f1" style="border:none; padding:0; height:auto;">
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label>Background Color</label>
+                        <div class="color-input-wrapper">
+                            <input type="color" id="background_color_picker" value="#0f172a">
+                            <input type="text" id="background_color" value="#0f172a" style="border:none; padding:0; height:auto;">
+                        </div>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label>Display Mode</label>
+                    <select id="display">
+                        <option value="standalone">Standalone</option>
+                        <option value="fullscreen">Fullscreen</option>
+                        <option value="minimal-ui">Minimal UI</option>
+                        <option value="browser">Browser</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label>Orientation</label>
+                    <select id="orientation">
+                        <option value="any">Any</option>
+                        <option value="natural">Natural</option>
+                        <option value="portrait">Portrait</option>
+                        <option value="landscape">Landscape</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="output-card">
+                <div class="code-header">
+                    <div class="code-title">manifest.json</div>
+                </div>
+                <pre id="manifestOutput"></pre>
+                <button class="btn btn-primary" onclick="copyManifest()">Copy JSON</button>
+                <button class="btn btn-outline" onclick="downloadManifest()">Download File</button>
+            </div>
+        </div>
+    </main>
+
+    <div id="copyToast" class="copy-toast">Manifest copied!</div>
+
+    <script>
+        const inputs = ['name', 'short_name', 'description', 'start_url', 'theme_color', 'background_color', 'display', 'orientation'];
+        const pickers = {
+            'theme_color': 'theme_color_picker',
+            'background_color': 'background_color_picker'
+        };
+
+        function updateManifest() {
+            const manifest = {
+                "name": document.getElementById('name').value,
+                "short_name": document.getElementById('short_name').value,
+                "description": document.getElementById('description').value,
+                "start_url": document.getElementById('start_url').value,
+                "display": document.getElementById('display').value,
+                "background_color": document.getElementById('background_color').value,
+                "theme_color": document.getElementById('theme_color').value,
+                "orientation": document.getElementById('orientation').value,
+                "icons": [
+                    {
+                        "src": "/icons/icon-192x192.png",
+                        "sizes": "192x192",
+                        "type": "image/png"
+                    },
+                    {
+                        "src": "/icons/icon-512x512.png",
+                        "sizes": "512x512",
+                        "type": "image/png"
+                    }
+                ]
+            };
+            document.getElementById('manifestOutput').textContent = JSON.stringify(manifest, null, 4);
+        }
+
+        inputs.forEach(id => {
+            document.getElementById(id).addEventListener('input', updateManifest);
+        });
+
+        Object.keys(pickers).forEach(textId => {
+            const pickerId = pickers[textId];
+            const textInput = document.getElementById(textId);
+            const pickerInput = document.getElementById(pickerId);
+
+            pickerInput.addEventListener('input', () => {
+                textInput.value = pickerInput.value;
+                updateManifest();
+            });
+
+            textInput.addEventListener('input', () => {
+                if (/^#[0-9A-F]{6}$/i.test(textInput.value)) {
+                    pickerInput.value = textInput.value;
+                    updateManifest();
+                }
+            });
+        });
+
+        function copyManifest() {
+            const text = document.getElementById('manifestOutput').textContent;
+            navigator.clipboard.writeText(text);
+            const toast = document.getElementById('copyToast');
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 2000);
+        }
+
+        function downloadManifest() {
+            const text = document.getElementById('manifestOutput').textContent;
+            const blob = new Blob([text], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'manifest.json';
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        // Init
+        updateManifest();
+    </script>
+</body>
+</html>

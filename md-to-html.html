@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Markdown to HTML Converter — PageGuides</title>
+    <meta name="description" content="Instantly convert your Markdown content into clean, semantic HTML for your blog posts and landing pages.">
+    <style>
+        :root {
+            --primary: #8b5cf6;
+            --bg: #0f172a;
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --text: #f8fafc;
+            --text-dim: #94a3b8;
+            --border: rgba(255, 255, 255, 0.1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', system-ui, sans-serif; }
+
+        body {
+            background-color: var(--bg);
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(139, 92, 246, 0.1) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(30, 41, 59, 1) 0px, transparent 50%);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem;
+        }
+
+        .container { width: 100%; max-width: 1200px; }
+
+        .header { text-align: left; margin-bottom: 2rem; width: 100%; }
+        .logo { font-size: 1.5rem; font-weight: 800; color: var(--text); text-decoration: none; display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem; }
+        .logo span { color: var(--primary); }
+        .title { font-size: 2.5rem; font-weight: 800; margin-bottom: 0.5rem; letter-spacing: -0.025em; }
+        .subtitle { color: var(--text-dim); font-size: 1.1rem; }
+
+        .editor-container { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; height: 600px; }
+        
+        .box { background: var(--card-bg); border: 1px solid var(--border); border-radius: 1.5rem; display: flex; flex-direction: column; overflow: hidden; }
+        .box-header { padding: 1rem 1.5rem; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.03); }
+        .label { font-size: 0.75rem; font-weight: 800; color: var(--primary); text-transform: uppercase; }
+
+        textarea { flex: 1; width: 100%; background: transparent; border: none; padding: 1.5rem; color: #d1d5db; font-family: 'Fira Code', monospace; resize: none; outline: none; line-height: 1.6; }
+        .preview { flex: 1; padding: 1.5rem; background: #fff; color: #333; overflow-y: auto; }
+        
+        .preview h1 { margin-bottom: 1rem; }
+        .preview p { margin-bottom: 1rem; line-height: 1.5; }
+
+        .btn { background: var(--primary); color: white; border: none; padding: 0.5rem 1rem; border-radius: 0.5rem; cursor: pointer; font-weight: 700; font-size: 0.8rem; }
+
+        footer { margin-top: 4rem; color: var(--text-dim); font-size: 0.9rem; text-align: center; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <a href="index.html" class="logo">Page<span>Guides</span></a>
+            <h1 class="title">Markdown to HTML</h1>
+            <p class="subtitle">A simple, powerful converter for your SEO content workflow.</p>
+        </header>
+
+        <div class="editor-container">
+            <div class="box">
+                <div class="box-header"><span class="label">Markdown Input</span></div>
+                <textarea id="input" placeholder="# Hello World\n\nThis is a **bold** paragraph." oninput="convert()"></textarea>
+            </div>
+            <div class="box">
+                <div class="box-header">
+                    <span class="label">HTML Output</span>
+                    <button class="btn" onclick="copyHTML()">Copy HTML</button>
+                </div>
+                <textarea id="output" readonly></textarea>
+            </div>
+        </div>
+
+        <footer>
+            &copy; 2026 PageGuides — Premium SEO Tool Suite
+        </footer>
+    </div>
+
+    <script>
+        function convert() {
+            const md = document.getElementById('input').value;
+            let html = md
+                .replace(/^# (.*$)/gim, '<h1>$1</h1>')
+                .replace(/^## (.*$)/gim, '<h2>$1</h2>')
+                .replace(/^### (.*$)/gim, '<h3>$1</h3>')
+                .replace(/\*\*(.*)\*\*/gim, '<b>$1</b>')
+                .replace(/\*(.*)\*/gim, '<i>$1</i>')
+                .replace(/^\> (.*$)/gim, '<blockquote>$1</blockquote>')
+                .replace(/\!\[(.*?)\]\((.*?)\)/gim, "<img alt='$1' src='$2' />")
+                .replace(/\[(.*?)\]\((.*?)\)/gim, "<a href='$2'>$1</a>")
+                .replace(/\n\n/gim, '</p><p>')
+                .replace(/\n/gim, '<br />');
+
+            html = '<p>' + html + '</p>';
+            
+            // Clean up empty tags
+            html = html.replace(/<p><\/p>/gim, '');
+            
+            document.getElementById('output').value = html;
+        }
+
+        function copyHTML() {
+            const out = document.getElementById('output');
+            out.select();
+            document.execCommand('copy');
+            alert('HTML Copied!');
+        }
+
+        convert();
+    </script>
+</body>
+</html>

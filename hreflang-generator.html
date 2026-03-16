@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HrefLang Tag Generator — PageGuides</title>
+    <meta name="description" content="Generate proper HrefLang tags for multi-language and multi-region websites to prevent duplicate content issues.">
+    <style>
+        :root {
+            --primary: #f43f5e;
+            --bg: #0f172a;
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --text: #f8fafc;
+            --text-dim: #94a3b8;
+            --border: rgba(255, 255, 255, 0.1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', system-ui, sans-serif; }
+
+        body {
+            background-color: var(--bg);
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(244, 63, 94, 0.1) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(30, 41, 59, 1) 0px, transparent 50%);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem;
+        }
+
+        .container { width: 100%; max-width: 900px; }
+
+        .header { text-align: left; margin-bottom: 3rem; width: 100%; }
+        .logo { font-size: 1.5rem; font-weight: 800; color: var(--text); text-decoration: none; display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem; }
+        .logo span { color: var(--primary); }
+        .title { font-size: 2.5rem; font-weight: 800; margin-bottom: 0.5rem; letter-spacing: -0.025em; }
+        .subtitle { color: var(--text-dim); font-size: 1.1rem; }
+
+        .card {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border);
+            border-radius: 1.5rem;
+            padding: 2.5rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        .row { display: grid; grid-template-columns: 1fr 1fr 1fr auto; gap: 1rem; margin-bottom: 1rem; align-items: end; }
+        label { display: block; font-size: 0.75rem; font-weight: 800; color: var(--text-dim); text-transform: uppercase; margin-bottom: 0.5rem; }
+        
+        input, select {
+            width: 100%;
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid var(--border);
+            border-radius: 0.5rem;
+            padding: 0.6rem;
+            color: white;
+            outline: none;
+        }
+
+        .btn-add { background: var(--primary); color: white; border: none; padding: 0.6rem 1rem; border-radius: 0.5rem; font-weight: 700; cursor: pointer; }
+        .btn-remove { background: #ef4444; border: none; color: white; padding: 0.6rem; border-radius: 0.5rem; cursor: pointer; }
+
+        .output-area { margin-top: 2rem; position: relative; }
+        pre {
+            background: #000;
+            padding: 1.5rem;
+            border-radius: 1rem;
+            color: #fb7185;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.85rem;
+            overflow-x: auto;
+            border: 1px solid var(--border);
+        }
+
+        footer { margin-top: 4rem; color: var(--text-dim); font-size: 0.9rem; text-align: center; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <a href="index.html" class="logo">Page<span>Guides</span></a>
+            <h1 class="title">HrefLang Tag Generator</h1>
+            <p class="subtitle">Generate multi-language link tags to help Google serve the right version to users.</p>
+        </header>
+
+        <div class="card">
+            <div id="rows-container">
+                <div class="row">
+                    <div>
+                        <label>Language Code</label>
+                        <input type="text" value="en" placeholder="e.g. en, es, fr" oninput="update()">
+                    </div>
+                    <div>
+                        <label>Region (Optional)</label>
+                        <input type="text" placeholder="e.g. US, GB, ES" oninput="update()">
+                    </div>
+                    <div>
+                        <label>URL</label>
+                        <input type="url" value="https://example.com/en" placeholder="https://..." oninput="update()">
+                    </div>
+                    <button class="btn-remove" onclick="this.parentElement.remove(); update()">×</button>
+                </div>
+            </div>
+            
+            <button class="btn-add" style="margin-top: 1rem;" onclick="addRow()">+ Add Alternative Language</button>
+
+            <div class="output-area">
+                <label>Generated Head Tags</label>
+                <pre id="output"></pre>
+            </div>
+        </div>
+
+        <footer>
+            &copy; 2026 PageGuides — Premium SEO Tool Suite
+        </footer>
+    </div>
+
+    <script>
+        function addRow() {
+            const container = document.getElementById('rows-container');
+            const div = document.createElement('div');
+            div.className = 'row';
+            div.innerHTML = `
+                <div>
+                    <input type="text" placeholder="e.g. es" oninput="update()">
+                </div>
+                <div>
+                    <input type="text" placeholder="e.g. ES" oninput="update()">
+                </div>
+                <div>
+                    <input type="url" placeholder="https://..." oninput="update()">
+                </div>
+                <button class="btn-remove" onclick="this.parentElement.remove(); update()">×</button>
+            `;
+            container.appendChild(div);
+            update();
+        }
+
+        function update() {
+            const container = document.getElementById('rows-container');
+            const rows = container.querySelectorAll('.row');
+            let tags = '';
+
+            rows.forEach(row => {
+                const inputs = row.querySelectorAll('input');
+                const lang = inputs[0].value.trim();
+                const region = inputs[1].value.trim();
+                const url = inputs[2].value.trim();
+
+                if (lang && url) {
+                    const code = region ? `${lang}-${region.toLowerCase()}` : lang;
+                    tags += `<link rel="alternate" hreflang="${code}" href="${url}" />\n`;
+                }
+            });
+
+            // Add x-default if not present
+            tags += `<link rel="alternate" hreflang="x-default" href="${rows[0]?.querySelectorAll('input')[2].value || ''}" />`;
+
+            document.getElementById('output').textContent = tags;
+        }
+
+        update();
+    </script>
+</body>
+</html>

@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google SERP Simulator — PageGuides</title>
+    <meta name="description"
+        content="Free Google SERP Snippet Optimization Tool. Preview how your meta title and description will look in Google search results.">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --accent: #10b981;
+            --accent-glow: rgba(16, 185, 129, 0.15);
+            --bg-dark: #050508;
+            --bg-light: #111827;
+            --card-bg: rgba(30, 41, 59, 0.4);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --text: #f8fafc;
+            --text-muted: #94a3b8;
+            --warn: #f59e0b;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: radial-gradient(circle at top center, var(--bg-light) 0%, var(--bg-dark) 100%);
+            background-attachment: fixed;
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* NAV */
+        nav {
+            padding: 1.25rem 2rem;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            background: rgba(5, 5, 8, 0.8);
+            backdrop-filter: blur(12px);
+        }
+
+        .logo {
+            font-weight: 700;
+            font-size: 1.25rem;
+            letter-spacing: -0.02em;
+            color: var(--text);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo span { color: var(--accent); }
+
+        .back-link {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: color 0.2s;
+            font-weight: 500;
+        }
+
+        .back-link:hover { color: var(--text); }
+
+        /* CONTAINER */
+        .container {
+            max-width: 1000px;
+            margin: 4rem auto 6rem;
+            padding: 0 1.5rem;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .tool-icon {
+            width: 64px;
+            height: 64px;
+            background: linear-gradient(135deg, rgba(16,185,129,0.15), rgba(16,185,129,0.05));
+            border: 1px solid rgba(16,185,129,0.2);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin: 0 auto 1.5rem;
+            box-shadow: inset 0 2px 4px rgba(255,255,255,0.05), 0 8px 16px rgba(0,0,0,0.2);
+        }
+
+        h1 {
+            font-size: clamp(2rem, 4vw, 2.75rem);
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+            font-weight: 300;
+            line-height: 1.5;
+        }
+
+        /* LAYOUT */
+        .layout {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            align-items: start;
+        }
+        
+        @media (min-width: 900px) {
+            .layout { grid-template-columns: 1fr 1.2fr; }
+        }
+
+        /* CARD */
+        .card {
+            background: var(--card-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+        }
+
+        .card-title {
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* FORMS */
+        .form-group {
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        label {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+            letter-spacing: 0.02em;
+        }
+
+        .char-count {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+        }
+        .char-count.good { color: var(--accent); }
+        .char-count.warn { color: var(--warn); }
+        .char-count.over { color: #ef4444; }
+
+        input[type="text"], textarea {
+            width: 100%;
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            padding: 0.875rem 1rem;
+            color: var(--text);
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.95rem;
+            transition: all 0.2s;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        input[type="text"]:focus, textarea:focus {
+            outline: none;
+            border-color: rgba(16,185,129,0.5);
+            background: rgba(15, 23, 42, 0.8);
+            box-shadow: 0 0 0 3px rgba(16,185,129,0.1), inset 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .progress-bar {
+            height: 4px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 2px;
+            margin-top: 0.5rem;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--accent);
+            width: 0%;
+            transition: width 0.3s, background-color 0.3s;
+        }
+
+        /* GOOGLE PREVIEW MOCKUP */
+        .serp-preview {
+            background: #fff;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            font-family: arial, sans-serif;
+            color: #4d5156;
+            margin-top: 1rem;
+        }
+        
+        .serp-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 8px;
+        }
+        
+        .serp-favicon {
+            width: 28px;
+            height: 28px;
+            background: #f1f3f4;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+        }
+
+        .serp-url-group {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.2;
+        }
+
+        .serp-site-name {
+            font-size: 14px;
+            color: #202124;
+        }
+
+        .serp-url {
+            font-size: 12px;
+            color: #4d5156;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 300px;
+        }
+
+        .serp-title {
+            color: #1a0dab;
+            font-size: 20px;
+            line-height: 1.3;
+            font-weight: 400;
+            margin-bottom: 4px;
+            text-decoration: none;
+            display: block;
+            word-wrap: break-word;
+        }
+        
+        .serp-title:hover {
+            text-decoration: underline;
+        }
+
+        .serp-desc {
+            font-size: 14px;
+            line-height: 1.58;
+            color: #4d5156;
+            word-wrap: break-word;
+        }
+        
+        /* DESKTOP/MOBILE TOGGLE */
+        .toggle-group {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            background: rgba(15, 23, 42, 0.6);
+            padding: 0.25rem;
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+        
+        .toggle-btn {
+            flex: 1;
+            padding: 0.5rem;
+            background: transparent;
+            border: none;
+            border-radius: 8px;
+            color: var(--text-muted);
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .toggle-btn.active {
+            background: var(--card-bg);
+            color: var(--text);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+        
+        /* Mobile Preview Mode */
+        .serp-preview.mobile-mode {
+            max-width: 375px;
+            margin: 0 auto;
+        }
+        .serp-preview.mobile-mode .serp-title {
+            font-size: 18px;
+        }
+
+        @media (max-width: 768px) {
+            nav { padding: 1rem; }
+            .container { margin: 2rem auto 4rem; }
+            .card { padding: 1.5rem; }
+            .layout { gap: 1.5rem; }
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <a href="index.html" class="logo">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+            </svg>
+            PageGuides<span>.</span>
+        </a>
+        <a href="index.html" class="back-link">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+            All Tools
+        </a>
+    </nav>
+
+    <main class="container">
+        <header>
+            <div class="tool-icon">🔍</div>
+            <h1>SERP Simulator</h1>
+            <p class="subtitle">See how your webpage will appear in Google Search Results. Optimize your Title Tag and Meta Description to maximize CTR.</p>
+        </header>
+
+        <div class="layout">
+            <!-- INPUTS -->
+            <div class="card">
+                <div class="card-title">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                        <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                    </svg>
+                    Content Editor
+                </div>
+
+                <div class="form-group">
+                    <label>
+                        URL / Slug
+                        <span class="char-count" id="urlCount">0</span>
+                    </label>
+                    <input type="text" id="urlInput" placeholder="https://example.com/your-awesome-post" value="https://example.com/your-post">
+                </div>
+
+                <div class="form-group">
+                    <label>
+                        Title Tag (Target ~60 chars or 580px)
+                        <span class="char-count" id="titleCount">0 / 60</span>
+                    </label>
+                    <input type="text" id="titleInput" placeholder="Enter your page title here..." value="Google SERP Snippet Optimization Tool | Example">
+                    <div class="progress-bar"><div class="progress-fill" id="titleProgress"></div></div>
+                </div>
+
+                <div class="form-group">
+                    <label>
+                        Meta Description (Target ~155 chars or 920px)
+                        <span class="char-count" id="descCount">0 / 155</span>
+                    </label>
+                    <textarea id="descInput" placeholder="Enter an engaging description that encourages clicks...">Use this free SERP simulator to preview how your web page looks in Google Search results. Optimize titles and descriptions for maximum click-through rates.</textarea>
+                    <div class="progress-bar"><div class="progress-fill" id="descProgress"></div></div>
+                </div>
+            </div>
+
+            <!-- PREVIEW -->
+            <div class="card">
+                <div class="card-title">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                        <circle cx="12" cy="12" r="3"></circle>
+                    </svg>
+                    Live Preview
+                </div>
+                
+                <div class="toggle-group">
+                    <button class="toggle-btn active" id="btnDesktop">Desktop</button>
+                    <button class="toggle-btn" id="btnMobile">Mobile</button>
+                </div>
+
+                <div class="serp-preview" id="serpContainer">
+                    <div class="serp-header">
+                        <div class="serp-favicon">🌍</div>
+                        <div class="serp-url-group">
+                            <span class="serp-site-name" id="previewSiteName">example.com</span>
+                            <span class="serp-url" id="previewUrl">https://example.com/your-post</span>
+                        </div>
+                    </div>
+                    <a href="#" class="serp-title" id="previewTitle" onclick="event.preventDefault()">Google SERP Snippet Optimization Tool | Example</a>
+                    <div class="serp-desc" id="previewDesc">Use this free SERP simulator to preview how your web page looks in Google Search results. Optimize titles and descriptions for maximum click-through rates.</div>
+                </div>
+                
+                <div class="form-group" style="margin-top: 2rem;">
+                    <label>Pixel Width Status</label>
+                    <div style="display:flex; justify-content: space-between; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; color: var(--text-muted); background: rgba(15,23,42,0.5); padding: 10px; border-radius: 8px;">
+                        <div>Title: <span id="titlePx" style="color:var(--text)">0px</span> / 580px</div>
+                        <div>Desc: <span id="descPx" style="color:var(--text)">0px</span> / 920px</div>
+                    </div>
+                    <p style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.5rem; text-align: center;">Google truncates by pixel width, not character count.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const el = {
+                urlIn: document.getElementById('urlInput'),
+                titleIn: document.getElementById('titleInput'),
+                descIn: document.getElementById('descInput'),
+                
+                urlCount: document.getElementById('urlCount'),
+                titleCount: document.getElementById('titleCount'),
+                descCount: document.getElementById('descCount'),
+                
+                titleProg: document.getElementById('titleProgress'),
+                descProg: document.getElementById('descProgress'),
+                
+                pSiteName: document.getElementById('previewSiteName'),
+                pUrl: document.getElementById('previewUrl'),
+                pTitle: document.getElementById('previewTitle'),
+                pDesc: document.getElementById('previewDesc'),
+                
+                tPx: document.getElementById('titlePx'),
+                dPx: document.getElementById('descPx'),
+                
+                btnDesk: document.getElementById('btnDesktop'),
+                btnMob: document.getElementById('btnMobile'),
+                serpCont: document.getElementById('serpContainer')
+            };
+            
+            // Canvas for measuring text width in pixels accurately like Google
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            
+            function measureTextWidth(text, font) {
+                ctx.font = font;
+                return Math.round(ctx.measureText(text).width);
+            }
+
+            function getDomain(urlStr) {
+                try {
+                    let u = urlStr;
+                    if(!u.startsWith('http')) u = 'https://' + u;
+                    const url = new URL(u);
+                    return url.hostname.replace('www.', '');
+                } catch(e) {
+                    return urlStr.split('/')[0];
+                }
+            }
+            
+            function formatBreadcrumbUrl(urlStr) {
+                 try {
+                    let u = urlStr;
+                    if(!u.startsWith('http')) u = 'https://' + u;
+                    const url = new URL(u);
+                    let path = url.pathname;
+                    if(path === '/') return u;
+                    return u.replace(path, path.replace(/\//g, ' › '));
+                 } catch(e) {
+                    return urlStr;
+                 }
+            }
+
+            function updateUI() {
+                const titleText = el.titleIn.value;
+                const descText = el.descIn.value;
+                const urlText = el.urlIn.value;
+                const isMobile = el.serpCont.classList.contains('mobile-mode');
+                
+                // Limits
+                const MAX_TITLE_PX = isMobile ? 650 : 580;
+                const MAX_DESC_PX = isMobile ? 680 : 920; 
+                const CHAR_TITLE_IDEAL = 60;
+                const CHAR_DESC_IDEAL = 155;
+
+                // Update URL
+                el.urlCount.textContent = urlText.length;
+                el.pSiteName.textContent = getDomain(urlText);
+                el.pUrl.textContent = urlText ? formatBreadcrumbUrl(urlText) : 'example.com';
+
+                // Measure Px
+                // Google title font: 20px arial, description: 14px arial
+                const titlePx = measureTextWidth(titleText, '400 20px arial');
+                const descPx = measureTextWidth(descText, '400 14px arial');
+                
+                el.tPx.textContent = titlePx + 'px';
+                el.dPx.textContent = descPx + 'px';
+
+                // Truncate logic
+                let displayTitle = titleText || 'Provide a title...';
+                let displayDesc = descText || 'Provide a description...';
+
+                if(titlePx > MAX_TITLE_PX) {
+                    // Approximate truncation
+                    let ratio = MAX_TITLE_PX / titlePx;
+                    displayTitle = titleText.substring(0, Math.floor(titleText.length * ratio) - 3) + '...';
+                    el.tPx.style.color = 'var(--warn)';
+                } else {
+                    el.tPx.style.color = 'var(--text)';
+                }
+
+                if(descPx > MAX_DESC_PX) {
+                    let ratio = MAX_DESC_PX / descPx;
+                    displayDesc = descText.substring(0, Math.floor(descText.length * ratio) - 3) + '...';
+                    el.dPx.style.color = 'var(--warn)';
+                } else {
+                    el.dPx.style.color = 'var(--text)';
+                }
+
+                el.pTitle.textContent = displayTitle;
+                el.pDesc.textContent = displayDesc;
+
+                // Progress Bars & Char Counts
+                const tLen = titleText.length;
+                el.titleCount.textContent = `${tLen} / ${CHAR_TITLE_IDEAL}`;
+                let tPct = (tLen / CHAR_TITLE_IDEAL) * 100;
+                el.titleProg.style.width = Math.min(tPct, 100) + '%';
+                
+                if(tLen === 0) el.titleProg.style.backgroundColor = 'transparent';
+                else if(tLen > CHAR_TITLE_IDEAL || titlePx > MAX_TITLE_PX) {
+                    el.titleProg.style.backgroundColor = 'var(--warn)';
+                    el.titleCount.className = 'char-count warn';
+                } else {
+                    el.titleProg.style.backgroundColor = 'var(--accent)';
+                    el.titleCount.className = 'char-count good';
+                }
+
+                const dLen = descText.length;
+                el.descCount.textContent = `${dLen} / ${CHAR_DESC_IDEAL}`;
+                let dPct = (dLen / CHAR_DESC_IDEAL) * 100;
+                el.descProg.style.width = Math.min(dPct, 100) + '%';
+                
+                if(dLen === 0) el.descProg.style.backgroundColor = 'transparent';
+                else if(dLen > CHAR_DESC_IDEAL || descPx > MAX_DESC_PX) {
+                    el.descProg.style.backgroundColor = 'var(--warn)';
+                    el.descCount.className = 'char-count warn';
+                } else {
+                    el.descProg.style.backgroundColor = 'var(--accent)';
+                    el.descCount.className = 'char-count good';
+                }
+            }
+
+            el.urlIn.addEventListener('input', updateUI);
+            el.titleIn.addEventListener('input', updateUI);
+            el.descIn.addEventListener('input', updateUI);
+            
+            el.btnDesk.addEventListener('click', () => {
+                el.btnDesk.classList.add('active');
+                el.btnMob.classList.remove('active');
+                el.serpCont.classList.remove('mobile-mode');
+                updateUI();
+            });
+            
+            el.btnMob.addEventListener('click', () => {
+                el.btnMob.classList.add('active');
+                el.btnDesk.classList.remove('active');
+                el.serpCont.classList.add('mobile-mode');
+                updateUI();
+            });
+
+            // Initial render
+            updateUI();
+        });
+    </script>
+</body>
+</html>

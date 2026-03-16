@@ -1,0 +1,1077 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PageGuides — Micro-outils SEO Gratuits</title>
+    <meta name="description"
+        content="Outils SEO gratuits et rapides. Analysez les mots-clés, générez des slugs, prévisualisez Open Graph, validez le robots.txt et bien plus encore.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --accent: #10b981;
+            --accent-glow: rgba(16, 185, 129, 0.15);
+            --bg-dark: #050508;
+            --bg-light: #0f172a;
+            --card-bg: rgba(30, 41, 59, 0.4);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --text: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: radial-gradient(circle at top center, #111827 0%, var(--bg-dark) 100%);
+            background-attachment: fixed;
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Utility */
+        .glass-panel {
+            background: var(--card-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--card-border);
+        }
+
+        /* NAV */
+        nav {
+            padding: 1.25rem 2rem;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            background: rgba(5, 5, 8, 0.8);
+            backdrop-filter: blur(12px);
+        }
+
+        .logo {
+            font-weight: 700;
+            font-size: 1.25rem;
+            letter-spacing: -0.02em;
+            color: var(--text);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo span { color: var(--accent); }
+
+        .nav-tag {
+            font-size: 0.75rem;
+            background: var(--accent-glow);
+            color: var(--accent);
+            border: 1px solid rgba(16,185,129,0.3);
+            padding: 0.25rem 0.75rem;
+            border-radius: 99px;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+        }
+
+        /* LANGUAGE SELECTOR */
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .lang-selector {
+            position: relative;
+        }
+
+        .lang-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text);
+            padding: 0.4rem 0.8rem;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.2s;
+            font-family: inherit;
+        }
+
+        .lang-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .lang-dropdown {
+            position: absolute;
+            top: calc(100% + 0.5rem);
+            right: 0;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 0.5rem;
+            min-width: 140px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.2s;
+            z-index: 100;
+        }
+
+        .lang-selector:hover .lang-dropdown {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .lang-option {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 0.75rem;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.85rem;
+            border-radius: 6px;
+            transition: all 0.2s;
+            font-weight: 500;
+        }
+
+        .lang-option:hover {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text);
+        }
+
+        .lang-option.active {
+            color: var(--accent);
+            background: var(--accent-glow);
+        }
+        
+        .lang-flag {
+            font-size: 1rem;
+            line-height: 1;
+        }
+
+        /* HERO */
+        .hero {
+            text-align: center;
+            padding: 6rem 1rem 4rem;
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 20%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 300px;
+            height: 300px;
+            background: var(--accent);
+            filter: blur(150px);
+            opacity: 0.15;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--accent);
+            background: var(--accent-glow);
+            border: 1px solid rgba(16,185,129,0.3);
+            padding: 0.35rem 1rem;
+            border-radius: 99px;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 0 20px rgba(16,185,129,0.2);
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 700;
+            letter-spacing: -0.04em;
+            line-height: 1.1;
+            margin-bottom: 1.25rem;
+        }
+
+        .hero h1 em {
+            font-style: normal;
+            background: linear-gradient(to right, #10b981, #34d399);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            color: var(--text-muted);
+            font-size: 1.15rem;
+            max-width: 540px;
+            margin: 0 auto;
+            font-weight: 300;
+        }
+
+        /* TOOLS SECTION */
+        .tools-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 1.5rem 6rem;
+            display: flex;
+            flex-direction: column;
+            gap: 4rem;
+        }
+
+        .category-group {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .category-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .category-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text);
+            letter-spacing: -0.01em;
+        }
+
+        .category-count {
+            font-size: 0.75rem;
+            font-family: 'JetBrains Mono', monospace;
+            background: rgba(255,255,255,0.1);
+            color: var(--text-muted);
+            padding: 0.1rem 0.5rem;
+            border-radius: 6px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.25rem;
+        }
+
+        .tool-card {
+            background: rgba(30, 41, 59, 0.4);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 1.75rem;
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            group: hover;
+        }
+        
+        /* New tag styling */
+        .new-tag {
+            position: absolute;
+            top: 1.25rem;
+            right: 1.25rem;
+            font-size: 0.65rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            color: white;
+            padding: 0.2rem 0.6rem;
+            border-radius: 99px;
+            box-shadow: 0 2px 10px rgba(139, 92, 246, 0.3);
+        }
+
+        .tool-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(800px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255,255,255,0.06), transparent 40%);
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+        }
+
+        .tool-card:hover {
+            border-color: rgba(16, 185, 129, 0.4);
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px -10px rgba(0,0,0,0.5), 0 0 20px rgba(16,185,129,0.1);
+            background: rgba(30, 41, 59, 0.6);
+        }
+
+        .tool-card:hover::before { opacity: 1; }
+
+        .tool-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, rgba(16,185,129,0.15), rgba(16,185,129,0.05));
+            border: 1px solid rgba(16,185,129,0.2);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+            box-shadow: inset 0 2px 4px rgba(255,255,255,0.05);
+            transition: transform 0.3s;
+        }
+        
+        .tool-card:hover .tool-icon {
+            transform: scale(1.05);
+        }
+
+        .tool-name {
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: var(--text);
+            letter-spacing: -0.01em;
+        }
+
+        .tool-desc {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+            flex: 1;
+            font-weight: 300;
+        }
+
+        .tool-arrow {
+            font-size: 0.85rem;
+            color: var(--accent);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            margin-top: 0.5rem;
+            opacity: 0.7;
+            transition: all 0.3s;
+            transform: translateX(-4px);
+        }
+
+        .tool-card:hover .tool-arrow { 
+            opacity: 1; 
+            transform: translateX(0);
+        }
+
+        /* FOOTER */
+        footer {
+            border-top: 1px solid rgba(255,255,255,0.05);
+            padding: 2rem;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            font-family: 'JetBrains Mono', monospace;
+            background: rgba(5,5,8,0.5);
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <a href="index.html" class="logo">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                <line x1="12" y1="22.08" x2="12" y2="12"></line>
+            </svg>
+            Page<span>Guides</span>
+        </a>
+        <div class="nav-actions">
+            <span class="nav-tag" style="display: none;">Outils SEO Premium</span>
+            <div class="lang-selector">
+                <button class="lang-btn">
+                    <span class="lang-flag">🇫🇷</span> FR
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                </button>
+                <div class="lang-dropdown">
+                    <a href="index.html" class="lang-option active"><span class="lang-flag">🇺🇸</span> English</a>
+                    <a href="es/index.html" class="lang-option"><span class="lang-flag">🇪🇸</span> Español</a>
+                    <a href="fr/index.html" class="lang-option"><span class="lang-flag">🇫🇷</span> Français</a>
+                    <a href="pt/index.html" class="lang-option"><span class="lang-flag">🇧🇷</span> Português</a>
+                    <a href="hi/index.html" class="lang-option"><span class="lang-flag">🇮🇳</span> हिन्दी</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-badge">60 Outils · 100% Gratuit</div>
+        <h1>Micro-outils SEO <em>Rapides</em>, sans inscription</h1>
+        <p>Tout ce dont vous avez besoin pour optimiser votre contenu, structurer votre site et maîtriser les métadonnées. Avec une expérience visuelle haut de gamme.</p>
+    </section>
+
+    <main class="tools-container">
+
+        <!-- Categoria 1: Análisis de Contenido -->
+        <section class="category-group">
+            <div class="category-header">
+                <h2 class="category-title">Analyse de Contenu</h2>
+                <span class="category-count">8</span>
+            </div>
+            <div class="grid">
+                <a href="keyword-density.html" class="tool-card">
+                    <div class="tool-icon">📊</div>
+                    <div class="tool-name">Analyseur de Densité de Mots-Clés</div>
+                    <div class="tool-desc">Analysez la fréquence et la densité des mots-clés dans votre texte. Détectez instantanément la sur-optimisation.</div>
+                    <div class="tool-arrow">Ouvrir l'outil &rarr;</div>
+                </a>
+
+                <a href="lsi-suggester.html" class="tool-card">
+                    <div class="tool-icon">💡</div>
+                    <div class="tool-name">Suggesteur de Mots-Clés LSI</div>
+                    <div class="tool-desc">Trouvez des mots-clés sémantiquement liés pour enrichir vos articles et améliorer leur pertinence.</div>
+                    <div class="tool-arrow">Ouvrir l'outil &rarr;</div>
+                </a>
+
+                <a href="readability-checker.html" class="tool-card">
+                    <div class="tool-icon">📖</div>
+                    <div class="tool-name">Vérificateur de Lisibilité</div>
+                    <div class="tool-desc">Mesurez le score de lisibilité de votre contenu. Détectez les phrases complexes et optimisez pour votre audience.</div>
+                    <div class="tool-arrow">Ouvrir l'outil &rarr;</div>
+                </a>
+
+                <a href="character-counter.html" class="tool-card">
+                    <div class="new-tag">NOUVEAU</div>
+                    <div class="tool-icon">📝</div>
+                    <div class="tool-name">Compteur de Mots et Caractères</div>
+                    <div class="tool-desc">Analysez le temps de lecture, la densité des mots-clés et la longueur du texte pour le SEO.</div>
+                    <div class="tool-arrow">Ouvrir l'outil &rarr;</div>
+                </a>
+
+                <a href="keyword-combiner.html" class="tool-card">
+                    <div class="new-tag">NOUVEAU</div>
+                    <div class="tool-icon">🔄</div>
+                    <div class="tool-name">Combineur de Mots-Clés</div>
+                    <div class="tool-desc">Fusionnez plusieurs listes pour générer instantanément des milliers de combinaisons de mots-clés.</div>
+                    <div class="tool-arrow">Ouvrir l'outil &rarr;</div>
+                </a>
+
+                <a href="keyword-typo-generator.html" class="tool-card">
+                    <div class="new-tag">NOUVEAU</div>
+                    <div class="tool-icon">⌨️</div>
+                    <div class="tool-name">Générateur de Fautes de Frappe</div>
+                    <div class="tool-desc">Générez des fautes de frappe courantes pour capturer facilement le trafic des recherches erronées.</div>
+                    <div class="tool-arrow">Ouvrir l'outil &rarr;</div>
+                </a>
+
+                <a href="keyword-wrapper.html" class="tool-card">
+                    <div class="new-tag">NOUVEAU</div>
+                    <div class="tool-icon">🎁</div>
+                    <div class="tool-name">Wrapper de Mots-Clés</div>
+                    <div class="tool-desc">Enveloppez vos mots-clés dans des types de correspondance exacte, expression et large pour les publicités.</div>
+                    <div class="tool-arrow">Ouvrir l'outil &rarr;</div>
+                </a>
+
+                <a href="domain-name-generator.html" class="tool-card">
+                    <div class="new-tag">NOUVEAU</div>
+                    <div class="tool-icon">🌐</div>
+                    <div class="tool-name">Générateur de Noms de Domaine</div>
+                    <div class="tool-desc">Générez des idées de noms de domaine accrocheuses et mémorables pour votre projet.</div>
+                    <div class="tool-arrow">Ouvrir l'outil &rarr;</div>
+                </a>
+            </div>
+        </section>
+
+        <!-- Categoria 2: SEO On-Page & Metadatos -->
+        <section class="category-group">
+            <div class="category-header">
+                <h2 class="category-title">SEO On-Page et Métadonnées</h2>
+                <span class="category-count">8</span>
+            </div>
+            <div class="grid">
+                <a href="meta-tag-optimizer.html" class="tool-card">
+                    <div class="tool-icon">🔍</div>
+                    <div class="tool-name">Aperçu SERP et Balises Meta</div>
+                    <div class="tool-desc">Visualisez comment votre page apparaît sur Google. Optimisez les titres et descriptions pour améliorer le CTR.</div>
+                    <div class="tool-arrow">Ouvrir l'outil &rarr;</div>
+                </a>
+
+                <a href="og-preview.html" class="tool-card">
+                    <div class="tool-icon">🖼️</div>
+                    <div class="tool-name">Aperçu Open Graph</div>
+                    <div class="tool-desc">Prévisualisez et générez instantanément des balises OG pour Twitter/X, Facebook et LinkedIn.</div>
+                    <div class="tool-arrow">Ouvrir l'outil &rarr;</div>
+                </a>
+
+                <a href="html-structure-auditor.html" class="tool-card">
+                    <div class="tool-icon">🏗️</div>
+                    <div class="tool-name">Auditeur de Structure HTML</div>
+                    <div class="tool-desc">Vérifiez la syntaxe et la hiérarchie de vos balises H1-H6 pour détecter les défauts critiques On-Page.</div>
+                    <div class="tool-arrow">Ouvrir l'outil &rarr;</div>
+                </a>
+
+                <a href="canonical-tag-generator.html" class="tool-card">
+                    <div class="new-tag">NOUVEAU</div>
+                    <div class="tool-icon">🏷️</div>
+                    <div class="tool-name">Générateur de Balise Canonical</div>
+                    <div class="tool-desc">Générez des balises canonical précises pour éviter les problèmes de contenu dupliqué sur votre site.</div>
+                    <div class="tool-arrow">Ouvrir l'outil &rarr;</div>
+                </a>
+
+                <a href="serp-simulator.html" class="tool-card">
+                    <div class="new-tag">NOUVEAU</div>
+                    <div class="tool-icon">🔍</div>
+                    <div class="tool-name">Simulateur SERP</div>
+                    <div class="tool-desc">Prévisualisez et optimisez votre balise de titre et votre méta-description pour la recherche Google.</div>
+                    <div class="tool-arrow">Ouvrir l'outil &rarr;</div>
+                </a>
+
+                <a href="twitter-card-generator.html" class="tool-card">
+                    <div class="new-tag">NOUVEAU</div>
+                    <div class="tool-icon">🐦</div>
+                    <div class="tool-name">Générateur de Twitter Card</div>
+                    <div class="tool-desc">Créez des balises méta personnalisées pour que vos pages Web se démarquent sur X/Twitter.</div>
+                    <div class="tool-arrow">Ouvrir l'outil &rarr;</div>
+                </a>
+
+                <a href="open-graph-generator.html" class="tool-card">
+                    <div class="new-tag">NOUVEAU</div>
+                    <div class="tool-icon">🖼️</div>
+                    <div class="tool-name">Générateur Open Graph</div>
+                    <div class="tool-desc">Créez des balises og: parfaites pour Facebook, LinkedIn, Discord et Slack.</div>
+                    <div class="tool-arrow">Ouvrir l'outil &rarr;</div>
+                </a>
+
+                <a href="color-contrast-checker.html" class="tool-card">
+                    <div class="new-tag">NOUVEAU</div>
+                    <div class="tool-icon">🎨</div>
+                    <div class="tool-name">Vérificateur de Contraste</div>
+                    <div class="tool-desc">Vérifiez les ratios de contraste des couleurs WCAG pour l'accessibilité.</div>
+                    <div class="tool-arrow">Ouvrir l'outil &rarr;</div>
+                </a>
+            </div>
+        </section>
+
+        <!-- Categoria 3: SEO Técnico & Estructura -->
+        <section class="category-group">
+            <div class="category-header">
+                <h2 class="category-title">SEO Technique et Structure</h2>
+                <span class="category-count">11</span>
+            </div>
+            <div class="grid">
+                <a href="url-slug-generator.html" class="tool-card">
+                    <div class="tool-icon">🔗</div>
+                    <div class="tool-name">Générateur de Slug URL</div>
+                    <div class="tool-desc">Convertissez n'importe quel titre en un slug optimisé pour le SEO. Supprime les accents, les caractères spéciaux et les mots vides.</div>
+                    <div class="tool-arrow">Ouvrir l'outil &rarr;</div>
+                </a>
+
+                <a href="schema-generator.html" class="tool-card">
+                    <div class="tool-icon">⚙️</div>
+                    <div class="tool-name">Générateur de Schema</div>
+                    <div class="tool-desc">Générez visuellement un balisage JSON-LD (FAQ, Article, Produit) pour obtenir des extraits enrichis.</div>
+                    <div class="tool-arrow">Ouvrir l'outil &rarr;</div>
+                </a>
+
+                <a href="robots-generator.html" class="tool-card">
+                    <div class="tool-icon">🤖</div>
+                    <div class="tool-name">Générateur de Robots.txt</div>
+                    <div class="tool-desc">Créez votre fichier robots.txt. Définissez les règles des robots, bloquez les chemins et évitez les erreurs.</div>
+                    <div class="tool-arrow">Ouvrir l'outil &rarr;</div>
+                </a>
+
+                <a href="xml-sitemap-generator.html" class="tool-card">
+                    <div class="new-tag">NOUVEAU</div>
+                    <div class="tool-icon">🗺️</div>
+                    <div class="tool-name">Générateur de Sitemap XML</div>
+                    <div class="tool-desc">Générez des prototypes de sitemap XML valides à soumettre à Google Search Console.</div>
+                    <div class="tool-arrow">Ouvrir l'outil &rarr;</div>
+                </a>
+
+                <a href="htaccess-redirect-generator.html" class="tool-card">
+                    <div class="new-tag">NOUVEAU</div>
+                    <div class="tool-icon">↪️</div>
+                    <div class="tool-name">Générateur de Redirection .htaccess</div>
+                    <div class="tool-desc">Créez des règles de redirection 301 précises pour votre fichier .htaccess Apache.</div>
+                    <div class="tool-arrow">Ouvrir l'outil &rarr;</div>
+                </a>
+
+                <a href="hreflang-tag-generator.html" class="tool-card">
+                    <div class="new-tag">NOUVEAU</div>
+                    <div class="tool-icon">🌍</div>
+                    <div class="tool-name">Générateur de Balise Hreflang</div>
+                    <div class="tool-desc">Configurez des balises hreflang pour le SEO international, en garantissant les codes de langue et de région.</div>
+                    <div class="tool-arrow">Ouvrir l'outil &rarr;</div>
+                </a>
+
+                <a href="faq-schema-generator.html" class="tool-card">
+                    <div class="new-tag">NOUVEAU</div>
+                    <div class="tool-icon">💬</div>
+                    <div class="tool-name">Générateur de FAQ Schema</div>
+                    <div class="tool-desc">Créez un code JSON-LD valide pour vos FAQ afin d'obtenir des extraits enrichis.</div>
+                    <div class="tool-arrow">Ouvrir l'outil &rarr;</div>
+                </a>
+
+                <a href="local-business-schema-generator.html" class="tool-card">
+                    <div class="new-tag">NOUVEAU</div>
+                    <div class="tool-icon">🏪</div>
+                    <div class="tool-name">Schema Commercial Local</div>
+                    <div class="tool-desc">Générez un balisage JSON-LD pour booster le SEO local et les panneaux de connaissances.</div>
+                    <div class="tool-arrow">Ouvrir l'outil &rarr;</div>
+                </a>
+
+                <a href="html-entity-encoder.html" class="tool-card">
+                    <div class="new-tag">NOUVEAU</div>
+                    <div class="tool-icon">🔣</div>
+                    <div class="tool-name">Encodeur d'Entités HTML</div>
+                    <div class="tool-desc">Encodez et décodez en toute sécurité les entités HTML et les caractères spéciaux.</div>
+                    <div class="tool-arrow">Ouvrir l'outil &rarr;</div>
+                </a>
+
+                <a href="pwa-manifest-generator.html" class="tool-card">
+                    <div class="new-tag">NOUVEAU</div>
+                    <div class="tool-icon">📱</div>
+                    <div class="tool-name">Générateur de Manifeste PWA</div>
+                    <div class="tool-desc">Générez un fichier manifest.json pour votre application Web progressive.</div>
+                    <div class="tool-arrow">Ouvrir l'outil &rarr;</div>
+                </a>
+
+                <a href="html-to-markdown.html" class="tool-card">
+                    <div class="new-tag">NOUVEAU</div>
+                    <div class="tool-icon">📝</div>
+                    <div class="tool-name">HTML en Markdown</div>
+                    <div class="tool-desc">Convertissez instantanément du code HTML en Markdown pour la documentation.</div>
+                    <div class="tool-arrow">Ouvrir l'outil &rarr;</div>
+                </a>
+            </div>
+        </section>
+
+        <!-- Category 5: IA et Contenu Avancé -->
+        <section class="category-group">
+            <div class="category-header">
+                <h2 class="category-title">IA et Contenu Avancé</h2>
+                <span class="category-count">8</span>
+            </div>
+            <div class="grid">
+                <a href="ai-content-detector.html" class="tool-card">
+                    <div class="new-tag">NOUVEAU</div>
+                    <div class="tool-icon">🤖</div>
+                    <div class="tool-name">Détecteur de Contenu IA</div>
+                    <div class="tool-desc">Simulez l'analyse linguistique pour détecter les modèles de contenu générés par l'IA.</div>
+                    <div class="tool-arrow">Ouvrir l'outil &rarr;</div>
+                </a>
+                <a href="text-summarizer.html" class="tool-card">
+                    <div class="new-tag">NOUVEAU</div>
+                    <div class="tool-icon">📝</div>
+                    <div class="tool-name">Résumeur de Texte</div>
+                    <div class="tool-desc">Extrayez les phrases clés et créez des résumés concis de longs articles.</div>
+                    <div class="tool-arrow">Ouvrir l'outil &rarr;</div>
+                </a>
+                <a href="sentiment-analyzer.html" class="tool-card">
+                    <div class="new-tag">NOUVEAU</div>
+                    <div class="tool-icon">🎭</div>
+                    <div class="tool-name">Analyseur de Sentiment</div>
+                    <div class="tool-desc">Analysez le ton émotionnel de votre contenu avec un score basé sur le lexique.</div>
+                    <div class="tool-arrow">Ouvrir l'outil &rarr;</div>
+                </a>
+                <a href="keyword-gap-analyzer.html" class="tool-card">
+                    <div class="new-tag">NOUVEAU</div>
+                    <div class="tool-icon">🕳️</div>
+                    <div class="tool-name">Analyseur d'Écart de Mots-Clés</div>
+                    <div class="tool-desc">Comparez deux ensembles de mots-clés pour trouver les lacunes et les chevauchements.</div>
+                    <div class="tool-arrow">Ouvrir l'outil &rarr;</div>
+                </a>
+                <a href="readability-improver.html" class="tool-card">
+                    <div class="new-tag">NOUVEAU</div>
+                    <div class="tool-icon">✨</div>
+                    <div class="tool-name">Améliorateur de Lisibilité</div>
+                    <div class="tool-desc">Mettez en évidence les mots complexes et obtenez des suggestions de synonymes plus simples.</div>
+                    <div class="tool-arrow">Ouvrir l'outil &rarr;</div>
+                </a>
+                <a href="headline-analyzer.html" class="tool-card">
+                    <div class="new-tag">NOUVEAU</div>
+                    <div class="tool-icon">📰</div>
+                    <div class="tool-name">Analyseur de Titres</div>
+                    <div class="tool-desc">Notez vos titres en fonction de l'impact émotionnel, des mots puissants et de la longueur.</div>
+                    <div class="tool-arrow">Ouvrir l'outil &rarr;</div>
+                </a>
+                <a href="stop-word-remover.html" class="tool-card">
+                    <div class="new-tag">NOUVEAU</div>
+                    <div class="tool-icon">🧹</div>
+                    <div class="tool-name">Suppresseur de Mots Vides</div>
+                    <div class="tool-desc">Nettoyez votre texte en supprimant les mots vides courants pour l'optimisation SEO.</div>
+                    <div class="tool-arrow">Ouvrir l'outil &rarr;</div>
+                </a>
+                <a href="uniqueness-checker.html" class="tool-card">
+                    <div class="new-tag">NOUVEAU</div>
+                    <div class="tool-icon">🛡️</div>
+                    <div class="tool-name">Vérificateur d'Unicité</div>
+                    <div class="tool-desc">Comparez deux blocs de texte pour mesurer la similitude et garantir l'originalité.</div>
+                    <div class="tool-arrow">Ouvrir l'outil &rarr;</div>
+                </a>
+            </div>
+        </section>
+
+        <!-- Categoria 4: Analitica de Campañas -->
+        <section class="category-group">
+            <div class="category-header">
+                <h2 class="category-title">Analyse des Campagnes</h2>
+                <span class="category-count">1</span>
+            </div>
+            <div class="grid">
+                <a href="utm-builder.html" class="tool-card">
+                    <div class="new-tag">NOUVEAU</div>
+                    <div class="tool-icon">🔗</div>
+                    <div class="tool-name">Constructeur de Liens UTM</div>
+                    <div class="tool-desc">Générez des liens de suivi précis pour les campagnes dans Google Analytics.</div>
+                    <div class="tool-arrow">Ouvrir l'outil &rarr;</div>
+                </a>
+            </div>
+        </section>
+
+        <!-- Category 5: Résultats Enrichis et Médias Sociaux -->
+        <section class="category-group">
+            <div class="category-header">
+                <h2 class="category-title">Résultats Enrichis et Médias Sociaux</h2>
+                <span class="category-count">8</span>
+            </div>
+            <div class="grid">
+                <a href="breadcrumb-generator.html" class="tool-card">
+                    <div class="new-tag">NOUVEAU</div>
+                    <div class="tool-icon">🍞</div>
+                    <div class="tool-name">Générateur de Fil d'Ariane</div>
+                    <div class="tool-desc">Générez un balisage JSON-LD pour aider Google à comprendre la structure de votre site.</div>
+                    <div class="tool-arrow">Ouvrir l'outil &rarr;</div>
+                </a>
+                <a href="review-schema-generator.html" class="tool-card">
+                    <div class="new-tag">NOUVEAU</div>
+                    <div class="tool-icon">⭐</div>
+                    <div class="tool-name">Générateur de Schéma d'Avis</div>
+                    <div class="tool-desc">Gagnez des étoiles dans les résultats de recherche avec un balisage d'avis valide.</div>
+                    <div class="tool-arrow">Ouvrir l'outil &rarr;</div>
+                </a>
+                <a href="video-schema-generator.html" class="tool-card">
+                    <div class="new-tag">NOUVEAU</div>
+                    <div class="tool-icon">📹</div>
+                    <div class="tool-name">Générateur de Schéma Vidéo</div>
+                    <div class="tool-desc">Optimisez vos vidéos pour qu'elles apparaissent dans les onglets de recherche Google.</div>
+                    <div class="tool-arrow">Ouvrir l'outil &rarr;</div>
+                </a>
+                <a href="social-preview-all.html" class="tool-card">
+                    <div class="new-tag">NOUVEAU</div>
+                    <div class="tool-icon">📱</div>
+                    <div class="tool-name">Aperçu Social Tout-en-Un</div>
+                    <div class="tool-desc">Découvrez instantanément l'apparence de votre lien sur Facebook, X, LinkedIn et Discord.</div>
+                    <div class="tool-arrow">Ouvrir l'outil &rarr;</div>
+                </a>
+                <a href="meta-tag-extractor.html" class="tool-card">
+                    <div class="new-tag">NOUVEAU</div>
+                    <div class="tool-icon">🔍</div>
+                    <div class="tool-name">Extracteur de Balises Meta</div>
+                    <div class="tool-desc">Collez votre code HTML pour analyser et extraire les balises meta importantes.</div>
+                    <div class="tool-arrow">Ouvrir l'outil &rarr;</div>
+                </a>
+                <a href="favicon-gen.html" class="tool-card">
+                    <div class="new-tag">NOUVEAU</div>
+                    <div class="tool-icon">🎨</div>
+                    <div class="tool-name">Générateur de Favicons</div>
+                    <div class="tool-desc">Générez rapidement le code HTML pour toutes vos icônes et actifs PWA.</div>
+                    <div class="tool-arrow">Ouvrir l'outil &rarr;</div>
+                </a>
+                <a href="alt-text-helper.html" class="tool-card">
+                    <div class="new-tag">NOUVEAU</div>
+                    <div class="tool-icon">🖼️</div>
+                    <div class="tool-name">Assistant de Texte Alt</div>
+                    <div class="tool-desc">Améliorez l'accessibilité et le SEO de vos images avec ce guide et générateur.</div>
+                    <div class="tool-arrow">Ouvrir l'outil &rarr;</div>
+                </a>
+                <a href="link-rel-gen.html" class="tool-card">
+                    <div class="new-tag">NOUVEAU</div>
+                    <div class="tool-icon">🔗</div>
+                    <div class="tool-name">Générateur de Relation de Liens</div>
+                    <div class="tool-desc">Étiquetez correctement vos liens externes (nofollow, sponsored, ugc).</div>
+                    <div class="tool-arrow">Ouvrir l'outil &rarr;</div>
+                </a>
+            </div>
+        </section>
+
+        <!-- Category 6: SEO Technique Avancé -->
+        <section class="category-group">
+            <div class="category-header">
+                <h2 class="category-title">SEO Technique Avancé</h2>
+                <span class="category-count">8</span>
+            </div>
+            <div class="grid">
+                <a href="security-headers-gen.html" class="tool-card">
+                    <div class="new-tag">NOUVEAU</div>
+                    <div class="tool-icon">🛡️</div>
+                    <div class="tool-name">Générateur d'En-têtes de Sécurité</div>
+                    <div class="tool-desc">Protégez votre site avec CSP, HSTS et d'autres en-têtes essentiels.</div>
+                    <div class="tool-arrow">Ouvrir l'outil &rarr;</div>
+                </a>
+                <a href="event-schema-generator.html" class="tool-card">
+                    <div class="new-tag">NOUVEAU</div>
+                    <div class="tool-icon">📅</div>
+                    <div class="tool-name">Générateur de Schéma d'Événement</div>
+                    <div class="tool-desc">Créez un balisage JSON-LD pour les concerts, ateliers et festivals.</div>
+                    <div class="tool-arrow">Ouvrir l'outil &rarr;</div>
+                </a>
+                <a href="job-posting-generator.html" class="tool-card">
+                    <div class="new-tag">NOUVEAU</div>
+                    <div class="tool-icon">💼</div>
+                    <div class="tool-name">Générateur de Schéma d'Emploi</div>
+                    <div class="tool-desc">Faites figurer vos offres d'emploi sur Google for Jobs.</div>
+                    <div class="tool-arrow">Ouvrir l'outil &rarr;</div>
+                </a>
+                <a href="cwv-calculator.html" class="tool-card">
+                    <div class="new-tag">NOUVEAU</div>
+                    <div class="tool-icon">⚡</div>
+                    <div class="tool-name">Calculateur Core Web Vitals</div>
+                    <div class="tool-desc">Simulez et calculez vos scores LCP, FID, CLS et INP.</div>
+                    <div class="tool-arrow">Ouvrir l'outil &rarr;</div>
+                </a>
+                <a href="base64-encoder.html" class="tool-card">
+                    <div class="new-tag">NOUVEAU</div>
+                    <div class="tool-icon">📦</div>
+                    <div class="tool-name">Encodeur Base64</div>
+                    <div class="tool-desc">Convertissez images et polices en chaînes Base64 pour un chargement rapide.</div>
+                    <div class="tool-arrow">Ouvrir l'outil &rarr;</div>
+                </a>
+                <a href="json-formatter.html" class="tool-card">
+                    <div class="new-tag">NOUVEAU</div>
+                    <div class="tool-icon">{}</div>
+                    <div class="tool-name">Formateur JSON</div>
+                    <div class="tool-desc">Validez, embellissez et minifiez votre code JSON instantanément.</div>
+                    <div class="tool-arrow">Ouvrir l'outil &rarr;</div>
+                </a>
+                <a href="sitemap-index-gen.html" class="tool-card">
+                    <div class="new-tag">NOUVEAU</div>
+                    <div class="tool-icon">🗺️</div>
+                    <div class="tool-name">Générateur d'Index de Sitemap</div>
+                    <div class="tool-desc">Créez un index maître pour gérer plusieurs sitemaps XML.</div>
+                    <div class="tool-arrow">Ouvrir l'outil &rarr;</div>
+                </a>
+                <a href="page-speed-simulator.html" class="tool-card">
+                    <div class="new-tag">NOUVEAU</div>
+                    <div class="tool-icon">🏎️</div>
+                    <div class="tool-name">Simulateur de Vitesse</div>
+                    <div class="tool-desc">Visualisez la séquence de chargement et les métriques de votre page.</div>
+                    <div class="tool-arrow">Ouvrir l'outil &rarr;</div>
+                </a>
+            </div>
+        </section>
+
+        <!-- Category 7: Marketing et Croissance -->
+        <section class="category-group">
+            <div class="category-header">
+                <h2 class="category-title">Marketing et Croissance</h2>
+                <span class="category-count">8</span>
+            </div>
+            <div class="grid">
+                <a href="hreflang-generator.html" class="tool-card">
+                    <div class="new-tag">NOUVEAU</div>
+                    <div class="tool-icon">🌐</div>
+                    <div class="tool-name">Générateur de HrefLang</div>
+                    <div class="tool-desc">Créez des balises link rel="alternate" pour les sites multilingues.</div>
+                    <div class="tool-arrow">Ouvrir l'outil &rarr;</div>
+                </a>
+                <a href="rss-feed-gen.html" class="tool-card">
+                    <div class="new-tag">NOUVEAU</div>
+                    <div class="tool-icon">📡</div>
+                    <div class="tool-name">Générateur de Flux RSS</div>
+                    <div class="tool-desc">Générez un fichier XML de base pour la syndication de contenu.</div>
+                    <div class="tool-arrow">Ouvrir l'outil &rarr;</div>
+                </a>
+                <a href="robots-editor.html" class="tool-card">
+                    <div class="new-tag">NOUVEAU</div>
+                    <div class="tool-icon">🤖</div>
+                    <div class="tool-name">Éditeur de Robots.txt</div>
+                    <div class="tool-desc">Validez et modifiez vos préférences d'exploration pour les moteurs.</div>
+                    <div class="tool-arrow">Ouvrir l'outil &rarr;</div>
+                </a>
+                <a href="site-identity-checklist.html" class="tool-card">
+                    <div class="new-tag">NOUVEAU</div>
+                    <div class="tool-icon">🆔</div>
+                    <div class="tool-name">Checklist d'Identité du Site</div>
+                    <div class="tool-desc">Audit de cohérence de marque et signaux E-E-A-T.</div>
+                    <div class="tool-arrow">Ouvrir l'outil &rarr;</div>
+                </a>
+                <a href="md-to-html.html" class="tool-card">
+                    <div class="new-tag">NOUVEAU</div>
+                    <div class="tool-icon">📝</div>
+                    <div class="tool-name">Convertisseur Markdown en HTML</div>
+                    <div class="tool-desc">Convertissez du Markdown en HTML propre et sémantique.</div>
+                    <div class="tool-arrow">Ouvrir l'outil &rarr;</div>
+                </a>
+                <a href="slug-optimizer.html" class="tool-card">
+                    <div class="new-tag">NOUVEAU</div>
+                    <div class="tool-icon">🔗</div>
+                    <div class="tool-name">Optimiseur de Slugs</div>
+                    <div class="tool-desc">Transformez les titres longs en URL propres et optimisées.</div>
+                    <div class="tool-arrow">Ouvrir l'outil &rarr;</div>
+                </a>
+                <a href="keyword-grouper.html" class="tool-card">
+                    <div class="new-tag">NOUVEAU</div>
+                    <div class="tool-icon">📂</div>
+                    <div class="tool-name">Groupeur de Mots-Clés</div>
+                    <div class="tool-desc">Organisez vos mots-clés en groupes thématiques automatiquement.</div>
+                    <div class="tool-arrow">Ouvrir l'outil &rarr;</div>
+                </a>
+                <a href="gsc-query-filter.html" class="tool-card">
+                    <div class="new-tag">NOUVEAU</div>
+                    <div class="tool-icon">🔍</div>
+                    <div class="tool-name">Filtre RegEx GSC</div>
+                    <div class="tool-desc">Générez des expressions régulières pour filtrer vos rapports Search Console.</div>
+                    <div class="tool-arrow">Ouvrir l'outil &rarr;</div>
+                </a>
+            </div>
+        </section>
+
+        <!-- Category 8: Marketing et Croissance -->
+        <section class="category-group">
+            <div class="category-header">
+                <h2 class="category-title">Marketing et Croissance</h2>
+                <span class="category-count">8</span>
+            </div>
+            <div class="grid">
+                <a href="ppc-roi-calculator.html" class="tool-card">
+                    <div class="new-tag">NOUVEAU</div>
+                    <div class="tool-icon">💰</div>
+                    <div class="tool-name">Calculateur ROI PPC</div>
+                    <div class="tool-desc">Mesurez la rentabilité de vos campagnes publicitaires payantes.</div>
+                    <div class="tool-arrow">Ouvrir l'outil &rarr;</div>
+                </a>
+                <a href="ads-calculator.html" class="tool-card">
+                    <div class="new-tag">NOUVEAU</div>
+                    <div class="tool-icon">📊</div>
+                    <div class="tool-name">Calculateur de Coût Pub</div>
+                    <div class="tool-desc">Calculez facilement les métriques CPC, CPM et CTR.</div>
+                    <div class="tool-arrow">Ouvrir l'outil &rarr;</div>
+                </a>
+                <a href="email-subject-tester.html" class="tool-card">
+                    <div class="new-tag">NOUVEAU</div>
+                    <div class="tool-icon">📧</div>
+                    <div class="tool-name">Testeur de Sujet d'Email</div>
+                    <div class="tool-desc">Optimisez vos titres pour maximiser les taux d'ouverture.</div>
+                    <div class="tool-arrow">Ouvrir l'outil &rarr;</div>
+                </a>
+                <a href="marketing-qr-gen.html" class="tool-card">
+                    <div class="new-tag">NOUVEAU</div>
+                    <div class="tool-icon">🔳</div>
+                    <div class="tool-name">Générateur de QR Marketing</div>
+                    <div class="tool-desc">Créez des codes QR premium pour vos supports physiques et web.</div>
+                    <div class="tool-arrow">Ouvrir l'outil &rarr;</div>
+                </a>
+                <a href="utm-batcher.html" class="tool-card">
+                    <div class="new-tag">NOUVEAU</div>
+                    <div class="tool-icon">🏷️</div>
+                    <div class="tool-name">Générateur UTM en Volume</div>
+                    <div class="tool-desc">Appliquez des paramètres de campagne à plusieurs URL à la fois.</div>
+                    <div class="tool-arrow">Ouvrir l'outil &rarr;</div>
+                </a>
+                <a href="ab-test-calculator.html" class="tool-card">
+                    <div class="new-tag">NOUVEAU</div>
+                    <div class="tool-icon">⚖️</div>
+                    <div class="tool-name">Calculateur de Test A/B</div>
+                    <div class="tool-desc">Déterminez si vos résultats sont statistiquement significatifs.</div>
+                    <div class="tool-arrow">Ouvrir l'outil &rarr;</div>
+                </a>
+                <a href="ad-copy-gen.html" class="tool-card">
+                    <div class="new-tag">NOUVEAU</div>
+                    <div class="tool-icon">✍️</div>
+                    <div class="tool-name">Générateur de Textes Pub</div>
+                    <div class="tool-desc">Créez des modèles d'annonces efficaces pour Google et réseaux.</div>
+                    <div class="tool-arrow">Ouvrir l'outil &rarr;</div>
+                </a>
+                <a href="hashtag-generator.html" class="tool-card">
+                    <div class="new-tag">NOUVEAU</div>
+                    <div class="tool-icon">#️⃣</div>
+                    <div class="tool-name">Générateur de Hashtags</div>
+                    <div class="tool-desc">Obtenez les meilleurs tags pour viraliser votre contenu.</div>
+                    <div class="tool-arrow">Ouvrir l'outil &rarr;</div>
+                </a>
+            </div>
+        </section>
+
+        <!-- Category 9: Productivité Compétitive -->
+        <section class="category-group">
+            <div class="category-header">
+                <h2 class="category-title">Productivité Compétitive</h2>
+                <span class="category-count">5</span>
+            </div>
+            <div class="grid">
+                <a href="content-gap-planner.html" class="tool-card">
+                    <div class="new-tag">NOUVEAU</div>
+                    <div class="tool-icon">🕳️</div>
+                    <div class="tool-name">Planificateur de Content Gap</div>
+                    <div class="tool-desc">Identifiez les sujets que vos concurrents couvrent mieux.</div>
+                    <div class="tool-arrow">Ouvrir l'outil &rarr;</div>
+                </a>
+                <a href="da-checker.html" class="tool-card">
+                    <div class="new-tag">NOUVEAU</div>
+                    <div class="tool-icon">🎖️</div>
+                    <div class="tool-name">Prédicteur d'Autorité</div>
+                    <div class="tool-desc">Estimation simulée de l'autorité de domaine via vos métriques.</div>
+                    <div class="tool-arrow">Ouvrir l'outil &rarr;</div>
+                </a>
+                <a href="page-maturity.html" class="tool-card">
+                    <div class="new-tag">NOUVEAU</div>
+                    <div class="tool-icon">🍷</div>
+                    <div class="tool-name">Score de Maturité de Page</div>
+                    <div class="tool-desc">Analysez la consolidation de votre page pour les moteurs.</div>
+                    <div class="tool-arrow">Ouvrir l'outil &rarr;</div>
+                </a>
+                <a href="serp-comparison.html" class="tool-card">
+                    <div class="new-tag">NOUVEAU</div>
+                    <div class="tool-icon">📱</div>
+                    <div class="tool-name">Comparateur de SERP</div>
+                    <div class="tool-desc">Comparez les résultats de recherche Mobile vs Desktop.</div>
+                    <div class="tool-arrow">Ouvrir l'outil &rarr;</div>
+                </a>
+                <a href="internal-link-logic.html" class="tool-card">
+                    <div class="new-tag">NOUVEAU</div>
+                    <div class="tool-icon">🕸️</div>
+                    <div class="tool-name">Suggéreur de Liens Internes</div>
+                    <div class="tool-desc">Logique intelligente pour optimiser votre maillage interne.</div>
+                    <div class="tool-arrow">Ouvrir l'outil &rarr;</div>
+                </a>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        &copy; 2026 PageGuides.com — StudioLimb Creative Suite
+    </footer>
+
+    <script>
+        // Efecto hover premium para las cards
+        document.querySelectorAll('.tool-card').forEach(card => {
+            card.addEventListener('mousemove', e => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                card.style.setProperty('--mouse-x', `${x}px`);
+                card.style.setProperty('--mouse-y', `${y}px`);
+            });
+        });
+    </script>
+</body>
+
+</html>

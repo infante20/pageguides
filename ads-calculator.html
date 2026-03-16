@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ads Cost Calculator — PageGuides</title>
+    <meta name="description" content="Quickly calculate CPM, CPC, and total costs for your advertising campaigns across Google, Facebook, and more.">
+    <style>
+        :root {
+            --primary: #fb923c;
+            --bg: #0f172a;
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --text: #f8fafc;
+            --text-dim: #94a3b8;
+            --border: rgba(255, 255, 255, 0.1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', system-ui, sans-serif; }
+
+        body {
+            background-color: var(--bg);
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(251, 146, 60, 0.1) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(30, 41, 59, 1) 0px, transparent 50%);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem;
+        }
+
+        .container { width: 100%; max-width: 800px; }
+
+        .header { text-align: left; margin-bottom: 3rem; width: 100%; }
+        .logo { font-size: 1.5rem; font-weight: 800; color: var(--text); text-decoration: none; display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem; }
+        .logo span { color: var(--primary); }
+        .title { font-size: 2.5rem; font-weight: 800; margin-bottom: 0.5rem; letter-spacing: -0.025em; }
+        .subtitle { color: var(--text-dim); font-size: 1.1rem; }
+
+        .card {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border);
+            border-radius: 1.5rem;
+            padding: 2.5rem;
+        }
+
+        .tabs { display: flex; gap: 1rem; margin-bottom: 2rem; border-bottom: 1px solid var(--border); padding-bottom: 1rem; }
+        .tab { color: var(--text-dim); cursor: pointer; font-weight: 700; transition: color 0.2s; }
+        .tab.active { color: var(--primary); }
+
+        .input-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+        label { display: block; font-size: 0.75rem; font-weight: 800; color: var(--text-dim); margin-bottom: 0.5rem; }
+        input { width: 100%; background: #000; border: 1px solid var(--border); border-radius: 0.5rem; padding: 0.75rem; color: white; outline: none; }
+
+        .res-display { background: rgba(251, 146, 60, 0.1); padding: 2rem; border-radius: 1rem; text-align: center; margin-top: 2rem; border: 1px solid rgba(251, 146, 60, 0.2); }
+        .res-display h3 { font-size: 2.5rem; color: var(--primary); }
+
+        footer { margin-top: 4rem; color: var(--text-dim); font-size: 0.9rem; text-align: center; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <a href="index.html" class="logo">Page<span>Guides</span></a>
+            <h1 class="title">Ads Cost Calculator</h1>
+            <p class="subtitle">Quickly calculate CPC, CPM and CTR metrics.</p>
+        </header>
+
+        <div class="card">
+            <div class="tabs">
+                <div class="tab active" onclick="switchMode('cpc')">CPC / CTR</div>
+                <div class="tab" onclick="switchMode('cpm')">CPM (Impressions)</div>
+            </div>
+
+            <div id="cpc-inputs" class="input-grid">
+                <div>
+                    <label>Total Spend ($)</label>
+                    <input type="number" id="spend-cpc" value="500" oninput="calcCPC()">
+                </div>
+                <div>
+                    <label>Total Clicks</label>
+                    <input type="number" id="clicks" value="200" oninput="calcCPC()">
+                </div>
+            </div>
+
+            <div id="cpm-inputs" class="input-grid" style="display: none;">
+                <div>
+                    <label>Total Spend ($)</label>
+                    <input type="number" id="spend-cpm" value="1000" oninput="calcCPM()">
+                </div>
+                <div>
+                    <label>Impressions</label>
+                    <input type="number" id="imps" value="100000" oninput="calcCPM()">
+                </div>
+            </div>
+
+            <div class="res-display">
+                <h3 id="result">$2.50</h3>
+                <p id="label">COST PER CLICK (CPC)</p>
+            </div>
+        </div>
+
+        <footer>
+            &copy; 2026 PageGuides — Premium SEO Tool Suite
+        </footer>
+    </div>
+
+    <script>
+        let mode = 'cpc';
+
+        function switchMode(m) {
+            mode = m;
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            document.getElementById('cpc-inputs').style.display = m === 'cpc' ? 'grid' : 'none';
+            document.getElementById('cpm-inputs').style.display = m === 'cpm' ? 'grid' : 'none';
+            
+            if (m === 'cpc') calcCPC(); else calcCPM();
+        }
+
+        function calcCPC() {
+            const spend = parseFloat(document.getElementById('spend-cpc').value) || 0;
+            const clicks = parseFloat(document.getElementById('clicks').value) || 0;
+            const res = clicks > 0 ? (spend / clicks) : 0;
+            document.getElementById('result').textContent = '$' + res.toFixed(2);
+            document.getElementById('label').textContent = 'COST PER CLICK (CPC)';
+        }
+
+        function calcCPM() {
+            const spend = parseFloat(document.getElementById('spend-cpm').value) || 0;
+            const imps = parseFloat(document.getElementById('imps').value) || 0;
+            const res = imps > 0 ? (spend / (imps / 1000)) : 0;
+            document.getElementById('result').textContent = '$' + res.toFixed(2);
+            document.getElementById('label').textContent = 'COST PER 1,000 IMPRESSIONS (CPM)';
+        }
+    </script>
+</body>
+</html>

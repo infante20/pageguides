@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sitemap Index Generator — PageGuides</title>
+    <meta name="description" content="Create a master sitemap index file to manage multiple XML sitemaps for large websites easily.">
+    <style>
+        :root {
+            --primary: #f59e0b;
+            --primary-hover: #d97706;
+            --bg: #0f172a;
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --text: #f8fafc;
+            --text-dim: #94a3b8;
+            --border: rgba(255, 255, 255, 0.1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', system-ui, sans-serif; }
+
+        body {
+            background-color: var(--bg);
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(245, 158, 11, 0.1) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(30, 41, 59, 1) 0px, transparent 50%);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem;
+        }
+
+        .container { width: 100%; max-width: 900px; }
+
+        .header { text-align: left; margin-bottom: 3rem; width: 100%; }
+        .logo { font-size: 1.5rem; font-weight: 800; color: var(--text); text-decoration: none; display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem; }
+        .logo span { color: var(--primary); }
+        .title { font-size: 2.5rem; font-weight: 800; margin-bottom: 0.5rem; letter-spacing: -0.025em; }
+        .subtitle { color: var(--text-dim); font-size: 1.1rem; }
+
+        .card {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border);
+            border-radius: 1.5rem;
+            padding: 2.5rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        .input-group { margin-bottom: 1.5rem; }
+        label { display: block; margin-bottom: 0.75rem; color: var(--text-dim); font-size: 0.85rem; font-weight: 700; height: 1rem; }
+        
+        textarea {
+            width: 100%;
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid var(--border);
+            border-radius: 0.75rem;
+            padding: 1rem;
+            color: white;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.9rem;
+            min-height: 150px;
+            outline: none;
+        }
+
+        .output-section { position: relative; margin-top: 2rem; }
+        pre {
+            background: #000;
+            padding: 1.5rem;
+            border-radius: 1rem;
+            color: #fbbf24;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.85rem;
+            overflow-x: auto;
+            border: 1px solid var(--border);
+        }
+
+        .btn {
+            background: var(--primary);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            border: none;
+            cursor: pointer;
+            font-weight: 700;
+            margin-top: 1rem;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--border);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            font-size: 0.8rem;
+            cursor: pointer;
+        }
+
+        footer { margin-top: 4rem; color: var(--text-dim); font-size: 0.9rem; text-align: center; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <a href="index.html" class="logo">Page<span>Guides</span></a>
+            <h1 class="title">Sitemap Index Generator</h1>
+            <p class="subtitle">Generate a sitemapindex.xml for websites with thousands of URLs.</p>
+        </header>
+
+        <div class="card">
+            <div class="input-group">
+                <label>Sitemap URLs (One per line)</label>
+                <textarea id="urls" placeholder="https://example.com/sitemap-pages.xml&#10;https://example.com/sitemap-posts.xml" oninput="generate()"></textarea>
+            </div>
+
+            <div class="output-section">
+                <label>Generated XML Index</label>
+                <button class="copy-btn" onclick="copyCode()">Copy XML</button>
+                <pre id="output"></pre>
+            </div>
+        </div>
+
+        <footer>
+            &copy; 2026 PageGuides — Premium SEO Tool Suite
+        </footer>
+    </div>
+
+    <script>
+        function generate() {
+            const urls = document.getElementById('urls').value.split('\n').filter(u => u.trim() !== '');
+            const date = new Date().toISOString().split('T')[0];
+
+            let xml = `<?xml version="1.0" encoding="UTF-8"?>\n`;
+            xml += `<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n`;
+
+            urls.forEach(url => {
+                xml += `  <sitemap>\n`;
+                xml += `    <loc>${url.trim()}</loc>\n`;
+                xml += `    <lastmod>${date}</lastmod>\n`;
+                xml += `  </sitemap>\n`;
+            });
+
+            xml += `</sitemapindex>`;
+
+            document.getElementById('output').textContent = xml;
+        }
+
+        function copyCode() {
+            const code = document.getElementById('output').textContent;
+            navigator.clipboard.writeText(code);
+            alert('Copied!');
+        }
+
+        generate();
+    </script>
+</body>
+</html>

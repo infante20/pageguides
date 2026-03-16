@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Site Identity Checklist — PageGuides</title>
+    <meta name="description" content="Ensure your brand identity is consistent across search and social with this comprehensive E-E-A-T audit checklist.">
+    <style>
+        :root {
+            --primary: #818cf8;
+            --bg: #0f172a;
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --text: #f8fafc;
+            --text-dim: #94a3b8;
+            --border: rgba(255, 255, 255, 0.1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', system-ui, sans-serif; }
+
+        body {
+            background-color: var(--bg);
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(129, 140, 248, 0.1) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(30, 41, 59, 1) 0px, transparent 50%);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem;
+        }
+
+        .container { width: 100%; max-width: 800px; }
+
+        .header { text-align: left; margin-bottom: 3rem; width: 100%; }
+        .logo { font-size: 1.5rem; font-weight: 800; color: var(--text); text-decoration: none; display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem; }
+        .logo span { color: var(--primary); }
+        .title { font-size: 2.5rem; font-weight: 800; margin-bottom: 0.5rem; letter-spacing: -0.025em; }
+        .subtitle { color: var(--text-dim); font-size: 1.1rem; }
+
+        .card {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border);
+            border-radius: 1.5rem;
+            padding: 2.5rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        .progress-bar { height: 8px; width: 100%; background: rgba(255,255,255,0.05); border-radius: 4px; margin-bottom: 2rem; overflow: hidden; }
+        .progress-fill { height: 100%; background: var(--primary); transition: width 0.3s; }
+
+        .checklist-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 1rem;
+            border-radius: 1rem;
+            transition: background 0.2s;
+            cursor: pointer;
+            margin-bottom: 0.5rem;
+        }
+
+        .checklist-item:hover { background: rgba(255,255,255,0.02); }
+
+        .checkbox {
+            min-width: 24px;
+            height: 24px;
+            border: 2px solid var(--border);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: transparent;
+            font-weight: 900;
+        }
+
+        .checklist-item.checked .checkbox { background: var(--primary); border-color: var(--primary); color: white; }
+        .checklist-item.checked .content { opacity: 0.6; }
+
+        .content h3 { font-size: 1rem; margin-bottom: 0.25rem; }
+        .content p { font-size: 0.85rem; color: var(--text-dim); }
+
+        footer { margin-top: 4rem; color: var(--text-dim); font-size: 0.9rem; text-align: center; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <a href="index.html" class="logo">Page<span>Guides</span></a>
+            <h1 class="title">Site Identity Checklist</h1>
+            <p class="subtitle">A strategic audit for brand consistency and E-E-A-T signals.</p>
+        </header>
+
+        <div class="card">
+            <div class="progress-bar"><div id="pfill" class="progress-fill" style="width: 0%"></div></div>
+            
+            <div id="checklist">
+                <div class="checklist-item" onclick="toggle(this)">
+                    <div class="checkbox">✓</div>
+                    <div class="content">
+                        <h3>Logo Transparency</h3>
+                        <p>Favicon and OG images should have consistent, high-quality transparent versions.</p>
+                    </div>
+                </div>
+                <div class="checklist-item" onclick="toggle(this)">
+                    <div class="checkbox">✓</div>
+                    <div class="content">
+                        <h3>Color Palette Consistency</h3>
+                        <p>Brand colors are reflected in meta tags (theme-color) and CSS variables.</p>
+                    </div>
+                </div>
+                <div class="checklist-item" onclick="toggle(this)">
+                    <div class="checkbox">✓</div>
+                    <div class="content">
+                        <h3>Social Media Handles</h3>
+                        <p>Usernames are consistent across X, LinkedIn, and Instagram for easier discovery.</p>
+                    </div>
+                </div>
+                <div class="checklist-item" onclick="toggle(this)">
+                    <div class="checkbox">✓</div>
+                    <div class="content">
+                        <h3>Author Byline & Bio</h3>
+                        <p>Blog posts include author names and bios to verify expertise (EEAT).</p>
+                    </div>
+                </div>
+                <div class="checklist-item" onclick="toggle(this)">
+                    <div class="checkbox">✓</div>
+                    <div class="content">
+                        <h3>Contact Information</h3>
+                        <p>Physical address or verified email is present in the footer or contact page.</p>
+                    </div>
+                </div>
+                <div class="checklist-item" onclick="toggle(this)">
+                    <div class="checkbox">✓</div>
+                    <div class="content">
+                        <h3>Schema Branding</h3>
+                        <p>Organization schema includes Logo URL and SameAs social links.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            &copy; 2026 PageGuides — Premium SEO Tool Suite
+        </footer>
+    </div>
+
+    <script>
+        function toggle(el) {
+            el.classList.toggle('checked');
+            updateProgress();
+        }
+
+        function updateProgress() {
+            const items = document.querySelectorAll('.checklist-item');
+            const checked = document.querySelectorAll('.checklist-item.checked');
+            const percent = (checked.length / items.length) * 100;
+            document.getElementById('pfill').style.width = percent + '%';
+        }
+    </script>
+</body>
+</html>

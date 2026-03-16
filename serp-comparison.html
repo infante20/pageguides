@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SERP Comparison — PageGuides</title>
+    <meta name="description" content="Visualize the difference between mobile and desktop search results to optimize your presence.">
+    <style>
+        :root {
+            --primary: #2dd4bf;
+            --bg: #0f172a;
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --text: #f8fafc;
+            --text-dim: #94a3b8;
+            --border: rgba(255, 255, 255, 0.1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', system-ui, sans-serif; }
+
+        body {
+            background-color: var(--bg);
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(45, 212, 191, 0.1) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(30, 41, 59, 1) 0px, transparent 50%);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem;
+        }
+
+        .container { width: 100%; max-width: 1100px; }
+
+        .header { text-align: left; margin-bottom: 3rem; width: 100%; }
+        .logo { font-size: 1.5rem; font-weight: 800; color: var(--text); text-decoration: none; display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem; }
+        .logo span { color: var(--primary); }
+        .title { font-size: 2.5rem; font-weight: 800; margin-bottom: 0.5rem; letter-spacing: -0.025em; }
+        .subtitle { color: var(--text-dim); font-size: 1.1rem; }
+
+        .serp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; }
+        .device-frame { background: #000; border: 8px solid #334155; border-radius: 2rem; padding: 1.5rem; min-height: 600px; box-shadow: 0 50px 100px -20px rgba(0,0,0,0.7); }
+        .device-mobile { max-width: 320px; margin: 0 auto; }
+        
+        .serp-result { background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 0.5rem; margin-bottom: 1rem; border: 1px solid var(--border); }
+        .serp-url { font-size: 0.7rem; color: var(--text-dim); margin-bottom: 0.2rem; }
+        .serp-title { font-size: 0.95rem; font-weight: 700; color: #8ab4f8; margin-bottom: 0.4rem; cursor: pointer; }
+        .serp-desc { font-size: 0.8rem; line-height: 1.4; color: var(--text-dim); }
+
+        .label { text-align: center; font-weight: 900; color: var(--primary); text-transform: uppercase; margin-bottom: 1.5rem; letter-spacing: 0.1em; font-size: 0.8rem; }
+
+        footer { margin-top: 4rem; color: var(--text-dim); font-size: 0.9rem; text-align: center; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <a href="index.html" class="logo">Page<span>Guides</span></a>
+            <h1 class="title">SERP Comparison</h1>
+            <p class="subtitle">See how different devices "view" your search results.</p>
+        </header>
+
+        <div class="serp-grid">
+            <div>
+                <div class="label">Desktop Preview</div>
+                <div class="device-frame">
+                    <div class="serp-result">
+                        <div class="serp-url">https://pageguides.com › tools</div>
+                        <div class="serp-title">60+ Free Premium SEO Tools - PageGuides</div>
+                        <div class="serp-desc">The ultimate suite of SEO tools for power users. Schema generators, technical audits, and content planners all in one place...</div>
+                    </div>
+                    <div class="serp-result">
+                        <div class="serp-url">https://competitor.com</div>
+                        <div class="serp-title">Best SEO Tools of 2026 - Ranked</div>
+                        <div class="serp-desc">Discover the top rated SEO software including free and paid options for your digital marketing agency...</div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="label">Mobile Preview</div>
+                <div class="device-frame device-mobile">
+                    <div class="serp-result">
+                        <div class="serp-url">pageguides.com</div>
+                        <div class="serp-title">PageGuides: 60+ Free SEO Tools</div>
+                        <div class="serp-desc">Ultimate premium tool suite for SEOs. Create schema, audit HTML and more.</div>
+                    </div>
+                    <div class="serp-result">
+                        <div class="serp-url">competitor.com</div>
+                        <div class="serp-title">Top SEO Tools 2026</div>
+                        <div class="serp-desc">Ranked list of the best software for marketers this year.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            &copy; 2026 PageGuides — Premium SEO Tool Suite
+        </footer>
+    </div>
+</body>
+</html>

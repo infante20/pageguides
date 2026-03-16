@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Générateur de Robots.txt — PageGuides</title>
+    <meta name="description"
+        content="Générez visuellement votre fichier robots.txt. Contrôlez quelles pages sont indexées par Google, Bing et d'autres bots.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --accent: #10b981;
+            --accent-glow: rgba(16, 185, 129, 0.15);
+            --bg-dark: #050508;
+            --bg-light: #111827;
+            --card-bg: rgba(30, 41, 59, 0.4);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --text: #f8fafc;
+            --text-muted: #94a3b8;
+            --warn: #f59e0b;
+            --error: #ef4444;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: radial-gradient(circle at top center, var(--bg-light) 0%, var(--bg-dark) 100%);
+            background-attachment: fixed;
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* NAV */
+        nav {
+            padding: 1.25rem 2rem;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            background: rgba(5, 5, 8, 0.8);
+            backdrop-filter: blur(12px);
+        }
+
+        .logo {
+            font-weight: 700;
+            font-size: 1.25rem;
+            letter-spacing: -0.02em;
+            color: var(--text);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo span { color: var(--accent); }
+
+        .back-link {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: color 0.2s;
+            font-weight: 500;
+        }
+
+        .back-link:hover { color: var(--text); }
+
+        /* CONTAINER */
+        .container {
+            max-width: 960px;
+            margin: 4rem auto 6rem;
+            padding: 0 1.5rem;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .tool-icon {
+            width: 64px;
+            height: 64px;
+            background: linear-gradient(135deg, rgba(16,185,129,0.15), rgba(16,185,129,0.05));
+            border: 1px solid rgba(16,185,129,0.2);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin: 0 auto 1.5rem;
+            box-shadow: inset 0 2px 4px rgba(255,255,255,0.05), 0 8px 16px rgba(0,0,0,0.2);
+        }
+
+        h1 {
+            font-size: clamp(2rem, 4vw, 2.75rem);
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+            font-weight: 300;
+        }
+
+        /* LAYOUT */
+        .layout {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            align-items: start;
+        }
+
+        @media (min-width: 800px) {
+            .layout { grid-template-columns: 1fr 1fr; }
+        }
+
+        /* CARD */
+        .card {
+            background: var(--card-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
+            margin-bottom: 1.5rem;
+        }
+
+        .card-title {
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .card-title::before {
+            content: "";
+            display: block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--accent);
+            box-shadow: 0 0 8px var(--accent);
+        }
+
+        label {
+            display: block;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
+        }
+
+        .field { margin-bottom: 1.25rem; }
+
+        input[type="text"], input[type="url"] {
+            width: 100%;
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: var(--text);
+            padding: 0.85rem 1.25rem;
+            border-radius: 12px;
+            font-family: inherit;
+            font-size: 1rem;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px var(--accent-glow);
+        }
+
+        /* RULES SECTION */
+        .rules-section { margin-bottom: 1.5rem; }
+
+        .rules-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 0.75rem;
+        }
+
+        .rules-header label { margin: 0; }
+
+        .add-btn {
+            background: rgba(16,185,129,0.1);
+            color: var(--accent);
+            border: 1px solid rgba(16,185,129,0.3);
+            border-radius: 6px;
+            padding: 0.3rem 0.75rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: inherit;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .add-btn:hover {
+            background: var(--accent);
+            color: #050508;
+            border-color: var(--accent);
+        }
+
+        .rule-item {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+            margin-bottom: 0.5rem;
+            animation: fadeIn 0.3s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .rule-item input {
+            flex: 1;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            padding: 0.6rem 1rem;
+        }
+
+        .remove-btn {
+            background: rgba(255,255,255,0.05);
+            color: var(--text-muted);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 8px;
+            width: 38px;
+            height: 38px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: all 0.2s;
+            font-family: inherit;
+        }
+
+        .remove-btn:hover {
+            background: rgba(239, 68, 68, 0.15);
+            color: var(--error);
+            border-color: rgba(239, 68, 68, 0.3);
+            transform: scale(1.05);
+        }
+
+        .separator {
+            border: none;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            margin: 1.5rem 0;
+        }
+
+        /* CHIPS */
+        .crawler-presets {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .preset-chip {
+            padding: 0.3rem 0.85rem;
+            border-radius: 99px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            cursor: pointer;
+            border: 1px solid rgba(255,255,255,0.1);
+            background: rgba(255,255,255,0.02);
+            color: var(--text-muted);
+            font-family: inherit;
+            transition: all 0.2s;
+        }
+
+        .preset-chip:hover {
+            background: rgba(255,255,255,0.08);
+            color: var(--text);
+        }
+
+        .preset-chip.active {
+            background: var(--accent-glow);
+            color: var(--accent);
+            border-color: rgba(16, 185, 129, 0.3);
+        }
+
+        /* OUTPUT PANEL */
+        .output-panel {
+            position: sticky;
+            top: 6rem;
+        }
+
+        .output-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            background: rgba(15, 23, 42, 0.6);
+            padding: 0.75rem 1.25rem;
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .output-title {
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .output-actions { display: flex; gap: 0.5rem; }
+
+        .action-btn {
+            background: rgba(255,255,255,0.05);
+            color: var(--text);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 8px;
+            padding: 0.35rem 0.85rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: inherit;
+            transition: all 0.2s;
+        }
+
+        .action-btn.primary {
+            background: var(--accent-glow);
+            color: var(--accent);
+            border-color: rgba(16, 185, 129, 0.3);
+        }
+
+        .action-btn:hover {
+            transform: translateY(-1px);
+        }
+        
+        .action-btn.primary:hover, .action-btn.active {
+            background: var(--accent);
+            color: #050508;
+        }
+
+        pre {
+            background: #0d1117; /* Darker background like IDE */
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 16px;
+            padding: 1.5rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            color: #e2e8f0;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            min-height: 280px;
+            line-height: 1.7;
+            box-shadow: inset 0 2px 10px rgba(0,0,0,0.5);
+        }
+
+        pre .kw { color: #8b5cf6; font-weight: 600; } /* Purple for directives */
+        pre .val { color: #34d399; } /* Green for values */
+        pre .comment { color: #64748b; font-style: italic; }
+
+        /* VALIDATION */
+        .validation {
+            margin-top: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .val-item {
+            display: flex;
+            gap: 0.75rem;
+            align-items: flex-start;
+            font-size: 0.85rem;
+            background: rgba(15, 23, 42, 0.4);
+            border: 1px solid rgba(255,255,255,0.05);
+            padding: 0.85rem 1rem;
+            border-radius: 12px;
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        .val-icon { 
+            flex-shrink: 0;
+            font-weight: 700;
+            font-size: 1rem;
+        }
+        .val-ok { color: var(--accent); }
+        .val-warn { color: var(--warn); }
+        .val-error { color: var(--error); }
+
+        footer {
+            text-align: center;
+            margin-top: 4rem;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            font-family: 'JetBrains Mono', monospace;
+            grid-column: 1 / -1;
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <a href="index.html" class="logo">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                <line x1="12" y1="22.08" x2="12" y2="12"></line>
+            </svg>
+            Page<span>Guides</span>
+        </a>
+        <div style="display: flex; align-items: center; gap: 1.5rem;">
+            
+        <div class="lang-selector">
+            <button class="lang-btn" aria-haspopup="true" aria-expanded="false">
+                🇫🇷 FR
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+            </button>
+            <div class="lang-dropdown">
+                    <a href="../robots-generator.html" class="lang-option"><span class="lang-flag">🇺🇸</span> English</a>
+                    <a href="../es/robots-generator.html" class="lang-option"><span class="lang-flag">🇪🇸</span> Español</a>
+                    <a href="robots-generator.html" class="lang-option active"><span class="lang-flag">🇫🇷</span> Français</a>
+                    <a href="../pt/robots-generator.html" class="lang-option"><span class="lang-flag">🇧🇷</span> Português</a>
+                    <a href="../hi/robots-generator.html" class="lang-option"><span class="lang-flag">🇮🇳</span> हिन्दी</a>
+                </div>
+        </div>
+
+            <a href="/fr/" class="back-link">
+                ← Retour aux outils
+            </a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <header>
+            <div class="tool-icon">🤖</div>
+            <h1>Générateur de Robots.txt</h1>
+            <p class="subtitle">Générez visuellement votre fichier robots.txt. Contrôlez exactement quelles zones de votre site les moteurs de recherche peuvent explorer.</p>
+        </header>
+
+        <div class="layout">
+            <!-- Controls -->
+            <div>
+                <div class="card">
+                    <div class="card-title">Configuration du Bot</div>
+
+                    <div class="field">
+                        <label>User-agent</label>
+                        <div class="crawler-presets">
+                            <button class="preset-chip active" onclick="selectBot(this, '*')">Tous (*)</button>
+                            <button class="preset-chip" onclick="selectBot(this, 'Googlebot')">Googlebot</button>
+                            <button class="preset-chip" onclick="selectBot(this, 'Bingbot')">Bingbot</button>
+                            <button class="preset-chip" onclick="selectBot(this, 'GPTBot')">GPTBot</button>
+                            <button class="preset-chip" onclick="selectBot(this, 'CCBot')">CCBot</button>
+                        </div>
+                        <input type="text" id="userAgent" value="*" placeholder="e.g.: Googlebot" oninput="generate()">
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">Règles d'Accès</div>
+
+                    <div class="rules-section">
+                        <div class="rules-header">
+                            <label>Autoriser (Allow)</label>
+                            <button class="add-btn" onclick="addRule('allow')"><span>+</span> Add</button>
+                        </div>
+                        <div id="allowRules"></div>
+                    </div>
+
+                    <hr class="separator">
+
+                    <div class="rules-section">
+                        <div class="rules-header">
+                            <label>Interdire (Disallow)</label>
+                            <button class="add-btn" onclick="addRule('disallow')"><span>+</span> Add</button>
+                        </div>
+                        <div id="disallowRules"></div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">Sitemap et Options</div>
+                    <div class="field">
+                        <label>URL du Sitemap XML</label>
+                        <input type="url" id="sitemapUrl" placeholder="https://pageguides.com/sitemap.xml" oninput="generate()">
+                    </div>
+                    <div class="field">
+                        <label>Délai d'exploration (secondes, facultatif)</label>
+                        <input type="text" id="crawlDelay" placeholder="E.g.: 10" oninput="generate()">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Output -->
+            <div class="output-panel">
+                <div class="output-header">
+                    <span class="output-title">📄 robots.txt généré</span>
+                    <div class="output-actions">
+                        <button class="action-btn" onclick="downloadOutput()">Télécharger</button>
+                        <button class="action-btn primary" onclick="copyOutput()">Copier</button>
+                    </div>
+                </div>
+                
+                <div id="codeWrap">
+                    <pre id="outputPre"></pre>
+                </div>
+
+                <div class="validation" id="validationPanel"></div>
+            </div>
+            
+            <footer>
+                &copy; <span id="time"></span> PageGuides.com — StudioLimb Creative Suite
+            </footer>
+        </div>
+    </div>
+
+    <script>
+        const COMMON_DISALLOWS = ['/admin/', '/wp-admin/', '/login/', '/private/', '/tmp/', '/cart/'];
+
+        function selectBot(el, value) {
+            document.querySelectorAll('.preset-chip').forEach(c => c.classList.remove('active'));
+            el.classList.add('active');
+            document.getElementById('userAgent').value = value;
+            generate();
+        }
+
+        function addRule(type) {
+            const container = document.getElementById(type + 'Rules');
+            const item = document.createElement('div');
+            item.className = 'rule-item';
+
+            const placeholder = type === 'disallow' ? 'e.g.: /admin/' : 'e.g.: /public/';
+
+            item.innerHTML = `
+                <input type="text" placeholder="${placeholder}" oninput="generate()" list="pathSuggestions">
+                <button class="remove-btn" onclick="this.parentElement.remove(); generate()" title="Remove rule">×</button>
+            `;
+            container.appendChild(item);
+
+            // Add datalist suggestions (only once)
+            if (!document.getElementById('pathSuggestions')) {
+                const dl = document.createElement('datalist');
+                dl.id = 'pathSuggestions';
+                COMMON_DISALLOWS.forEach(s => {
+                    const opt = document.createElement('option');
+                    opt.value = s;
+                    dl.appendChild(opt);
+                });
+                document.body.appendChild(dl);
+            }
+
+            item.querySelector('input').focus();
+            generate();
+        }
+
+        function getRules(type) {
+            const inputs = document.querySelectorAll(`#${type}Rules .rule-item input`);
+            return Array.from(inputs).map(i => i.value.trim()).filter(Boolean);
+        }
+
+        function formatDirective(directive, value) {
+            return `<span class="kw">${directive}:</span> <span class="val">${value}</span>`;
+        }
+
+        function formatComment(text) {
+            return `<span class="comment">${text}</span>`;
+        }
+
+        function generate() {
+            const ua = document.getElementById('userAgent').value.trim() || '*';
+            const sitemap = document.getElementById('sitemapUrl').value.trim();
+            const delay = document.getElementById('crawlDelay').value.trim();
+            const allows = getRules('allow');
+            const disallows = getRules('disallow');
+
+            const lines = []; // For rendering HTML
+            const rawLines = []; // For copying/downloading
+
+            lines.push(formatComment(`# robots.txt — Generated with PageGuides.com`));
+            lines.push(formatComment(`# ${new Date().toISOString().split('T')[0]}`));
+            lines.push('');
+            
+            rawLines.push(`# robots.txt — Generated with PageGuides.com`);
+            rawLines.push(`# ${new Date().toISOString().split('T')[0]}`);
+            rawLines.push('');
+
+            lines.push(formatDirective('User-agent', ua));
+            rawLines.push(`User-agent: ${ua}`);
+
+            // Logic matching standard output
+            let printedAutoriser (Allow)Root = false;
+            
+            allows.forEach(r => {
+                lines.push(formatDirective('Autoriser (Allow)', r));
+                rawLines.push(`Autoriser (Allow): ${r}`);
+            });
+            
+            disallows.forEach(r => {
+                lines.push(formatDirective('Interdire (Disallow)', r));
+                rawLines.push(`Interdire (Disallow): ${r}`);
+            });
+
+            if (delay) {
+                lines.push(formatDirective('Crawl-delay', delay));
+                rawLines.push(`Crawl-delay: ${delay}`);
+            }
+
+            if (sitemap) {
+                lines.push('');
+                lines.push(formatDirective('Sitemap', sitemap));
+                rawLines.push('');
+                rawLines.push(`Sitemap: ${sitemap}`);
+            }
+
+            document.getElementById('outputPre').innerHTML = lines.join('\n');
+            document.getElementById('outputPre').setAttribute('data-raw', rawLines.join('\n'));
+
+            // Validation
+            validate(ua, allows, disallows, sitemap, delay);
+        }
+
+        function validate(ua, allows, disallows, sitemap, delay) {
+            const panel = document.getElementById('validationPanel');
+            const checks = [];
+
+            if (disallows.some(r => r === '/')) {
+                checks.push({ ok: false, level: 'error', msg: '<strong>Warning:</strong> <code>Interdire (Disallow): /</code> blocks your entire website from search engines.' });
+            } else {
+                checks.push({ ok: true, level: 'good', msg: 'You are not blocking the entire site from crawling.' });
+            }
+
+            if (sitemap) {
+                checks.push({ ok: true, level: 'good', msg: 'Sitemap XML declared correctly.' });
+            } else {
+                checks.push({ ok: false, level: 'warn', msg: 'It is recommended to add the path to your Sitemap XML to facilitate indexing.' });
+            }
+
+            const badPaths = disallows.concat(allows).filter(r => r !== '' && !r.startsWith('/') && !r.startsWith('*') && !r.startsWith('http'));
+            if (badPaths.length > 0) {
+                checks.push({ ok: false, level: 'error', msg: `<strong>Invalid paths</strong> (must start with / or *): <code>${badPaths.slice(0, 3).join(', ')}</code>` });
+            }
+
+            if (delay && (isNaN(delay) || Number(delay) < 0)) {
+                checks.push({ ok: false, level: 'error', msg: 'Crawl-delay requires a positive numeric value (seconds).' });
+            }
+
+            panel.innerHTML = checks.map(c => {
+                let icon = c.level === 'good' ? '✓' : (c.level === 'error' ? '✖' : '⚠');
+                let colorClass = c.level === 'good' ? 'val-ok' : (c.level === 'error' ? 'val-error' : 'val-warn');
+                return `
+                <div class="val-item">
+                    <span class="val-icon ${colorClass}">${icon}</span>
+                    <span style="color: ${c.level === 'good' ? 'var(--text-muted)' : 'var(--text)'}">${c.msg}</span>
+                </div>
+            `}).join('');
+        }
+
+        function copyOutput() {
+            const text = document.getElementById('outputPre').getAttribute('data-raw');
+            navigator.clipboard.writeText(text).then(() => {
+                const btn = document.querySelector('.action-btn.primary');
+                const originalText = btn.textContent;
+                btn.textContent = 'Copied!';
+                btn.classList.add('active');
+                setTimeout(() => { 
+                    btn.textContent = originalText; 
+                    btn.classList.remove('active'); 
+                }, 1800);
+            });
+        }
+
+        function downloadOutput() {
+            const text = document.getElementById('outputPre').getAttribute('data-raw');
+            const blob = new Blob([text], { type: 'text/plain' });
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = 'robots.txt';
+            a.click();
+            URL.revokeObjectURL(a.href);
+        }
+
+        // Init: add default rules and generate
+        document.getElementById('time').innerText = new Date().getFullYear();
+        addRule('disallow');
+        document.querySelector('#disallowRules input').value = '/wp-admin/';
+        generate();
+    </script>
+</body>
+
+</html>

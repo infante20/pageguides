@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JSON Lint & Formatter — PageGuides</title>
+    <meta name="description" content="Validate, format, and minify JSON code instantly with this premium developer utility.">
+    <style>
+        :root {
+            --primary: #22d3ee;
+            --primary-hover: #0891b2;
+            --bg: #0f172a;
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --text: #f8fafc;
+            --text-dim: #94a3b8;
+            --border: rgba(255, 255, 255, 0.1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', system-ui, sans-serif; }
+
+        body {
+            background-color: var(--bg);
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(34, 211, 238, 0.1) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(30, 41, 59, 1) 0px, transparent 50%);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem;
+        }
+
+        .container { width: 100%; max-width: 1200px; height: 100%; }
+
+        .header { text-align: left; margin-bottom: 2rem; width: 100%; }
+        .logo { font-size: 1.5rem; font-weight: 800; color: var(--text); text-decoration: none; display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem; }
+        .logo span { color: var(--primary); }
+        .title { font-size: 2.5rem; font-weight: 800; margin-bottom: 0.5rem; letter-spacing: -0.025em; }
+        .subtitle { color: var(--text-dim); font-size: 1.1rem; }
+
+        .editor-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            height: 600px;
+        }
+
+        .editor-box {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border);
+            border-radius: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .editor-header {
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255,255,255,0.03);
+        }
+
+        .editor-label { font-weight: 800; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--primary); }
+
+        textarea {
+            flex: 1;
+            background: transparent;
+            border: none;
+            padding: 1.5rem;
+            color: #d1d5db;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.9rem;
+            resize: none;
+            outline: none;
+            line-height: 1.6;
+        }
+
+        .status { padding: 0.75rem 1.5rem; font-size: 0.85rem; font-weight: 600; }
+        .status.valid { color: #10b981; background: rgba(16, 185, 129, 0.1); }
+        .status.invalid { color: #ef4444; background: rgba(239, 68, 68, 0.1); }
+
+        .controls { display: flex; gap: 1rem; margin-bottom: 1.5rem; }
+        .btn {
+            background: var(--primary);
+            color: #0f172a;
+            border: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 0.5rem;
+            font-weight: 700;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        .btn:hover { background: #67e8f9; }
+
+        footer { margin-top: 4rem; color: var(--text-dim); font-size: 0.9rem; text-align: center; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <a href="index.html" class="logo">Page<span>Guides</span></a>
+            <h1 class="title">JSON Lint & Formatter</h1>
+            <p class="subtitle">Clean, format, and validate your JSON data for easier debugging.</p>
+        </header>
+
+        <div class="controls">
+            <button class="btn" onclick="formatJSON()">Beautify (4 Spaces)</button>
+            <button class="btn" onclick="minifyJSON()">Minify</button>
+            <button class="btn" style="background: rgba(255,255,255,0.1); color: white;" onclick="clearAll()">Clear</button>
+        </div>
+
+        <div class="editor-container">
+            <div class="editor-box">
+                <div class="editor-header">
+                    <span class="editor-label">Input</span>
+                </div>
+                <textarea id="input" placeholder='Paste your JSON here... Example: {"name":"John", "age":30}' oninput="validate()"></textarea>
+            </div>
+
+            <div class="editor-box">
+                <div class="editor-header">
+                    <span class="editor-label">Output / Result</span>
+                    <button class="btn" style="padding: 0.3rem 0.8rem; font-size: 0.75rem;" onclick="copyOutput()">Copy</button>
+                </div>
+                <textarea id="output" readonly placeholder="Output will appear here..."></textarea>
+                <div id="status" class="status">Waiting for input...</div>
+            </div>
+        </div>
+
+        <footer>
+            &copy; 2026 PageGuides — Premium SEO Tool Suite
+        </footer>
+    </div>
+
+    <script>
+        const inputEl = document.getElementById('input');
+        const outputEl = document.getElementById('output');
+        const statusEl = document.getElementById('status');
+
+        function validate() {
+            const val = inputEl.value;
+            if (!val.trim()) {
+                statusEl.textContent = 'Waiting for input...';
+                statusEl.className = 'status';
+                return;
+            }
+
+            try {
+                JSON.parse(val);
+                statusEl.textContent = '✓ Valid JSON';
+                statusEl.className = 'status valid';
+            } catch (e) {
+                statusEl.textContent = '✗ Invalid JSON: ' + e.message;
+                statusEl.className = 'status invalid';
+            }
+        }
+
+        function formatJSON() {
+            try {
+                const obj = JSON.parse(inputEl.value);
+                outputEl.value = JSON.stringify(obj, null, 4);
+                validate();
+            } catch (e) {
+                alert('Invalid JSON input');
+            }
+        }
+
+        function minifyJSON() {
+            try {
+                const obj = JSON.parse(inputEl.value);
+                outputEl.value = JSON.stringify(obj);
+                validate();
+            } catch (e) {
+                alert('Invalid JSON input');
+            }
+        }
+
+        function clearAll() {
+            inputEl.value = '';
+            outputEl.value = '';
+            validate();
+        }
+
+        function copyOutput() {
+            outputEl.select();
+            document.execCommand('copy');
+            alert('Copied!');
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Link Relationship Generator — PageGuides</title>
+    <meta name="description" content="Generate the correct rel attribute for your links: nofollow, sponsored, ugc, and more.">
+    <style>
+        :root {
+            --primary: #10b981;
+            --primary-hover: #059669;
+            --bg: #0f172a;
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --text: #f8fafc;
+            --text-dim: #94a3b8;
+            --border: rgba(255, 255, 255, 0.1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', system-ui, sans-serif; }
+
+        body {
+            background-color: var(--bg);
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(16, 185, 129, 0.1) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(59, 130, 246, 0.1) 0px, transparent 50%);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem;
+        }
+
+        .container { width: 100%; max-width: 900px; }
+
+        .header { text-align: left; margin-bottom: 3rem; width: 100%; }
+        .logo { font-size: 1.5rem; font-weight: 800; color: var(--text); text-decoration: none; display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem; }
+        .logo span { color: var(--primary); }
+        .title { font-size: 2.5rem; font-weight: 800; margin-bottom: 0.5rem; letter-spacing: -0.025em; }
+        .subtitle { color: var(--text-dim); font-size: 1.1rem; }
+
+        .tool-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+        @media (max-width: 768px) { .tool-grid { grid-template-columns: 1fr; } }
+
+        .card {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border);
+            border-radius: 1.5rem;
+            padding: 2.5rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        .form-group { margin-bottom: 1.5rem; }
+        label { display: block; margin-bottom: 0.75rem; color: var(--text-dim); font-size: 0.9rem; font-weight: 600; }
+        
+        input {
+            width: 100%;
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid var(--border);
+            border-radius: 0.75rem;
+            padding: 0.75rem 1rem;
+            color: white;
+            font-size: 1rem;
+            transition: all 0.2s;
+        }
+
+        input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2); }
+
+        .checkbox-group { display: flex; flex-direction: column; gap: 0.75rem; margin-top: 1rem; }
+        .checkbox-item { display: flex; align-items: center; gap: 0.75rem; cursor: pointer; color: var(--text-dim); font-size: 0.95rem; }
+        .checkbox-item input { width: auto; cursor: pointer; }
+        .checkbox-item:hover { color: var(--text); }
+
+        .output-section { position: relative; margin-top: 2rem; }
+        pre {
+            background: #000;
+            padding: 1.5rem;
+            border-radius: 1rem;
+            color: #10b981;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.9rem;
+            overflow-x: auto;
+            border: 1px solid var(--border);
+            min-height: 100px;
+            display: flex;
+            align-items: center;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--border);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .copy-btn:hover { background: var(--primary); }
+
+        .explanation { border-top: 1px solid var(--border); padding-top: 1.5rem; margin-top: 1.5rem; font-size: 0.85rem; color: var(--text-dim); }
+        .explanation b { color: var(--primary); }
+
+        footer { margin-top: 4rem; color: var(--text-dim); font-size: 0.9rem; text-align: center; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <a href="index.html" class="logo">Page<span>Guides</span></a>
+            <h1 class="title">Link Relationship Gen</h1>
+            <p class="subtitle">Properly tag your external links for Google and major search engines.</p>
+        </header>
+
+        <div class="tool-grid">
+            <div class="card">
+                <div class="form-group">
+                    <label>Link URL</label>
+                    <input type="text" id="url" value="https://example.com" oninput="updateAll()">
+                </div>
+                <div class="form-group">
+                    <label>Link Text</label>
+                    <input type="text" id="text" value="Visit Example" oninput="updateAll()">
+                </div>
+                <div class="form-group">
+                    <label>Relationships (rel)</label>
+                    <div class="checkbox-group">
+                        <label class="checkbox-item"><input type="checkbox" id="nofollow" onchange="updateAll()"> nofollow (Don't pass link equity)</label>
+                        <label class="checkbox-item"><input type="checkbox" id="sponsored" onchange="updateAll()"> sponsored (Paid or affiliate links)</label>
+                        <label class="checkbox-item"><input type="checkbox" id="ugc" onchange="updateAll()"> ugc (User Generated Content)</label>
+                        <label class="checkbox-item"><input type="checkbox" id="noopener" checked onchange="updateAll()"> noopener (Security for new tab)</label>
+                        <label class="checkbox-item"><input type="checkbox" id="noreferrer" onchange="updateAll()"> noreferrer (Hide referrer info)</label>
+                        <label class="checkbox-item"><input type="checkbox" id="blank" checked onchange="updateAll()"> Target: _blank (Open in new tab)</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <label>HTML Code</label>
+                <div class="output-section">
+                    <button class="copy-btn" onclick="copyCode()">Copy</button>
+                    <pre id="output"></pre>
+                </div>
+
+                <div class="explanation">
+                    <p style="margin-bottom: 1rem;"><b>Google Recommendations:</b></p>
+                    <p style="margin-bottom: 0.5rem;">• <b>nofollow:</b> Use when you don't want to endorse a page.</p>
+                    <p style="margin-bottom: 0.5rem;">• <b>sponsored:</b> Mandatory for advertisements or paid links.</p>
+                    <p>• <b>ugc:</b> Recommended for links in comments or forum posts.</p>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            &copy; 2026 PageGuides — Premium SEO Tool Suite
+        </footer>
+    </div>
+
+    <script>
+        function updateAll() {
+            const url = document.getElementById('url').value;
+            const text = document.getElementById('text').value;
+            const nofollow = document.getElementById('nofollow').checked;
+            const sponsored = document.getElementById('sponsored').checked;
+            const ugc = document.getElementById('ugc').checked;
+            const noopener = document.getElementById('noopener').checked;
+            const noreferrer = document.getElementById('noreferrer').checked;
+            const blank = document.getElementById('blank').checked;
+
+            let rels = [];
+            if (nofollow) rels.push('nofollow');
+            if (sponsored) rels.push('sponsored');
+            if (ugc) rels.push('ugc');
+            if (noopener) rels.push('noopener');
+            if (noreferrer) rels.push('noreferrer');
+
+            let relAttr = rels.length > 0 ? ` rel="${rels.join(' ')}"` : '';
+            let targetAttr = blank ? ' target="_blank"' : '';
+
+            const code = `<a href="${url}"${targetAttr}${relAttr}>${text}</a>`;
+
+            document.getElementById('output').textContent = code;
+        }
+
+        function copyCode() {
+            const code = document.getElementById('output').textContent;
+            navigator.clipboard.writeText(code);
+            const btn = document.querySelector('.copy-btn');
+            btn.textContent = 'Copied!';
+            setTimeout(() => btn.textContent = 'Copy', 2000);
+        }
+
+        updateAll();
+    </script>
+</body>
+</html>

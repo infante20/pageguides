@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sentiment Analysis Tool — PageGuides</title>
+    <style>
+        :root {
+            --bg-dark: #0f172a;
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --accent: #10b981;
+            --text-main: #f8fafc;
+            --text-dim: #94a3b8;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-image: radial-gradient(circle at 50% 0%, #1e293b 0%, #0f172a 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .header {
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin: 0 0 10px 0;
+            background: linear-gradient(to right, #10b981, #34d399);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .back-link {
+            color: var(--accent);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 500;
+            margin-bottom: 20px;
+            transition: transform 0.2s;
+        }
+
+        .back-link:hover {
+            transform: translateX(-5px);
+        }
+
+        .tool-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        textarea {
+            width: 100%;
+            height: 200px;
+            background: rgba(15, 23, 42, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            color: white;
+            padding: 15px;
+            font-size: 1rem;
+            margin-bottom: 20px;
+            resize: vertical;
+            box-sizing: border-box;
+            font-family: inherit;
+        }
+
+        .btn {
+            background: var(--accent);
+            color: #064e3b;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            width: 100%;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(16, 185, 129, 0.3);
+        }
+
+        .results {
+            margin-top: 40px;
+            display: none;
+            animation: fadeIn 0.4s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .sentiment-score {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .score-bar-bg {
+            height: 12px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 6px;
+            overflow: hidden;
+            margin: 20px 0;
+            position: relative;
+        }
+
+        .score-bar-fill {
+            height: 100%;
+            width: 50%;
+            transition: all 0.5s ease-out;
+            border-radius: 6px;
+        }
+
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .stat-card {
+            background: rgba(15, 23, 42, 0.4);
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .stat-num {
+            font-size: 1.8rem;
+            font-weight: 700;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: var(--text-dim);
+            text-transform: uppercase;
+        }
+
+        .mood-icon {
+            font-size: 3rem;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .word-lists {
+            margin-top: 30px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .word-list-box {
+            padding: 15px;
+            border-radius: 12px;
+            background: rgba(15, 23, 42, 0.3);
+        }
+
+        .word-tag {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            margin: 4px;
+        }
+
+        .tag-pos { background: rgba(16, 185, 129, 0.2); color: #34d399; }
+        .tag-neg { background: rgba(239, 68, 68, 0.2); color: #f87171; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="back-link">← All Tools</a>
+        
+        <div class="header">
+            <h1>Sentiment Analysis Tool</h1>
+            <p style="color: var(--text-dim)">Understand the emotional tone of your content to better align with your target audience.</p>
+        </div>
+
+        <div class="tool-card">
+            <textarea id="text-input" placeholder="Enter text to analyze sentiment (product review, email, blog intro)..."></textarea>
+            <button class="btn" onclick="analyzeSentiment()">Analyze Emotion</button>
+
+            <div id="results" class="results">
+                <div class="sentiment-score">
+                    <span id="mood-emoji" class="mood-icon">😐</span>
+                    <h2 id="mood-label">Neutral</h2>
+                    <div class="score-bar-bg">
+                        <div id="score-bar" class="score-bar-fill" style="background: var(--accent)"></div>
+                    </div>
+                    <p style="color: var(--text-dim)">Overall Score: <span id="numeric-score">0</span></p>
+                </div>
+
+                <div class="stat-grid">
+                    <div class="stat-card">
+                        <span id="pos-count" class="stat-num" style="color: #10b981">0</span>
+                        <span class="stat-label">Positive Words</span>
+                    </div>
+                    <div class="stat-card">
+                        <span id="neg-count" class="stat-num" style="color: #ef4444">0</span>
+                        <span class="stat-label">Negative Words</span>
+                    </div>
+                    <div class="stat-card">
+                        <span id="total-count" class="stat-num">0</span>
+                        <span class="stat-label">Words Checked</span>
+                    </div>
+                </div>
+
+                <div class="word-lists">
+                    <div class="word-list-box">
+                        <h4 style="margin: 0 0 10px 0; font-size: 0.9rem; color: #10b981">Highlighted Positive</h4>
+                        <div id="pos-words"></div>
+                    </div>
+                    <div class="word-list-box">
+                        <h4 style="margin: 0 0 10px 0; font-size: 0.9rem; color: #ef4444">Highlighted Negative</h4>
+                        <div id="neg-words"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const lexicon = {
+            pos: ['great', 'awesome', 'excellent', 'happy', 'good', 'improved', 'best', 'effective', 'easy', 'perfect', 'love', 'amazing', 'brilliant', 'wonderful', 'quality', 'fast', 'secure', 'expert', 'reliable', 'successful', 'top', 'wow', 'strong', 'clear', 'profit', 'advantage'],
+            neg: ['bad', 'poor', 'slow', 'hard', 'ugly', 'fail', 'broken', 'difficult', 'expensive', 'risk', 'danger', 'weak', 'error', 'worst', 'issue', 'problem', 'hate', 'annoying', 'buggy', 'stale', 'low', 'unclear', 'decline', 'loss', 'threat', 'negative']
+        };
+
+        function analyzeSentiment() {
+            const text = document.getElementById('text-input').value.trim();
+            if (text.length < 5) return;
+
+            const words = text.toLowerCase().match(/\b\w+\b/g) || [];
+            let posFound = [];
+            let negFound = [];
+
+            words.forEach(w => {
+                if (lexicon.pos.includes(w)) posFound.push(w);
+                if (lexicon.neg.includes(w)) negFound.push(w);
+            });
+
+            const score = posFound.length - negFound.length;
+            const totalEmotive = posFound.length + negFound.length;
+            
+            displayResults(score, posFound, negFound, words.length);
+        }
+
+        function displayResults(score, posWords, negWords, total) {
+            const results = document.getElementById('results');
+            const moodEmoji = document.getElementById('mood-emoji');
+            const moodLabel = document.getElementById('mood-label');
+            const scoreBar = document.getElementById('score-bar');
+            const numericScore = document.getElementById('numeric-score');
+            
+            results.style.display = 'block';
+            numericScore.innerText = score > 0 ? `+${score}` : score;
+
+            // Bar math: 50% is neutral
+            let percent = 50 + (score * 5);
+            percent = Math.max(5, Math.min(95, percent));
+            scoreBar.style.width = percent + '%';
+
+            if (score > 1) {
+                moodEmoji.innerText = '😊';
+                moodLabel.innerText = 'Positive';
+                moodLabel.style.color = '#10b981';
+                scoreBar.style.background = '#10b981';
+            } else if (score < -1) {
+                moodEmoji.innerText = '😞';
+                moodLabel.innerText = 'Negative';
+                moodLabel.style.color = '#ef4444';
+                scoreBar.style.background = '#ef4444';
+            } else {
+                moodEmoji.innerText = '😐';
+                moodLabel.innerText = 'Neutral';
+                moodLabel.style.color = 'var(--text-dim)';
+                scoreBar.style.background = 'var(--text-dim)';
+            }
+
+            document.getElementById('pos-count').innerText = posWords.length;
+            document.getElementById('neg-count').innerText = negWords.length;
+            document.getElementById('total-count').innerText = total;
+
+            // Update word lists
+            const uniquePos = [...new Set(posWords)];
+            const uniqueNeg = [...new Set(negWords)];
+            
+            document.getElementById('pos-words').innerHTML = uniquePos.map(w => `<span class="word-tag tag-pos">${w}</span>`).join('');
+            document.getElementById('neg-words').innerHTML = uniqueNeg.map(w => `<span class="word-tag tag-neg">${w}</span>`).join('');
+        }
+    </script>
+</body>
+</html>

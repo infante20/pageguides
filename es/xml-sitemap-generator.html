@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generador de Sitemap XML — PageGuides</title>
+    <meta name="description"
+        content="Genera un Sitemap XML válido para Google rápidamente. Sólo pega tus URLs y obtén tu sitemap listo para enviar a Search Console.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --accent: #10b981;
+            --accent-glow: rgba(16, 185, 129, 0.15);
+            --bg-dark: #050508;
+            --bg-light: #111827;
+            --card-bg: rgba(30, 41, 59, 0.4);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --text: #f8fafc;
+            --text-muted: #94a3b8;
+            --warn: #f59e0b;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: radial-gradient(circle at top center, var(--bg-light) 0%, var(--bg-dark) 100%);
+            background-attachment: fixed;
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        nav {
+            padding: 1.25rem 2rem;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            background: rgba(5, 5, 8, 0.8);
+            backdrop-filter: blur(12px);
+        }
+
+        .logo {
+            font-weight: 700;
+            font-size: 1.25rem;
+            letter-spacing: -0.02em;
+            color: var(--text);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo span { color: var(--accent); }
+
+        .back-link {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: color 0.2s;
+            font-weight: 500;
+        }
+
+        .back-link:hover { color: var(--text); }
+
+        .container {
+            max-width: 960px;
+            margin: 4rem auto 6rem;
+            padding: 0 1.5rem;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .tool-icon {
+            width: 64px;
+            height: 64px;
+            background: linear-gradient(135deg, rgba(16,185,129,0.15), rgba(16,185,129,0.05));
+            border: 1px solid rgba(16,185,129,0.2);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin: 0 auto 1.5rem;
+            box-shadow: inset 0 2px 4px rgba(255,255,255,0.05), 0 8px 16px rgba(0,0,0,0.2);
+        }
+
+        h1 {
+            font-size: clamp(2rem, 4vw, 2.75rem);
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+            font-weight: 300;
+        }
+
+        .layout {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            align-items: start;
+        }
+
+        @media (min-width: 800px) {
+            .layout { grid-template-columns: 1fr 1fr; }
+        }
+
+        .card {
+            background: var(--card-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
+            margin-bottom: 1.5rem;
+        }
+
+        .card-title {
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .card-title::before {
+            content: "";
+            display: block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--accent);
+            box-shadow: 0 0 8px var(--accent);
+        }
+
+        .form-group { margin-bottom: 1.25rem; }
+
+        label {
+            display: block;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        textarea, select, input[type="text"], input[type="number"] {
+            width: 100%;
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: var(--text);
+            padding: 0.85rem 1.25rem;
+            border-radius: 12px;
+            font-family: inherit;
+            font-size: 0.95rem;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 200px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            white-space: pre;
+            overflow-wrap: normal;
+            overflow-x: scroll;
+        }
+
+        textarea:focus, select:focus, input:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px var(--accent-glow);
+        }
+
+        select {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            background-size: 1.2em;
+            cursor: pointer;
+        }
+
+        select option {
+            background: var(--bg-light);
+            color: var(--text);
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .option {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            cursor: pointer;
+            font-size: 0.9rem;
+            color: var(--text);
+            font-weight: 500;
+            background: rgba(15, 23, 42, 0.4);
+            border: 1px solid rgba(255,255,255,0.05);
+            padding: 1rem;
+            border-radius: 12px;
+            margin-top: 1rem;
+        }
+
+        .option input[type="checkbox"] {
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255,255,255,0.2);
+            border-radius: 6px;
+            background: rgba(15, 23, 42, 0.8);
+            cursor: pointer;
+            position: relative;
+            transition: all 0.2s;
+        }
+
+        .option input[type="checkbox"]:checked {
+            background: var(--accent);
+            border-color: var(--accent);
+        }
+
+        .option input[type="checkbox"]:checked::after {
+            content: "✓";
+            color: #050508;
+            font-weight: 700;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 12px;
+        }
+
+        .action-btn {
+            background: rgba(16,185,129,0.1);
+            color: var(--accent);
+            border: 1px solid rgba(16,185,129,0.3);
+            border-radius: 12px;
+            padding: 1rem;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            font-family: inherit;
+            transition: all 0.2s;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .action-btn:hover {
+            background: var(--accent);
+            color: #050508;
+            border-color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        /* OUTPUT PANEL */
+        .output-panel {
+            position: sticky;
+            top: 6rem;
+        }
+
+        .output-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            background: rgba(15, 23, 42, 0.6);
+            padding: 0.75rem 1.25rem;
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .output-title {
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .output-actions { display: flex; gap: 0.5rem; }
+
+        .btn-small {
+            background: rgba(255,255,255,0.05);
+            color: var(--text);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 8px;
+            padding: 0.35rem 0.85rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: inherit;
+            transition: all 0.2s;
+        }
+
+        .btn-small.primary {
+            background: var(--accent-glow);
+            color: var(--accent);
+            border-color: rgba(16, 185, 129, 0.3);
+        }
+
+        .btn-small:hover { transform: translateY(-1px); }
+        .btn-small.primary:hover, .btn-small.active {
+            background: var(--accent);
+            color: #050508;
+        }
+
+        pre {
+            background: #0d1117;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 16px;
+            padding: 1.5rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            color: #e2e8f0;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            min-height: 380px;
+            max-height: 500px;
+            line-height: 1.6;
+            box-shadow: inset 0 2px 10px rgba(0,0,0,0.5);
+        }
+        
+        pre .tag { color: #7ee787; }
+        pre .attr { color: #79c0ff; }
+        pre .val { color: #a5d6ff; }
+        pre .text { color: #c9d1d9; }
+        pre .cmnt { color: #8b949e; font-style: italic; }
+
+        .stats-row {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1rem;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            padding: 0 0.5rem;
+        }
+
+        .stats-val {
+            color: var(--text);
+            font-weight: 700;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 4rem;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            font-family: 'JetBrains Mono', monospace;
+            grid-column: 1 / -1;
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <a href="index.html" class="logo">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                <line x1="12" y1="22.08" x2="12" y2="12"></line>
+            </svg>
+            Page<span>Guides</span>
+        </a>
+        <div style="display: flex; align-items: center; gap: 1.5rem;">
+            
+        <div class="lang-selector">
+            <button class="lang-btn" aria-haspopup="true" aria-expanded="false">
+                🇪🇸 ES
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+            </button>
+            <div class="lang-dropdown">
+                    <a href="../xml-sitemap-generator.html" class="lang-option"><span class="lang-flag">🇺🇸</span> English</a>
+                    <a href="xml-sitemap-generator.html" class="lang-option active"><span class="lang-flag">🇪🇸</span> Español</a>
+                    <a href="../fr/xml-sitemap-generator.html" class="lang-option"><span class="lang-flag">🇫🇷</span> Français</a>
+                    <a href="../pt/xml-sitemap-generator.html" class="lang-option"><span class="lang-flag">🇧🇷</span> Português</a>
+                    <a href="../hi/xml-sitemap-generator.html" class="lang-option"><span class="lang-flag">🇮🇳</span> हिन्दी</a>
+                </div>
+        </div>
+
+            <a href="/es/" class="back-link">
+                ← Volver a Herramientas
+            </a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <header>
+            <div class="tool-icon">🗺️</div>
+            <h1>Generador de Sitemap XML</h1>
+            <p class="subtitle">Convierte una lista de URLs en un Sitemap XML estructurado listo para ser indexado por los motores de búsqueda.</p>
+        </header>
+
+        <div class="layout">
+            <!-- Controls -->
+            <div class="card">
+                <div class="card-title">URLs y Configuración</div>
+
+                <div class="form-group">
+                    <label>
+                        <span>Lista de URLs (Una por línea)</span>
+                        <span id="lineCount" style="color:var(--text); font-weight:400">0 URLs</span>
+                    </label>
+                    <textarea id="urlInput" placeholder="https://mywebsite.com/&#10;https://mywebsite.com/about&#10;https://mywebsite.com/contact" oninput="updateCount()"></textarea>
+                </div>
+
+                <div class="options-grid">
+                    <div class="form-group">
+                        <label>Frecuencia de cambio</label>
+                        <select id="freq">
+                            <option value="none">No incluir</option>
+                            <option value="always">Siempre</option>
+                            <option value="hourly">Cada hora</option>
+                            <option value="daily" selected>Diariamente</option>
+                            <option value="weekly">Semanalmente</option>
+                            <option value="monthly">Mensualmente</option>
+                            <option value="yearly">Anualmente</option>
+                            <option value="never">Nunca</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Prioridad por defecto</label>
+                        <select id="priority">
+                            <option value="none">No incluir</option>
+                            <option value="1.0">1.0 (Máxima)</option>
+                            <option value="0.9">0.9</option>
+                            <option value="0.8" selected>0.8</option>
+                            <option value="0.7">0.7</option>
+                            <option value="0.6">0.6</option>
+                            <option value="0.5">0.5</option>
+                            <option value="0.4">0.4</option>
+                            <option value="0.3">0.3</option>
+                            <option value="0.2">0.2</option>
+                            <option value="0.1">0.1</option>
+                        </select>
+                    </div>
+                </div>
+
+                <label class="option">
+                    <input type="checkbox" id="lastmod" checked>
+                    Incluir fecha actual (lastmod)
+                </label>
+
+                <button class="action-btn" onclick="generateSitemap()">Generar Sitemap</button>
+            </div>
+
+            <!-- Output -->
+            <div class="output-panel">
+                <div class="output-header">
+                    <span class="output-title">📄 sitemap.xml</span>
+                    <div class="output-actions">
+                        <button class="btn-small" onclick="downloadSitemap()">Descargar</button>
+                        <button class="btn-small primary" onclick="copySitemap()">Copiar</button>
+                    </div>
+                </div>
+                
+                <pre id="outputPre">Tu código XML aparecerá aquí...</pre>
+
+                <div class="stats-row" id="statsRow" style="display:none">
+                    <span>URLs válidas: <span class="stats-val" id="validUrls">0</span></span>
+                    <span>Tamaño aprox.: <span class="stats-val" id="mapSize">0 KB</span></span>
+                </div>
+            </div>
+
+            <footer>
+                &copy; <span id="time"></span> PageGuides.com — StudioLimb Creative Suite
+            </footer>
+        </div>
+    </div>
+
+    <script>
+        function updateCount() {
+            const raw = document.getElementById('urlInput').value;
+            const lines = raw.split('\n').filter(l => l.trim() !== '');
+            document.getElementById('lineCount').textContent = `${lines.length} URLs`;
+        }
+
+        // Basic XML formatting for highlighting
+        function highlightXML(xml) {
+            let escape = xml.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+            escape = escape.replace(/&lt;(\/?)(\w+)&gt;/g, '&lt;<span class="tag">$1$2</span>&gt;');
+            escape = escape.replace(/&lt;(\w+)(.*?)&gt;/g, function(match, tag, rest) {
+                let r = rest.replace(/([a-zA-Z0-9-:]+)="([^"]*)"/g, '<span class="attr">$1</span>="<span class="val">$2</span>"');
+                return `&lt;<span class="tag">${tag}</span>${r}&gt;`;
+            });
+            // highlight text between tags
+            escape = escape.replace(/&gt;([^&]*)&lt;/g, '&gt;<span class="text">$1</span>&lt;');
+            // highlight comments
+            escape = escape.replace(/&lt;!--(.*?)--&gt;/g, '<span class="cmnt">&lt;!--$1--&gt;</span>');
+            return escape;
+        }
+
+        function extractDomain(url) {
+            try {
+                return new URL(url).hostname;
+            } catch(e) {
+                return null;
+            }
+        }
+
+        function generateSitemap() {
+            const raw = document.getElementById('urlInput').value;
+            const lines = raw.split('\n').map(l => l.trim()).filter(l => Boolean(l));
+            
+            if (lines.length === 0) return;
+
+            const freq = document.getElementById('freq').value;
+            const priority = document.getElementById('priority').value;
+            const includeLastmod = document.getElementById('lastmod').checked;
+            const today = new Date().toISOString().split('T')[0];
+
+            let validCount = 0;
+            let xmlLines = [];
+
+            xmlLines.push(`<?xml version="1.0" encoding="UTF-8"?>`);
+            xmlLines.push(`<!-- Generated with PageGuides.com -->`);
+            xmlLines.push(`<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">`);
+
+            lines.forEach(urlStr => {
+                // Ensure starts with http
+                let fUrl = urlStr;
+                if (!/^https?:\/\//i.test(fUrl)) {
+                    fUrl = 'https://' + fUrl;
+                }
+                
+                try {
+                    // validate url
+                    new URL(fUrl); 
+                    
+                    xmlLines.push(`  <url>`);
+                    xmlLines.push(`    <loc>${fUrl}</loc>`);
+                    
+                    if (includeLastmod) {
+                        xmlLines.push(`    <lastmod>${today}</lastmod>`);
+                    }
+                    if (freq !== 'none') {
+                        xmlLines.push(`    <changefreq>${freq}</changefreq>`);
+                    }
+                    if (priority !== 'none') {
+                        // Home generally gets 1.0 logic, but keeping simple for now
+                        let isHome = fUrl.replace(/^https?:\/\//,'').split('/').filter(Boolean).length === 1;
+                        let p = isHome && priority !== 'none' ? '1.0' : priority;
+                        xmlLines.push(`    <priority>${p}</priority>`);
+                    }
+                    
+                    xmlLines.push(`  </url>`);
+                    validCount++;
+                } catch(e) {
+                    // Invalid URL, skip
+                }
+            });
+
+            xmlLines.push(`</urlset>`);
+
+            const xmlStr = xmlLines.join('\n');
+            const pre = document.getElementById('outputPre');
+            
+            pre.innerHTML = highlightXML(xmlStr);
+            pre.dataset.raw = xmlStr;
+            
+            // Show stats
+            document.getElementById('statsRow').style.display = 'flex';
+            document.getElementById('validUrls').textContent = validCount;
+            document.getElementById('mapSize').textContent = (new Blob([xmlStr]).size / 1024).toFixed(2) + ' KB';
+        }
+
+        function copySitemap() {
+            const raw = document.getElementById('outputPre').dataset.raw;
+            if(!raw) return;
+            
+            navigator.clipboard.writeText(raw).then(() => {
+                const btn = document.querySelector('.btn-small.primary');
+                const orig = btn.textContent;
+                btn.textContent = 'Copied!';
+                btn.classList.add('active');
+                setTimeout(() => {
+                    btn.textContent = orig;
+                    btn.classList.remove('active');
+                }, 1800);
+            });
+        }
+
+        function downloadSitemap() {
+            const raw = document.getElementById('outputPre').dataset.raw;
+            if(!raw) return;
+
+            const blob = new Blob([raw], { type: 'application/xml' });
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = 'sitemap.xml';
+            a.click();
+            URL.revokeObjectURL(a.href);
+        }
+
+        document.getElementById('time').innerText = new Date().getFullYear();
+    </script>
+</body>
+
+</html>

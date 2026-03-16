@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Keyword Grouping Tool — PageGuides</title>
+    <meta name="description" content="Organize large lists of keywords into thematic clusters to improve your content silos and site structure.">
+    <style>
+        :root {
+            --primary: #6366f1;
+            --bg: #0f172a;
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --text: #f8fafc;
+            --text-dim: #94a3b8;
+            --border: rgba(255, 255, 255, 0.1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', system-ui, sans-serif; }
+
+        body {
+            background-color: var(--bg);
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.1) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(30, 41, 59, 1) 0px, transparent 50%);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem;
+        }
+
+        .container { width: 100%; max-width: 1000px; }
+
+        .header { text-align: left; margin-bottom: 3rem; width: 100%; }
+        .logo { font-size: 1.5rem; font-weight: 800; color: var(--text); text-decoration: none; display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem; }
+        .logo span { color: var(--primary); }
+        .title { font-size: 2.5rem; font-weight: 800; margin-bottom: 0.5rem; letter-spacing: -0.025em; }
+        .subtitle { color: var(--text-dim); font-size: 1.1rem; }
+
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+        
+        .box { background: var(--card-bg); border: 1px solid var(--border); border-radius: 1.5rem; padding: 2rem; }
+        
+        textarea { width: 100%; height: 300px; background: #000; border: 1px solid var(--border); border-radius: 1rem; padding: 1rem; color: white; font-family: 'Fira Code', monospace; resize: none; margin-bottom: 1rem; }
+        
+        .group-result { background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 1rem; padding: 1.5rem; height: 400px; overflow-y: auto; }
+        .cluster { margin-bottom: 1.5rem; }
+        .cluster-title { font-size: 0.75rem; font-weight: 800; color: var(--primary); text-transform: uppercase; border-bottom: 1px solid var(--border); padding-bottom: 0.5rem; margin-bottom: 0.5rem; }
+        .keyword-chip { display: inline-block; padding: 0.2rem 0.6rem; background: rgba(99,102,241,0.1); border: 1px solid rgba(99,102,241,0.3); border-radius: 0.4rem; font-size: 0.8rem; margin: 0.2rem; }
+
+        .btn { background: var(--primary); color: white; border: none; padding: 0.8rem 1.5rem; border-radius: 0.5rem; font-weight: 700; cursor: pointer; width: 100%; }
+
+        footer { margin-top: 4rem; color: var(--text-dim); font-size: 0.9rem; text-align: center; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <a href="index.html" class="logo">Page<span>Guides</span></a>
+            <h1 class="title">Keyword Grouping Tool</h1>
+            <p class="subtitle">Automatically cluster your keywords by semantic similarity.</p>
+        </header>
+
+        <div class="grid">
+            <div class="box">
+                <textarea id="input" placeholder="Enter keywords (one per line)...&#10;best seo tools&#10;seo strategy guide&#10;free keyword tool&#10;digital marketing tips"></textarea>
+                <button class="btn" onclick="groupKeywords()">GROUP BY THEME</button>
+            </div>
+            <div class="box">
+                <div id="output" class="group-result">
+                    <p style="color: var(--text-dim); text-align: center; margin-top: 2rem;">Clustered results will appear here...</p>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            &copy; 2026 PageGuides — Premium SEO Tool Suite
+        </footer>
+    </div>
+
+    <script>
+        function groupKeywords() {
+            const keywords = document.getElementById('input').value.split('\n').filter(k => k.trim() !== '');
+            if (keywords.length === 0) return;
+
+            const clusters = {};
+            
+            keywords.forEach(kw => {
+                const words = kw.toLowerCase().split(' ');
+                // Simple heuristic: group by common words (excluding stop words)
+                const stopWords = ['the', 'and', 'for', 'best', 'with', 'to', 'in'];
+                const searchWord = words.find(w => !stopWords.includes(w)) || words[0];
+                
+                if (!clusters[searchWord]) clusters[searchWord] = [];
+                clusters[searchWord].push(kw);
+            });
+
+            const out = document.getElementById('output');
+            out.innerHTML = '';
+
+            for (const theme in clusters) {
+                const div = document.createElement('div');
+                div.className = 'cluster';
+                div.innerHTML = `<div class="cluster-title">${theme} Cluster (${clusters[theme].length})</div>`;
+                clusters[theme].forEach(kw => {
+                    const chip = document.createElement('span');
+                    chip.className = 'keyword-chip';
+                    chip.textContent = kw;
+                    div.appendChild(chip);
+                });
+                out.appendChild(div);
+            }
+        }
+    </script>
+</body>
+</html>

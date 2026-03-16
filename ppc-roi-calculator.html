@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PPC ROI Calculator — PageGuides</title>
+    <meta name="description" content="Calculate your Return on Investment (ROI) for PPC campaigns to optimize your ad spend and profitability.">
+    <style>
+        :root {
+            --primary: #2dd4bf;
+            --bg: #0f172a;
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --text: #f8fafc;
+            --text-dim: #94a3b8;
+            --border: rgba(255, 255, 255, 0.1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', system-ui, sans-serif; }
+
+        body {
+            background-color: var(--bg);
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(45, 212, 191, 0.1) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(30, 41, 59, 1) 0px, transparent 50%);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem;
+        }
+
+        .container { width: 100%; max-width: 800px; }
+
+        .header { text-align: left; margin-bottom: 3rem; width: 100%; }
+        .logo { font-size: 1.5rem; font-weight: 800; color: var(--text); text-decoration: none; display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem; }
+        .logo span { color: var(--primary); }
+        .title { font-size: 2.5rem; font-weight: 800; margin-bottom: 0.5rem; letter-spacing: -0.025em; }
+        .subtitle { color: var(--text-dim); font-size: 1.1rem; }
+
+        .card {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border);
+            border-radius: 1.5rem;
+            padding: 2.5rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+        .input-group { margin-bottom: 1.5rem; }
+        label { display: block; font-size: 0.75rem; font-weight: 800; color: var(--text-dim); text-transform: uppercase; margin-bottom: 0.5rem; }
+        input { width: 100%; background: rgba(0,0,0,0.3); border: 1px solid var(--border); border-radius: 0.5rem; padding: 0.75rem; color: white; outline: none; font-size: 1.1rem; }
+
+        .result-panel { margin-top: 2rem; padding: 2rem; border-radius: 1rem; background: rgba(45, 212, 191, 0.1); border: 1px solid rgba(45, 212, 191, 0.2); text-align: center; }
+        .result-val { font-size: 3rem; font-weight: 900; color: var(--primary); margin-bottom: 0.5rem; }
+        .result-label { font-size: 0.9rem; font-weight: 700; color: var(--text-dim); letter-spacing: 0.05em; }
+
+        footer { margin-top: 4rem; color: var(--text-dim); font-size: 0.9rem; text-align: center; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <a href="index.html" class="logo">Page<span>Guides</span></a>
+            <h1 class="title">PPC ROI Calculator</h1>
+            <p class="subtitle">Measure the profitability of your paid advertising campaigns.</p>
+        </header>
+
+        <div class="card">
+            <div class="grid">
+                <div class="input-group">
+                    <label>Ad Spend ($)</label>
+                    <input type="number" id="spend" value="1000" oninput="calculate()">
+                </div>
+                <div class="input-group">
+                    <label>Total Revenue ($)</label>
+                    <input type="number" id="revenue" value="2500" oninput="calculate()">
+                </div>
+            </div>
+
+            <div class="result-panel">
+                <div id="roi" class="result-val">150%</div>
+                <div class="result-label">RETURN ON INVESTMENT (ROI)</div>
+            </div>
+
+            <div class="grid" style="margin-top: 1.5rem;">
+                <div style="text-align: center;">
+                    <label>Profit ($)</label>
+                    <div id="profit" style="font-size: 1.5rem; font-weight: 800;">1500</div>
+                </div>
+                <div style="text-align: center;">
+                    <label>ROAS</label>
+                    <div id="roas" style="font-size: 1.5rem; font-weight: 800;">2.5x</div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            &copy; 2026 PageGuides — Premium SEO Tool Suite
+        </footer>
+    </div>
+
+    <script>
+        function calculate() {
+            const spend = parseFloat(document.getElementById('spend').value) || 0;
+            const rev = parseFloat(document.getElementById('revenue').value) || 0;
+
+            if (spend === 0) return;
+
+            const profit = rev - spend;
+            const roi = (profit / spend) * 100;
+            const roas = rev / spend;
+
+            document.getElementById('roi').textContent = roi.toFixed(1) + '%';
+            document.getElementById('profit').textContent = profit.toFixed(2);
+            document.getElementById('roas').textContent = roas.toFixed(1) + 'x';
+        }
+    </script>
+</body>
+</html>

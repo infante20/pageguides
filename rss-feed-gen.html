@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RSS Feed Generator — PageGuides</title>
+    <meta name="description" content="Quickly generate a basic RSS 2.0 XML feed for your blog or website to enable easy content syndication.">
+    <style>
+        :root {
+            --primary: #fb923c;
+            --bg: #0f172a;
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --text: #f8fafc;
+            --text-dim: #94a3b8;
+            --border: rgba(255, 255, 255, 0.1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', system-ui, sans-serif; }
+
+        body {
+            background-color: var(--bg);
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(251, 146, 60, 0.1) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(30, 41, 59, 1) 0px, transparent 50%);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem;
+        }
+
+        .container { width: 100%; max-width: 900px; }
+
+        .header { text-align: left; margin-bottom: 3rem; width: 100%; }
+        .logo { font-size: 1.5rem; font-weight: 800; color: var(--text); text-decoration: none; display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem; }
+        .logo span { color: var(--primary); }
+        .title { font-size: 2.5rem; font-weight: 800; margin-bottom: 0.5rem; letter-spacing: -0.025em; }
+        .subtitle { color: var(--text-dim); font-size: 1.1rem; }
+
+        .card {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border);
+            border-radius: 1.5rem;
+            padding: 2.5rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        .section-title { font-weight: 800; color: var(--primary); margin-bottom: 1rem; font-size: 0.9rem; letter-spacing: 0.1em; }
+        .input-group { margin-bottom: 1.5rem; }
+        label { display: block; font-size: 0.75rem; font-weight: 700; color: var(--text-dim); margin-bottom: 0.5rem; }
+        input, textarea { width: 100%; background: rgba(0,0,0,0.3); border: 1px solid var(--border); border-radius: 0.5rem; padding: 0.75rem; color: white; outline: none; }
+
+        .item-row { background: rgba(255,255,255,0.03); padding: 1.5rem; border-radius: 1rem; margin-bottom: 1rem; border: 1px solid var(--border); }
+        .btn { background: var(--primary); color: white; border: none; padding: 0.75rem 1.5rem; border-radius: 0.5rem; font-weight: 700; cursor: pointer; }
+        
+        pre { background: #000; padding: 1.5rem; border-radius: 1rem; color: #fdba74; font-family: 'Fira Code', monospace; margin-top: 2rem; overflow-x: auto; border: 1px solid var(--border); }
+
+        footer { margin-top: 4rem; color: var(--text-dim); font-size: 0.9rem; text-align: center; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <a href="index.html" class="logo">Page<span>Guides</span></a>
+            <h1 class="title">RSS Feed Generator</h1>
+            <p class="subtitle">Quickly generate an RSS 2.0 XML file for your content distribution.</p>
+        </header>
+
+        <div class="card">
+            <div class="section-title">CHANNEL DETAILS</div>
+            <div class="input-group">
+                <label>Feed Title</label>
+                <input type="text" id="feedTitle" value="My Awesome Blog" oninput="update()">
+            </div>
+            <div class="input-group">
+                <label>Site URL</label>
+                <input type="url" id="feedLink" value="https://example.com" oninput="update()">
+            </div>
+
+            <div class="section-title">LATEST ITEMS</div>
+            <div id="items">
+                <div class="item-row">
+                    <div class="input-group">
+                        <label>Post Title</label>
+                        <input type="text" value="How to optimize for SEO" oninput="update()">
+                    </div>
+                    <div class="input-group">
+                        <label>Post URL</label>
+                        <input type="url" value="https://example.com/blog/seo-tips" oninput="update()">
+                    </div>
+                </div>
+            </div>
+
+            <button class="btn" style="background: rgba(255,255,255,0.1);" onclick="addItem()">+ Add Post</button>
+
+            <pre id="output"></pre>
+        </div>
+
+        <footer>
+            &copy; 2026 PageGuides — Premium SEO Tool Suite
+        </footer>
+    </div>
+
+    <script>
+        function addItem() {
+            const div = document.createElement('div');
+            div.className = 'item-row';
+            div.innerHTML = `
+                <div class="input-group"><label>Post Title</label><input type="text" oninput="update()"></div>
+                <div class="input-group"><label>Post URL</label><input type="url" oninput="update()"></div>
+            `;
+            document.getElementById('items').appendChild(div);
+            update();
+        }
+
+        function update() {
+            const title = document.getElementById('feedTitle').value;
+            const link = document.getElementById('feedLink').value;
+            const items = document.querySelectorAll('.item-row');
+
+            let xml = `<?xml version="1.0" encoding="UTF-8" ?>\n`;
+            xml += `<rss version="2.0">\n`;
+            xml += `  <channel>\n`;
+            xml += `    <title>${title}</title>\n`;
+            xml += `    <link>${link}</link>\n`;
+            xml += `    <description>Latest updates from ${title}</description>\n`;
+
+            items.forEach(it => {
+                const inputs = it.querySelectorAll('input');
+                if (inputs[0].value && inputs[1].value) {
+                    xml += `    <item>\n`;
+                    xml += `      <title>${inputs[0].value}</title>\n`;
+                    xml += `      <link>${inputs[1].value}</link>\n`;
+                    xml += `      <pubDate>${new Date().toUTCString()}</pubDate>\n`;
+                    xml += `    </item>\n`;
+                }
+            });
+
+            xml += `  </channel>\n</rss>`;
+            document.getElementById('output').textContent = xml;
+        }
+
+        update();
+    </script>
+</body>
+</html>

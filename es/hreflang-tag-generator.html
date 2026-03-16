@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generador de Etiquetas Hreflang — PageGuides</title>
+    <meta name="description"
+        content="Genera etiquetas hreflang válidas para SEO Internacional. Asegúrate de que Google muestre la versión correcta de tu web en cada país y en cada idioma.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --accent: #10b981;
+            --accent-glow: rgba(16, 185, 129, 0.15);
+            --bg-dark: #050508;
+            --bg-light: #111827;
+            --card-bg: rgba(30, 41, 59, 0.4);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --text: #f8fafc;
+            --text-muted: #94a3b8;
+            --warn: #f59e0b;
+            --error: #ef4444;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: radial-gradient(circle at top center, var(--bg-light) 0%, var(--bg-dark) 100%);
+            background-attachment: fixed;
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        nav {
+            padding: 1.25rem 2rem;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            background: rgba(5, 5, 8, 0.8);
+            backdrop-filter: blur(12px);
+        }
+
+        .logo {
+            font-weight: 700;
+            font-size: 1.25rem;
+            letter-spacing: -0.02em;
+            color: var(--text);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo span { color: var(--accent); }
+
+        .back-link {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: color 0.2s;
+            font-weight: 500;
+        }
+
+        .back-link:hover { color: var(--text); }
+
+        .container {
+            max-width: 960px;
+            margin: 4rem auto 6rem;
+            padding: 0 1.5rem;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .tool-icon {
+            width: 64px;
+            height: 64px;
+            background: linear-gradient(135deg, rgba(16,185,129,0.15), rgba(16,185,129,0.05));
+            border: 1px solid rgba(16,185,129,0.2);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin: 0 auto 1.5rem;
+            box-shadow: inset 0 2px 4px rgba(255,255,255,0.05), 0 8px 16px rgba(0,0,0,0.2);
+        }
+
+        h1 {
+            font-size: clamp(2rem, 4vw, 2.75rem);
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+            font-weight: 300;
+            line-height: 1.5;
+        }
+
+        .layout {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            align-items: start;
+        }
+
+        @media (min-width: 800px) {
+            .layout { grid-template-columns: 1fr 1fr; }
+        }
+
+        .card {
+            background: var(--card-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
+            margin-bottom: 2rem;
+        }
+
+        .card-title {
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .card-title::before {
+            content: "";
+            display: block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--accent);
+            box-shadow: 0 0 8px var(--accent);
+        }
+
+        .form-group { margin-bottom: 1.5rem; }
+
+        label {
+            display: block;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
+        }
+
+        input[type="text"], input[type="url"], select {
+            width: 100%;
+            background: rgba(15, 23, 42, 0.6);
+            color: var(--text);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            padding: 0.85rem 1.1rem;
+            font-family: inherit;
+            font-size: 0.95rem;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px var(--accent-glow);
+        }
+        
+        select {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            background-size: 1.2em;
+            cursor: pointer;
+        }
+
+        select option {
+            background: var(--bg-light);
+            color: var(--text);
+            padding: 0.5rem;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            margin: 2rem 0;
+        }
+
+        /* HREFLANG URL ITEMS */
+        .url-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .url-item {
+            background: rgba(15, 23, 42, 0.3);
+            border: 1px solid rgba(255,255,255,0.05);
+            padding: 1.5rem;
+            border-radius: 12px;
+            position: relative;
+            animation: fadeIn 0.3s ease-out;
+        }
+        
+        .url-item.x-default {
+            border-color: rgba(16, 185, 129, 0.3);
+            background: linear-gradient(180deg, rgba(16, 185, 129, 0.05), transparent);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .url-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .url-badge {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            background: var(--accent-glow);
+            padding: 0.2rem 0.6rem;
+            border-radius: 6px;
+        }
+
+        .remove-btn {
+            background: transparent;
+            color: var(--text-muted);
+            border: none;
+            font-size: 1.25rem;
+            cursor: pointer;
+            line-height: 1;
+            padding: 0.2rem 0.5rem;
+            transition: color 0.15s;
+            border-radius: 4px;
+        }
+        
+        .remove-btn:hover { background: rgba(239, 68, 68, 0.1); color: var(--error); }
+
+        .row-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .add-btn {
+            background: rgba(16,185,129,0.1);
+            color: var(--accent);
+            border: 1px solid rgba(16,185,129,0.3);
+            border-radius: 12px;
+            padding: 0.85rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: inherit;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            width: 100%;
+            margin-top: 1.5rem;
+        }
+
+        .add-btn:hover {
+            background: var(--accent);
+            color: #050508;
+            border-color: var(--accent);
+        }
+
+        /* OUTPUT PANEL */
+        .output-panel {
+            position: sticky;
+            top: 6rem;
+        }
+
+        .output-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            background: rgba(15, 23, 42, 0.6);
+            padding: 0.75rem 1.25rem;
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .output-title {
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-small {
+            background: rgba(255,255,255,0.05);
+            color: var(--text);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 8px;
+            padding: 0.35rem 0.85rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: inherit;
+            transition: all 0.2s;
+        }
+
+        .btn-small.primary {
+            background: var(--accent-glow);
+            color: var(--accent);
+            border-color: rgba(16, 185, 129, 0.3);
+        }
+
+        .btn-small:hover { transform: translateY(-1px); }
+        .btn-small.primary:hover, .btn-small.active {
+            background: var(--accent);
+            color: #050508;
+        }
+
+        pre {
+            background: #0d1117;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 16px;
+            padding: 1.5rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            color: #e2e8f0;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            min-height: 250px;
+            line-height: 1.6;
+            box-shadow: inset 0 2px 10px rgba(0,0,0,0.5);
+        }
+        
+        pre .tag { color: #7ee787; }
+        pre .attr { color: #79c0ff; }
+        pre .val { color: #a5d6ff; }
+
+        .tips {
+            background: linear-gradient(to right, rgba(16,185,129,0.05), transparent);
+            border-left: 3px solid var(--accent);
+            padding: 1.5rem;
+            border-radius: 0 16px 16px 0;
+            margin-top: 2rem;
+        }
+
+        .tips h3 {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--accent);
+            margin-bottom: 0.75rem;
+            font-weight: 700;
+        }
+
+        .tips p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+        
+        .tips a {
+            color: var(--accent);
+            text-decoration: none;
+            border-bottom: 1px dotted var(--accent);
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 4rem;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            font-family: 'JetBrains Mono', monospace;
+            grid-column: 1 / -1;
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <a href="index.html" class="logo">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                <line x1="12" y1="22.08" x2="12" y2="12"></line>
+            </svg>
+            Page<span>Guides</span>
+        </a>
+        <div style="display: flex; align-items: center; gap: 1.5rem;">
+            
+        <div class="lang-selector">
+            <button class="lang-btn" aria-haspopup="true" aria-expanded="false">
+                🇪🇸 ES
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+            </button>
+            <div class="lang-dropdown">
+                    <a href="../hreflang-tag-generator.html" class="lang-option"><span class="lang-flag">🇺🇸</span> English</a>
+                    <a href="hreflang-tag-generator.html" class="lang-option active"><span class="lang-flag">🇪🇸</span> Español</a>
+                    <a href="../fr/hreflang-tag-generator.html" class="lang-option"><span class="lang-flag">🇫🇷</span> Français</a>
+                    <a href="../pt/hreflang-tag-generator.html" class="lang-option"><span class="lang-flag">🇧🇷</span> Português</a>
+                    <a href="../hi/hreflang-tag-generator.html" class="lang-option"><span class="lang-flag">🇮🇳</span> हिन्दी</a>
+                </div>
+        </div>
+
+            <a href="/es/" class="back-link">
+                ← Volver a Herramientas
+            </a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <header>
+            <div class="tool-icon">🌍</div>
+            <h1>Hreflang Tag Generator</h1>
+            <p class="subtitle">Evita problemas de contenido duplicado internacional y entrega a cada usuario la versión de tu web correcta según su idioma y región.</p>
+        </header>
+
+        <div class="layout">
+            <!-- Controls -->
+            <div class="card">
+                <div class="card-title">Añade las versiones de tu página</div>
+                
+                <div id="urlList" class="url-list">
+                    <!-- Items inserted via JS -->
+                </div>
+
+                <button class="add-btn" onclick="addUrlItem()"><span>+</span> Añadir Idioma / Región</button>
+
+                <div class="tips">
+                    <h3>Importante</h3>
+                    <p>Las etiquetas hreflang deben ser bidireccionales. El código generado debe ir en la sección <code>&lt;head&gt;</code> de <strong>TODAS</strong> las páginas listadas arriba por igual o incrustarse en tu Sitemap XML.</p>
+                </div>
+            </div>
+
+            <!-- Output -->
+            <div class="output-panel">
+                <div class="output-header">
+                    <span class="output-title">📄 Etiquetas HTML</span>
+                    <button class="btn-small primary" onclick="copyCode()">Copy Code</button>
+                </div>
+                
+                <pre id="outputPre">Completa los campos para generar etiquetas.</pre>
+            </div>
+
+            <footer>
+                &copy; <span id="time"></span> PageGuides.com — StudioLimb Creative Suite
+            </footer>
+        </div>
+    </div>
+
+    <script>
+        const LANGUAGES = [
+            {code: 'es', name: 'Español'},
+            {code: 'en', name: 'Inglés'},
+            {code: 'fr', name: 'Francés'},
+            {code: 'de', name: 'Alemán'},
+            {code: 'it', name: 'Italiano'},
+            {code: 'pt', name: 'Portugués'},
+            {code: 'zh', name: 'Chino'},
+            {code: 'ja', name: 'Japonés'},
+            {code: 'ru', name: 'Ruso'},
+            {code: 'ar', name: 'Árabe'}
+        ];
+
+        const REGIONS = [
+            {code: '', name: 'Cualquier Región (Genérico)'},
+            {code: 'es', name: 'España'},
+            {code: 'mx', name: 'México'},
+            {code: 'ar', name: 'Argentina'},
+            {code: 'co', name: 'Colombia'},
+            {code: 'cl', name: 'Chile'},
+            {code: 'pe', name: 'Perú'},
+            {code: 'us', name: 'Estados Unidos'},
+            {code: 'gb', name: 'Reino Unido'},
+            {code: 'ca', name: 'Canadá'},
+            {code: 'au', name: 'Australia'},
+            {code: 'fr', name: 'Francia'},
+            {code: 'de', name: 'Alemania'},
+            {code: 'br', name: 'Brasil'}
+        ];
+
+        let itemCount = 0;
+
+        function getLangOptions() {
+            return LANGUAGES.map(l => `<option value="${l.code}">${l.name} (${l.code})</option>`).join('');
+        }
+
+        function getRegionOptions() {
+            return REGIONS.map(r => `<option value="${r.code}">${r.name} ${r.code ? '('+r.code.toUpperCase()+')' : ''}</option>`).join('');
+        }
+
+        function addUrlItem(isDefault = false) {
+            itemCount++;
+            const container = document.getElementById('urlList');
+            const div = document.createElement('div');
+            div.className = `url-item ${isDefault ? 'x-default' : ''}`;
+            
+            let headerBadge = isDefault ? 'Default / Fallback (x-default)' : `Versión / Variante`;
+            let delBtn = isDefault ? '' : `<button class="remove-btn" onclick="this.parentElement.parentElement.remove(); generate()" title="Eliminar este idioma">×</button>`;
+
+            let selOptions = '';
+            if (isDefault) {
+                selOptions = `<input type="hidden" class="lang-sel" value="x-default"><input type="hidden" class="region-sel" value="">`;
+            } else {
+                selOptions = `
+                    <div class="row-grid">
+                        <div class="form-group" style="margin-bottom:0">
+                            <label>Idioma</label>
+                            <select class="lang-sel" onchange="generate()">
+                                ${getLangOptions()}
+                            </select>
+                        </div>
+                        <div class="form-group" style="margin-bottom:0">
+                            <label>Región / País (Opcional)</label>
+                            <select class="region-sel" onchange="generate()">
+                                ${getRegionOptions()}
+                            </select>
+                        </div>
+                    </div>
+                `;
+            }
+
+            div.innerHTML = `
+                <div class="url-header">
+                    <span class="url-badge">${headerBadge}</span>
+                    ${delBtn}
+                </div>
+                <div class="form-group" style="margin-bottom:1rem">
+                    <label>URL Absoluta</label>
+                    <input type="url" class="url-input" placeholder="https://miweb.com/es/" value="" oninput="generate()">
+                </div>
+                ${selOptions}
+            `;
+            container.appendChild(div);
+            generate();
+        }
+
+        function highlightHTML(text) {
+            let escape = text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+            escape = escape.replace(/&lt;(\/?)(\w+)&gt;/g, '&lt;<span class="tag">$1$2</span>&gt;');
+            escape = escape.replace(/&lt;(\w+)(.*?)&gt;/g, function(match, tag, rest) {
+                let r = rest.replace(/([a-zA-Z0-9-:]+)="([^"]*)"/g, '<span class="attr">$1</span>="<span class="val">$2</span>"');
+                return `&lt;<span class="tag">${tag}</span>${r}&gt;`;
+            });
+            escape = escape.replace(/\/&gt;/g, '<span class="tag">/&gt;</span>');
+            return escape;
+        }
+
+        function generate() {
+            const items = document.querySelectorAll('.url-item');
+            let lines = [];
+            
+            let hasValidUrls = false;
+
+            items.forEach(item => {
+                const urlInput = item.querySelector('.url-input').value.trim();
+                const langSel = item.querySelector('.lang-sel');
+                const regSel = item.querySelector('.region-sel');
+                
+                if (urlInput) {
+                    hasValidUrls = true;
+                    
+                    let hreflang = 'x-default';
+                    if (langSel && langSel.value !== 'x-default') {
+                        const lang = langSel.value;
+                        const reg = regSel.value;
+                        hreflang = reg ? `${lang}-${reg.toUpperCase()}` : lang;
+                    }
+                    
+                    lines.push(`<link rel="alternate" hreflang="${hreflang}" href="${urlInput}" />`);
+                }
+            });
+
+            const pre = document.getElementById('outputPre');
+            
+            if (!hasValidUrls) {
+                pre.innerHTML = 'Completa los campos de URL para generar las etiquetas.';
+                pre.dataset.raw = '';
+                return;
+            }
+
+            const rawCode = lines.join('\n');
+            pre.innerHTML = highlightHTML(rawCode);
+            pre.dataset.raw = rawCode;
+        }
+
+        function copyCode() {
+            const raw = document.getElementById('outputPre').dataset.raw;
+            if(!raw) return;
+            
+            navigator.clipboard.writeText(raw).then(() => {
+                const btn = document.querySelector('.btn-small.primary');
+                const orig = btn.textContent;
+                btn.textContent = 'Copied!';
+                btn.classList.add('active');
+                setTimeout(() => {
+                    btn.textContent = orig;
+                    btn.classList.remove('active');
+                }, 1800);
+            });
+        }
+
+        // Init
+        document.getElementById('time').innerText = new Date().getFullYear();
+        // Add a default fallback initially
+        addUrlItem(true);
+        // Add a normal language specific one
+        addUrlItem(false);
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Internal Link logic Suggestor — PageGuides</title>
+    <meta name="description" content="Plan your internal linking structure to distribute link equity and improve indexation efficiency.">
+    <style>
+        :root {
+            --primary: #a855f7;
+            --bg: #0f172a;
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --text: #f8fafc;
+            --text-dim: #94a3b8;
+            --border: rgba(255, 255, 255, 0.1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', system-ui, sans-serif; }
+
+        body {
+            background-color: var(--bg);
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(168, 85, 247, 0.1) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(30, 41, 59, 1) 0px, transparent 50%);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem;
+        }
+
+        .container { width: 100%; max-width: 800px; }
+
+        .header { text-align: left; margin-bottom: 3rem; width: 100%; }
+        .logo { font-size: 1.5rem; font-weight: 800; color: var(--text); text-decoration: none; display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem; }
+        .logo span { color: var(--primary); }
+        .title { font-size: 2.5rem; font-weight: 800; margin-bottom: 0.5rem; letter-spacing: -0.025em; }
+        .subtitle { color: var(--text-dim); font-size: 1.1rem; }
+
+        .card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 1.5rem; padding: 2.5rem; }
+        
+        select, input { width: 100%; background: #000; border: 1px solid var(--border); padding: 1rem; border-radius: 0.5rem; color: white; margin-bottom: 1.5rem; outline: none; }
+
+        .logic-card { background: rgba(168, 85, 247, 0.1); border: 1px solid rgba(168, 85, 247, 0.2); padding: 2rem; border-radius: 1rem; margin-top: 1rem; }
+        .logic-card h3 { color: var(--primary); margin-bottom: 1rem; }
+        .logic-card p { line-height: 1.6; color: var(--text-dim); }
+
+        footer { margin-top: 4rem; color: var(--text-dim); font-size: 0.9rem; text-align: center; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <a href="index.html" class="logo">Page<span>Guides</span></a>
+            <h1 class="title">Internal Linker</h1>
+            <p class="subtitle">Plan your site's link architecture for maximum equity distribution.</p>
+        </header>
+
+        <div class="card">
+            <label style="display: block; font-size: 0.75rem; font-weight: 800; color: var(--text-dim); margin-bottom: 0.5rem;">TARGET PAGE TYPE</label>
+            <select id="type" onchange="update()">
+                <option value="pillar">Pillar Page (Main Guide)</option>
+                <option value="cluster">Cluster Page (Supporting Article)</option>
+                <option value="service">Service/Product Page</option>
+            </select>
+
+            <label style="display: block; font-size: 0.75rem; font-weight: 800; color: var(--text-dim); margin-bottom: 0.5rem;">PAGE TOPIC</label>
+            <input type="text" id="topic" value="Backlink Audit" oninput="update()">
+
+            <div class="logic-card" id="logic">
+                <h3>Recommended Logic</h3>
+                <p>Loading recommendations...</p>
+            </div>
+        </div>
+
+        <footer>
+            &copy; 2026 PageGuides — Premium SEO Tool Suite
+        </footer>
+    </div>
+
+    <script>
+        function update() {
+            const type = document.getElementById('type').value;
+            const topic = document.getElementById('topic').value || "this topic";
+            const logic = document.getElementById('logic');
+
+            let html = "";
+            if (type === 'pillar') {
+                html = `<h3>Pillar Page Strategy</h3>
+                        <p>1. Ensure it is linked from the <strong>Main Navigation</strong>.<br>
+                        2. All 5-10 cluster pages should link to this page using exact match anchor text: <strong>"${topic}"</strong>.<br>
+                        3. This page should link back to all supporting cluster pages in a "Related Articles" section.</p>`;
+            } else if (type === 'cluster') {
+                html = `<h3>Silo/Cluster Strategy</h3>
+                        <p>1. This page MUST link to the Main Pillar Page for <strong>"${topic}"</strong>.<br>
+                        2. Link to at least 2 other cluster pages in the same category to create a thematic loop.<br>
+                        3. Use long-tail anchor text when linking internaly.</p>`;
+            } else {
+                html = `<h3>Conversion Focus</h3>
+                        <p>1. Link from relevant high-traffic blog posts using "Solution" based anchor text.<br>
+                        2. This page should NOT have many outgoing links to avoid "link leak" from the sales funnel.<br>
+                        3. Ensure the breadcrumb path is clearly structured.</p>`;
+            }
+
+            logic.innerHTML = html;
+        }
+
+        update();
+    </script>
+</body>
+</html>

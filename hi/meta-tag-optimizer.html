@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="hi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SERP पूर्वावलोकन और मेटा टैग अनुकूलक — PageGuides</title>
+    <meta name="description"
+        content="कल्पना करें कि आपका पृष्ठ Google पर कैसा दिखेगा। CTR को बेहतर बनाने के लिए अपने शीर्षक और मेटा विवरण को अनुकूलित करें।">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --accent: #10b981;
+            --accent-glow: rgba(16, 185, 129, 0.15);
+            --bg-dark: #050508;
+            --bg-light: #111827;
+            --card-bg: rgba(30, 41, 59, 0.4);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --text: #f8fafc;
+            --text-muted: #94a3b8;
+            --google-blue: #8ab4f8; /* Dark mode Google link */
+            --google-desc: #bdc1c6; /* Dark mode Google desc */
+            --google-url: #e8eaed;  /* Dark mode Google url */
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: radial-gradient(circle at top center, var(--bg-light) 0%, var(--bg-dark) 100%);
+            background-attachment: fixed;
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* NAV */
+        nav {
+            padding: 1.25rem 2rem;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            background: rgba(5, 5, 8, 0.8);
+            backdrop-filter: blur(12px);
+        }
+
+        .logo {
+            font-weight: 700;
+            font-size: 1.25rem;
+            letter-spacing: -0.02em;
+            color: var(--text);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo span { color: var(--accent); }
+
+        .back-link {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: color 0.2s;
+            font-weight: 500;
+        }
+
+        .back-link:hover { color: var(--text); }
+
+        /* CONTAINER */
+        .container {
+            max-width: 800px;
+            margin: 4rem auto 6rem;
+            padding: 0 1.5rem;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .tool-icon {
+            width: 64px;
+            height: 64px;
+            background: linear-gradient(135deg, rgba(16,185,129,0.15), rgba(16,185,129,0.05));
+            border: 1px solid rgba(16,185,129,0.2);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin: 0 auto 1.5rem;
+            box-shadow: inset 0 2px 4px rgba(255,255,255,0.05), 0 8px 16px rgba(0,0,0,0.2);
+        }
+
+        h1 {
+            font-size: clamp(2rem, 4vw, 2.75rem);
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            max-width: 500px;
+            margin: 0 auto;
+            font-weight: 300;
+        }
+
+        /* CARD */
+        .card {
+            background: var(--card-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
+            margin-bottom: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .label-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.75rem;
+        }
+
+        label {
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .counter {
+            font-size: 0.8rem;
+            font-family: 'JetBrains Mono', monospace;
+            background: rgba(255,255,255,0.05);
+            padding: 0.2rem 0.6rem;
+            border-radius: 6px;
+            transition: all 0.3s;
+        }
+
+        .counter.warning { color: #fbbf24; background: rgba(251, 191, 36, 0.1); border: 1px solid rgba(251, 191, 36, 0.2); }
+        .counter.error { color: #ef4444; background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.2); }
+        .counter.good { color: var(--accent); background: var(--accent-glow); border: 1px solid rgba(16, 185, 129, 0.2); }
+
+        input, textarea {
+            width: 100%;
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: var(--text);
+            padding: 1rem 1.25rem;
+            border-radius: 12px;
+            font-family: inherit;
+            font-size: 1.05rem;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        
+        textarea { resize: vertical; }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px var(--accent-glow);
+        }
+
+        /* SERP PREVIEW (Dark Mode Style) */
+        .preview-header {
+            margin-top: 2.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .preview-header h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text);
+        }
+        
+        .preview-badge {
+            font-size: 0.7rem;
+            padding: 0.2rem 0.5rem;
+            background: rgba(255,255,255,0.1);
+            border-radius: 4px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .serp-preview {
+            background: #202124; /* Google dark mode background */
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px solid #3c4043;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+        }
+
+        .serp-url-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 8px;
+        }
+
+        .google-icon {
+            width: 28px;
+            height: 28px;
+            background: #3c4043;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+        }
+
+        .serp-url-text {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .serp-brand {
+            color: var(--google-url);
+            font-size: 14px;
+            font-family: arial, sans-serif;
+            line-height: 1.2;
+        }
+
+        .serp-url {
+            color: #9aa0a6;
+            font-size: 12px;
+            font-family: arial, sans-serif;
+            line-height: 1.2;
+        }
+
+        .serp-title {
+            color: var(--google-blue);
+            font-size: 20px;
+            font-family: arial, sans-serif;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 4px;
+            line-height: 1.3;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        
+        .serp-title:hover {
+            text-decoration: underline;
+        }
+
+        .serp-desc {
+            color: var(--google-desc);
+            font-size: 14px;
+            font-family: arial, sans-serif;
+            line-height: 1.58;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        /* TIPS SECTION */
+        .tips {
+            background: linear-gradient(to right, rgba(16,185,129,0.05), transparent);
+            border-left: 3px solid var(--accent);
+            padding: 1.5rem;
+            border-radius: 0 16px 16px 0;
+            margin-top: 2.5rem;
+        }
+
+        .tips h4 {
+            margin-bottom: 1rem;
+            color: var(--accent);
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .tips ul {
+            list-style: none;
+            font-size: 0.95rem;
+            color: var(--text-muted);
+        }
+
+        .tips li {
+            margin-bottom: 0.6rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+        }
+
+        .tips li:before {
+            content: "💡";
+            font-size: 0.85rem;
+            opacity: 0.8;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 4rem;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            font-family: 'JetBrains Mono', monospace;
+        }
+    
+        /* LANGUAGE SELECTOR */
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .lang-selector {
+            position: relative;
+        }
+
+        .lang-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text);
+            padding: 0.4rem 0.8rem;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.2s;
+            font-family: inherit;
+        }
+
+        .lang-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .lang-dropdown {
+            position: absolute;
+            top: calc(100% + 0.5rem);
+            right: 0;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 0.5rem;
+            min-width: 140px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.2s;
+            z-index: 100;
+        }
+
+        .lang-selector:hover .lang-dropdown {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .lang-option {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 0.75rem;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.85rem;
+            border-radius: 6px;
+            transition: all 0.2s;
+            font-weight: 500;
+        }
+
+        .lang-option:hover {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text);
+        }
+
+        .lang-option.active {
+            color: var(--accent);
+            background: var(--accent-glow);
+        }
+        
+        .lang-flag {
+            font-size: 1rem;
+            line-height: 1;
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <a href="index.html" class="logo">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                <line x1="12" y1="22.08" x2="12" y2="12"></line>
+            </svg>
+            Page<span>Guides</span>
+        </a>
+        <a href="/" class="back-link">
+            ← टूल पर वापस जाएं
+        </a>
+        <div class="nav-actions">
+            <div class="lang-selector">
+                <button class="lang-btn">
+                    <span class="lang-flag">🇮🇳</span> HI
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                </button>
+                <div class="lang-dropdown">
+                    <a href="../meta-tag-optimizer.html" class="lang-option"><span class="lang-flag">🇺🇸</span> English</a>
+                    <a href="../es/meta-tag-optimizer.html" class="lang-option"><span class="lang-flag">🇪🇸</span> Español</a>
+                    <a href="../fr/meta-tag-optimizer.html" class="lang-option"><span class="lang-flag">🇫🇷</span> Français</a>
+                    <a href="../pt/meta-tag-optimizer.html" class="lang-option"><span class="lang-flag">🇧🇷</span> Português</a>
+                    <a href="meta-tag-optimizer.html" class="lang-option active"><span class="lang-flag">🇮🇳</span> हिन्दी</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <header>
+            <div class="tool-icon">🔍</div>
+            <h1>मेटा टैग अनुकूलक</h1>
+            <p class="subtitle">Google खोज परिणामों (SERP) में अपनी उपस्थिति लिखें, कल्पना करें और सुधारें।</p>
+        </header>
+
+        <main>
+            <div class="card">
+                <div class="form-group">
+                    <div class="label-row">
+                        <label for="titleInput">मेटा शीर्षक (Title) टैग</label>
+                        <div class="counter" id="titleCounter">0 / 60</div>
+                    </div>
+                    <input type="text" id="titleInput" placeholder="उदा.: 2026 के शीर्ष 10 SEO टूल" maxlength="120">
+                </div>
+
+                <div class="form-group">
+                    <div class="label-row">
+                        <label for="urlInput">URL स्लग / डोमेन</label>
+                    </div>
+                    <input type="text" id="urlInput" placeholder="pageguides.com › seo-tools">
+                </div>
+
+                <div class="form-group">
+                    <div class="label-row">
+                        <label for="descInput">मेटा विवरण (Description) टैग</label>
+                        <div class="counter" id="descCounter">0 / 160</div>
+                    </div>
+                    <textarea id="descInput" rows="3" placeholder="अपने CTR को बेहतर बनाने के लिए एक आकर्षक मेटा विवरण लिखें..." maxlength="300"></textarea>
+                </div>
+
+                <div class="preview-header">
+                    <h3>Google पूर्वावलोकन</h3>
+                    <span class="preview-badge">डेस्कटॉप डार्क मोड</span>
+                </div>
+                
+                <div class="serp-preview">
+                    <div class="serp-url-row">
+                        <div class="google-icon">🌍</div>
+                        <div class="serp-url-text">
+                            <span class="serp-brand">वेबसाइट</span>
+                            <span class="serp-url" id="previewUrl">https://pageguides.com/...</span>
+                        </div>
+                    </div>
+                    <a href="#" class="serp-title" id="previewTitle" onclick="event.preventDefault()">पृष्ठ का शीर्षक</a>
+                    <div class="serp-desc" id="previewDesc">यह वह विवरण है जो खोज परिणामों में दिखाई देगा। सुनिश्चित करें कि यह प्रासंगिक, स्वाभाविक है, और इसमें एक आकर्षक कॉल टू एक्शन है।</div>
+                </div>
+            </div>
+
+            <div class="tips">
+                <h4>अनुकूलन प्रो टिप्स</h4>
+                <ul>
+                    <li>Google द्वारा काटे जाने से रोकने के लिए आदर्श शीर्षक की लंबाई <strong>50 से 60 वर्णों</strong> के बीच है।</li>
+                    <li>शीर्षक की <strong>शुरुआत के जितना संभव हो सके</strong> अपना प्राथमिक कीवर्ड शामिल करें।</li>
+                    <li>मेटा विवरण को उपयोगकर्ताओं को क्लिक (CTR) करने के लिए मनाने के लिए <strong>त्वरित "बिक्री पिच"</strong> के रूप में कार्य करना चाहिए।</li>
+                    <li>"कीवर्ड स्टफिंग" से बचें; इंसानों के लिए लिखें और एल्गोरिदम के लिए अनुकूलन करें।</li>
+                </ul>
+            </div>
+        </main>
+
+        <footer>
+            &copy; <span id="time"></span> PageGuides.com — StudioLimb Creative Suite
+        </footer>
+    </div>
+
+    <script>
+        const titleInput = document.getElementById('titleInput');
+        const descInput = document.getElementById('descInput');
+        const urlInput = document.getElementById('urlInput');
+
+        const previewTitle = document.getElementById('previewTitle');
+        const previewDesc = document.getElementById('previewDesc');
+        const previewUrl = document.getElementById('previewUrl');
+
+        const titleCounter = document.getElementById('titleCounter');
+        const descCounter = document.getElementById('descCounter');
+
+        function updatePreview() {
+            // Update Title
+            const title = titleInput.value || "Page Title";
+            previewTitle.innerText = title;
+            titleCounter.innerText = `${titleInput.value.length} / 60`;
+
+            if (titleInput.value.length > 60) {
+                titleCounter.className = 'counter error';
+            } else if (titleInput.value.length > 50 && titleInput.value.length <= 60) {
+                titleCounter.className = 'counter good';
+            } else {
+                titleCounter.className = 'counter';
+            }
+
+            // Update URL
+            let url = urlInput.value || "https://pageguides.com › your-page";
+            if(url.includes('›') || urlInput.value === '') {
+                previewUrl.innerText = url;
+            } else {
+                // Formatting standard urls
+                const formattedUrl = url.replace('https://', '').replace('http://', '').split('/').join(' › ');
+                previewUrl.innerText = `https://${formattedUrl}`;
+            }
+
+            // Update Description
+            const desc = descInput.value || "यह वह विवरण है जो खोज परिणामों में दिखाई देगा। सुनिश्चित करें कि यह प्रासंगिक, स्वाभाविक है, और इसमें एक आकर्षक कॉल टू एक्शन है।";
+            previewDesc.innerText = desc;
+            descCounter.innerText = `${descInput.value.length} / 160`;
+
+            if (descInput.value.length > 160) {
+                descCounter.className = 'counter error';
+            } else if (descInput.value.length > 120 && descInput.value.length <= 160) {
+                descCounter.className = 'counter good';
+            } else {
+                descCounter.className = 'counter';
+            }
+        }
+
+        titleInput.addEventListener('input', updatePreview);
+        descInput.addEventListener('input', updatePreview);
+        urlInput.addEventListener('input', updatePreview);
+
+        document.getElementById('time').innerText = new Date().getFullYear();
+    </script>
+</body>
+
+</html>

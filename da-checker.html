@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Domain Authority Predictor — PageGuides</title>
+    <meta name="description" content="Get a simulated estimate of your domain's search authority based on external metrics.">
+    <style>
+        :root {
+            --primary: #6366f1;
+            --bg: #0f172a;
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --text: #f8fafc;
+            --text-dim: #94a3b8;
+            --border: rgba(255, 255, 255, 0.1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', system-ui, sans-serif; }
+
+        body {
+            background-color: var(--bg);
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.1) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(30, 41, 59, 1) 0px, transparent 50%);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem;
+        }
+
+        .container { width: 100%; max-width: 800px; }
+
+        .header { text-align: left; margin-bottom: 3rem; width: 100%; }
+        .logo { font-size: 1.5rem; font-weight: 800; color: var(--text); text-decoration: none; display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem; }
+        .logo span { color: var(--primary); }
+        .title { font-size: 2.5rem; font-weight: 800; margin-bottom: 0.5rem; letter-spacing: -0.025em; }
+        .subtitle { color: var(--text-dim); font-size: 1.1rem; }
+
+        .card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 1.5rem; padding: 2.5rem; }
+        
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+        .input-group { margin-bottom: 1rem; }
+        label { display: block; font-size: 0.75rem; font-weight: 800; color: var(--text-dim); margin-bottom: 0.5rem; }
+        input { width: 100%; background: #000; border: 1px solid var(--border); padding: 0.75rem; border-radius: 0.5rem; color: white; outline: none; }
+
+        .da-display { margin-top: 3rem; text-align: center; }
+        .da-circle { width: 180px; height: 180px; border-radius: 50%; border: 12px solid rgba(99, 102, 241, 0.1); display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 0 auto 1.5rem auto; position: relative; }
+        .da-circle h2 { font-size: 4rem; font-weight: 900; color: var(--primary); }
+        .da-circle p { font-size: 0.8rem; font-weight: 800; color: var(--text-dim); letter-spacing: 0.1em; }
+
+        progress { width: 100%; height: 8px; border-radius: 4px; overflow: hidden; appearance: none; background: rgba(0,0,0,0.3); margin-top: 1rem; }
+        progress::-webkit-progress-bar { background: rgba(0,0,0,0.3); }
+        progress::-webkit-progress-value { background: var(--primary); }
+
+        footer { margin-top: 4rem; color: var(--text-dim); font-size: 0.9rem; text-align: center; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <a href="index.html" class="logo">Page<span>Guides</span></a>
+            <h1 class="title">DA Predictor</h1>
+            <p class="subtitle">Simulate your domain's search strength metrics.</p>
+        </header>
+
+        <div class="card">
+            <div class="grid">
+                <div class="input-group">
+                    <label>Referring Domains</label>
+                    <input type="number" id="domains" value="150" oninput="calc()">
+                </div>
+                <div class="input-group">
+                    <label>Monthly Organic Traffic</label>
+                    <input type="number" id="traffic" value="5000" oninput="calc()">
+                </div>
+                <div class="input-group">
+                    <label>Domain Age (Years)</label>
+                    <input type="number" id="age" value="3" oninput="calc()">
+                </div>
+                <div class="input-group">
+                    <label>Spam Score (%)</label>
+                    <input type="number" id="spam" value="1" oninput="calc()">
+                </div>
+            </div>
+
+            <div class="da-display">
+                <div class="da-circle">
+                    <h2 id="da">32</h2>
+                    <p>SCORE</p>
+                </div>
+                <p id="rating" style="font-weight: 700;">GOOD AUTHORITY</p>
+                <progress id="prog" value="32" max="100"></progress>
+            </div>
+        </div>
+
+        <footer>
+            &copy; 2026 PageGuides — Premium SEO Tool Suite
+        </footer>
+    </div>
+
+    <script>
+        function calc() {
+            const d = parseInt(document.getElementById('domains').value) || 0;
+            const t = parseInt(document.getElementById('traffic').value) || 0;
+            const a = parseInt(document.getElementById('age').value) || 0;
+            const s = parseInt(document.getElementById('spam').value) || 0;
+
+            // Simple heuristic to simulate DA
+            let score = (Math.log10(d + 1) * 20) + (Math.log10(t + 1) * 5) + (a * 2) - (s * 0.5);
+            score = Math.max(1, Math.min(100, Math.round(score)));
+
+            document.getElementById('da').textContent = score;
+            document.getElementById('prog').value = score;
+
+            let rating = "POOR";
+            if (score > 20) rating = "FAIR";
+            if (score > 40) rating = "GOOD";
+            if (score > 60) rating = "EXCELLENT";
+            if (score > 80) rating = "WORLD CLASS";
+            
+            document.getElementById('rating').textContent = rating + " AUTHORITY";
+        }
+
+        calc();
+    </script>
+</body>
+</html>

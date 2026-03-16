@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A/B Test Calculator — PageGuides</title>
+    <meta name="description" content="Determine if your A/B test results are statistically significant before making business decisions.">
+    <style>
+        :root {
+            --primary: #f43f5e;
+            --bg: #0f172a;
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --text: #f8fafc;
+            --text-dim: #94a3b8;
+            --border: rgba(255, 255, 255, 0.1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', system-ui, sans-serif; }
+
+        body {
+            background-color: var(--bg);
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(244, 63, 94, 0.1) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(30, 41, 59, 1) 0px, transparent 50%);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem;
+        }
+
+        .container { width: 100%; max-width: 900px; }
+
+        .header { text-align: left; margin-bottom: 3rem; width: 100%; }
+        .logo { font-size: 1.5rem; font-weight: 800; color: var(--text); text-decoration: none; display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem; }
+        .logo span { color: var(--primary); }
+        .title { font-size: 2.5rem; font-weight: 800; margin-bottom: 0.5rem; letter-spacing: -0.025em; }
+        .subtitle { color: var(--text-dim); font-size: 1.1rem; }
+
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+        .card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 1.5rem; padding: 2rem; }
+        
+        .cat-title { font-size: 0.8rem; font-weight: 900; color: var(--primary); text-transform: uppercase; margin-bottom: 1.5rem; letter-spacing: 0.1em; }
+
+        .input-group { margin-bottom: 1rem; }
+        label { display: block; font-size: 0.75rem; font-weight: 700; color: var(--text-dim); margin-bottom: 0.5rem; }
+        input { width: 100%; background: #000; border: 1px solid var(--border); padding: 0.75rem; border-radius: 0.5rem; color: white; outline: none; }
+
+        .res-display { background: rgba(244, 63, 94, 0.1); border: 1px solid rgba(244, 63, 94, 0.2); padding: 2rem; border-radius: 1.5rem; margin-top: 2rem; text-align: center; }
+        .res-display h3 { font-size: 2rem; margin-bottom: 0.5rem; }
+
+        footer { margin-top: 4rem; color: var(--text-dim); font-size: 0.9rem; text-align: center; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <a href="index.html" class="logo">Page<span>Guides</span></a>
+            <h1 class="title">A/B Test Significance</h1>
+            <p class="subtitle">Calculate the statistical probability that your variant is better.</p>
+        </header>
+
+        <div class="grid">
+            <div class="card">
+                <div class="cat-title">CONTROL (A)</div>
+                <div class="input-group">
+                    <label>Total Visitors</label>
+                    <input type="number" id="va" value="1000" oninput="calc()">
+                </div>
+                <div class="input-group">
+                    <label>Total Conversions</label>
+                    <input type="number" id="ca" value="100" oninput="calc()">
+                </div>
+            </div>
+            <div class="card">
+                <div class="cat-title">VARIANT (B)</div>
+                <div class="input-group">
+                    <label>Total Visitors</label>
+                    <input type="number" id="vb" value="1000" oninput="calc()">
+                </div>
+                <div class="input-group">
+                    <label>Total Conversions</label>
+                    <input type="number" id="cb" value="130" oninput="calc()">
+                </div>
+            </div>
+        </div>
+
+        <div class="res-display">
+            <h3 id="significance" style="color: #10b981;">99.4% SIGNIFICANT</h3>
+            <p id="desc">Variant B is 30% better than Control A.</p>
+        </div>
+
+        <footer>
+            &copy; 2026 PageGuides — Premium SEO Tool Suite
+        </footer>
+    </div>
+
+    <script>
+        function calc() {
+            const va = parseInt(document.getElementById('va').value);
+            const ca = parseInt(document.getElementById('ca').value);
+            const vb = parseInt(document.getElementById('vb').value);
+            const cb = parseInt(document.getElementById('cb').value);
+
+            const ra = ca / va;
+            const rb = cb / vb;
+
+            const lift = ((rb - ra) / ra) * 100;
+            
+            // Simple Z-score approximation
+            const se = Math.sqrt((ra * (1-ra) / va) + (rb * (1-rb) / vb));
+            const z = (rb - ra) / se;
+            
+            // Confidence level approx
+            let conf = 0.5 * (1 + Math.erf(z / Math.sqrt(2)));
+            let sig = conf * 100;
+
+            const sigEl = document.getElementById('significance');
+            sigEl.textContent = sig.toFixed(1) + '% SIGNIFICANT';
+            sigEl.style.color = sig > 90 ? '#10b981' : '#f59e0b';
+            
+            document.getElementById('desc').textContent = `Variant B is ${lift.toFixed(1)}% ${lift > 0 ? 'better' : 'worse'} than Control A.`;
+        }
+
+        Math.erf = function(x) {
+            const t = 1.0 / (1.0 + 0.5 * Math.abs(x));
+            const ans = 1 - t * Math.exp(-x * x - 1.26551223 +
+                t * (1.00002368 +
+                t * (0.37409196 +
+                t * (0.09678418 +
+                t * (-0.18628806 +
+                t * (0.27886807 +
+                t * (-1.13520398 +
+                t * (1.48851587 +
+                t * (-0.82215223 +
+                t * 0.17087277)))))))));
+            if (x >= 0) return ans;
+            else return -ans;
+        };
+
+        calc();
+    </script>
+</body>
+</html>

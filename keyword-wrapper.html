@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Keyword Wrapper — PageGuides</title>
+    <meta name="description"
+        content="Free Keyword Wrapper Tool. Instantly wrap your keywords in Broad, Phrase, and Exact match types for Google Ads and Microsoft Ads campaigns.">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --accent: #10b981;
+            --accent-glow: rgba(16, 185, 129, 0.15);
+            --bg-dark: #050508;
+            --bg-light: #111827;
+            --card-bg: rgba(30, 41, 59, 0.4);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --text: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: radial-gradient(circle at top center, var(--bg-light) 0%, var(--bg-dark) 100%);
+            background-attachment: fixed;
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* NAV */
+        nav {
+            padding: 1.25rem 2rem;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            background: rgba(5, 5, 8, 0.8);
+            backdrop-filter: blur(12px);
+        }
+
+        .logo {
+            font-weight: 700;
+            font-size: 1.25rem;
+            letter-spacing: -0.02em;
+            color: var(--text);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo span { color: var(--accent); }
+
+        .back-link {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: color 0.2s;
+            font-weight: 500;
+        }
+
+        .back-link:hover { color: var(--text); }
+
+        /* CONTAINER */
+        .container {
+            max-width: 1200px;
+            margin: 4rem auto 6rem;
+            padding: 0 1.5rem;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .tool-icon {
+            width: 64px;
+            height: 64px;
+            background: linear-gradient(135deg, rgba(16,185,129,0.15), rgba(16,185,129,0.05));
+            border: 1px solid rgba(16,185,129,0.2);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin: 0 auto 1.5rem;
+            box-shadow: inset 0 2px 4px rgba(255,255,255,0.05), 0 8px 16px rgba(0,0,0,0.2);
+        }
+
+        h1 {
+            font-size: clamp(2rem, 4vw, 2.75rem);
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+            font-weight: 300;
+            line-height: 1.5;
+        }
+
+        /* LAYOUT */
+        .layout {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            align-items: start;
+        }
+
+        @media (min-width: 900px) {
+            .layout { grid-template-columns: 1fr 1fr; }
+        }
+
+        /* CARD */
+        .card {
+            background: var(--card-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .card-title {
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* OPTIONS */
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            font-size: 0.95rem;
+            color: var(--text);
+            user-select: none;
+            padding: 0.75rem 1rem;
+            background: rgba(15, 23, 42, 0.4);
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 10px;
+            transition: all 0.2s;
+        }
+
+        .checkbox-label:hover {
+            background: rgba(15, 23, 42, 0.8);
+            border-color: rgba(255,255,255,0.1);
+        }
+
+        .checkbox-label input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+            height: 0;
+            width: 0;
+        }
+
+        .checkmark {
+            position: relative;
+            height: 20px;
+            width: 20px;
+            background-color: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 6px;
+            margin-right: 12px;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .checkbox-label input:checked ~ .checkmark {
+            background-color: var(--accent);
+            border-color: var(--accent);
+        }
+
+        .checkmark:after {
+            content: "";
+            position: absolute;
+            display: none;
+            left: 6px;
+            top: 2px;
+            width: 5px;
+            height: 10px;
+            border: solid #000;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+
+        .checkbox-label input:checked ~ .checkmark:after {
+            display: block;
+        }
+        
+        /* MATCH TYPE HINT */
+        .match-hint {
+            display: block;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-top: 2px;
+            margin-left: 32px;
+        }
+
+        /* TEXTAREA */
+        .form-group { margin-bottom: 2rem; }
+        
+        label.block-label {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            margin-bottom: 0.75rem;
+            letter-spacing: 0.02em;
+        }
+
+        textarea {
+            width: 100%;
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            padding: 1rem;
+            color: var(--text);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.95rem;
+            transition: all 0.2s;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
+            resize: vertical;
+            min-height: 250px;
+            line-height: 1.6;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: rgba(16,185,129,0.5);
+            background: rgba(15, 23, 42, 0.8);
+            box-shadow: 0 0 0 3px rgba(16,185,129,0.1), inset 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        /* BUTTONS */
+        .actions {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text);
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: #000;
+            border: none;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+        }
+
+        .btn-primary:hover {
+            background: #34d399;
+            transform: translateY(-1px);
+        }
+
+        /* RESULTS */
+        .results-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.75rem;
+        }
+
+        .results-count {
+            font-size: 0.85rem;
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--accent);
+        }
+
+        .output-wrapper {
+            position: relative;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        #outKeywords {
+            background: rgba(5, 5, 8, 0.8);
+            cursor: auto;
+            flex: 1;
+            margin-bottom: 1rem;
+        }
+
+        .btn-copy {
+            background: rgba(255,255,255,0.1);
+            border: none;
+            color: var(--text);
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            width: 100%;
+        }
+
+        .btn-copy:hover {
+            background: var(--accent);
+            color: #000;
+        }
+
+        @media (max-width: 768px) {
+            .options-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <a href="index.html" class="logo">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+            </svg>
+            PageGuides<span>.</span>
+        </a>
+        <a href="index.html" class="back-link">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+            All Tools
+        </a>
+    </nav>
+
+    <main class="container">
+        <header>
+            <div class="tool-icon">🎁</div>
+            <h1>Keyword Wrapper</h1>
+            <p class="subtitle">Instantly format your raw keywords into Exact, Phrase, and Broad Match types ready to paste into Google Ads or Microsoft Ads.</p>
+        </header>
+
+        <div class="layout">
+            <!-- INPUTS -->
+            <div class="card">
+                <div class="card-title">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                        <polyline points="14 2 14 8 20 8"></polyline>
+                    </svg>
+                    Raw Keywords
+                </div>
+                
+                <div class="form-group">
+                    <label class="block-label">
+                        <span>Enter keywords (one per line)</span>
+                        <span class="results-count" id="inCount" style="color:var(--text-muted)">0 lines</span>
+                    </label>
+                    <textarea id="inKeywords" placeholder="e.g.&#10;seo tools&#10;buy shoes&#10;digital marketing"></textarea>
+                </div>
+
+                <div class="card-title" style="margin-bottom: 1rem;">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="9 11 12 14 22 4"></polyline>
+                        <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+                    </svg>
+                    Match Types to Generate
+                </div>
+
+                <div class="options-grid">
+                    <div>
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="chkBroad" checked>
+                            <span class="checkmark"></span>
+                            Broad Match
+                        </label>
+                        <span class="match-hint">keyword</span>
+                    </div>
+                    <div>
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="chkPhrase" checked>
+                            <span class="checkmark"></span>
+                            Phrase Match
+                        </label>
+                        <span class="match-hint">"keyword"</span>
+                    </div>
+                    <div>
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="chkExact" checked>
+                            <span class="checkmark"></span>
+                            Exact Match
+                        </label>
+                        <span class="match-hint">[keyword]</span>
+                    </div>
+                    <div>
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="chkBMM">
+                            <span class="checkmark"></span>
+                            Broad Match Modifier
+                        </label>
+                        <span class="match-hint">+key +word</span>
+                    </div>
+                    <div style="grid-column: 1 / -1; margin-top: 0.5rem;">
+                        <label class="checkbox-label" style="background: rgba(16, 185, 129, 0.1); border-color: rgba(16, 185, 129, 0.2);">
+                            <input type="checkbox" id="chkLowercase" checked>
+                            <span class="checkmark"></span>
+                            Convert all keywords to lowercase
+                        </label>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- OUTPUT -->
+            <div class="card">
+                <div class="results-header">
+                    <div class="card-title" style="margin-bottom: 0;">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                        Wrapped Keywords
+                    </div>
+                    <span class="results-count" id="outCount">0 keywords generated</span>
+                </div>
+
+                <div class="output-wrapper">
+                    <textarea id="outKeywords" readonly placeholder="Your wrapped keywords will appear here..."></textarea>
+                    
+                    <div class="actions">
+                        <button class="btn" id="btnClear" style="flex: 1;">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                        </button>
+                        <button class="btn-copy" id="btnCopy" style="flex: 4;">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                            Copy to Clipboard
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const el = {
+                inKeywords: document.getElementById('inKeywords'),
+                outKeywords: document.getElementById('outKeywords'),
+                chkBroad: document.getElementById('chkBroad'),
+                chkPhrase: document.getElementById('chkPhrase'),
+                chkExact: document.getElementById('chkExact'),
+                chkBMM: document.getElementById('chkBMM'),
+                chkLowercase: document.getElementById('chkLowercase'),
+                inCount: document.getElementById('inCount'),
+                outCount: document.getElementById('outCount'),
+                btnClear: document.getElementById('btnClear'),
+                btnCopy: document.getElementById('btnCopy')
+            };
+
+            function updateWrapper() {
+                let lines = el.inKeywords.value.split('\n')
+                    .map(line => line.trim())
+                    .filter(line => line.length > 0);
+
+                el.inCount.textContent = `${lines.length} lines`;
+
+                if (lines.length === 0) {
+                    el.outKeywords.value = '';
+                    el.outCount.textContent = '0 keywords generated';
+                    return;
+                }
+
+                if (el.chkLowercase.checked) {
+                    lines = lines.map(line => line.toLowerCase());
+                }
+
+                let wrapped = [];
+
+                lines.forEach(line => {
+                    if (el.chkBroad.checked) {
+                        wrapped.push(line);
+                    }
+                    if (el.chkPhrase.checked) {
+                        wrapped.push(`"${line}"`);
+                    }
+                    if (el.chkExact.checked) {
+                        wrapped.push(`[${line}]`);
+                    }
+                    if (el.chkBMM.checked) {
+                        // Standardize inner spaces and prefix each word with +
+                        const bmmLine = line.replace(/\s+/g, ' ').split(' ').map(word => `+${word}`).join(' ');
+                        wrapped.push(bmmLine);
+                    }
+                });
+
+                el.outKeywords.value = wrapped.join('\n');
+                el.outCount.textContent = `${wrapped.length} keywords generated`;
+            }
+
+            // Listeners
+            ['input', 'change'].forEach(evt => {
+                el.inKeywords.addEventListener(evt, updateWrapper);
+                el.chkBroad.addEventListener(evt, updateWrapper);
+                el.chkPhrase.addEventListener(evt, updateWrapper);
+                el.chkExact.addEventListener(evt, updateWrapper);
+                el.chkBMM.addEventListener(evt, updateWrapper);
+                el.chkLowercase.addEventListener(evt, updateWrapper);
+            });
+
+            el.btnClear.addEventListener('click', () => {
+                el.inKeywords.value = '';
+                updateWrapper();
+            });
+
+            el.btnCopy.addEventListener('click', () => {
+                if (el.outKeywords.value.trim().length === 0) return;
+                
+                navigator.clipboard.writeText(el.outKeywords.value).then(() => {
+                    const originalHTML = el.btnCopy.innerHTML;
+                    el.btnCopy.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Copied!';
+                    el.btnCopy.style.background = 'var(--text)';
+                    
+                    setTimeout(() => {
+                        el.btnCopy.innerHTML = originalHTML;
+                        el.btnCopy.style.background = '';
+                    }, 2000);
+                });
+            });
+
+            // Initial Generate
+            updateWrapper();
+        });
+    </script>
+</body>
+</html>

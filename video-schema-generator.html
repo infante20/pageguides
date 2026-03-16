@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Schema Generator — PageGuides</title>
+    <meta name="description" content="Generate JSON-LD Video markup to improve your video's visibility in search results.">
+    <style>
+        :root {
+            --primary: #f43f5e;
+            --primary-hover: #e11d48;
+            --bg: #0f172a;
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --text: #f8fafc;
+            --text-dim: #94a3b8;
+            --border: rgba(255, 255, 255, 0.1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', system-ui, sans-serif; }
+
+        body {
+            background-color: var(--bg);
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(244, 63, 94, 0.1) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(99, 102, 241, 0.1) 0px, transparent 50%);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem;
+        }
+
+        .container { width: 100%; max-width: 1000px; }
+
+        .header { text-align: left; margin-bottom: 3rem; width: 100%; }
+        .logo { font-size: 1.5rem; font-weight: 800; color: var(--text); text-decoration: none; display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem; }
+        .logo span { color: var(--primary); }
+        .title { font-size: 2.5rem; font-weight: 800; margin-bottom: 0.5rem; letter-spacing: -0.025em; }
+        .subtitle { color: var(--text-dim); font-size: 1.1rem; }
+
+        .tool-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 2rem; }
+        @media (max-width: 900px) { .tool-grid { grid-template-columns: 1fr; } }
+
+        .card {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--border);
+            border-radius: 1.5rem;
+            padding: 2rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        .form-section { margin-bottom: 1.5rem; }
+        .form-section h3 { font-size: 1rem; margin-bottom: 1rem; color: var(--primary); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
+
+        .form-group { margin-bottom: 1rem; }
+        label { display: block; margin-bottom: 0.4rem; color: var(--text-dim); font-size: 0.8rem; font-weight: 600; }
+        
+        input, select, textarea {
+            width: 100%;
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid var(--border);
+            border-radius: 0.75rem;
+            padding: 0.7rem 1rem;
+            color: white;
+            font-size: 0.95rem;
+            transition: all 0.2s;
+        }
+
+        input:focus, select:focus, textarea:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(244, 63, 94, 0.2); }
+
+        .output-container { position: relative; }
+        pre {
+            background: #000;
+            padding: 1.5rem;
+            border-radius: 1rem;
+            color: #fb7185;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.8rem;
+            overflow-x: auto;
+            border: 1px solid var(--border);
+            min-height: 400px;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--border);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            z-index: 10;
+        }
+
+        .copy-btn:hover { background: var(--primary); }
+
+        .video-preview {
+            background: rgba(0,0,0,0.3);
+            border-radius: 1rem;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            margin-top: 1.5rem;
+        }
+
+        .video-thumb {
+            width: 100%;
+            aspect-ratio: 16/9;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            background-color: #334155;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .play-icon { font-size: 50px; color: white; opacity: 0.8; }
+
+        .video-info { padding: 1rem; }
+        .video-title { font-weight: 700; font-size: 1rem; margin-bottom: 0.25rem; }
+        .video-desc { font-size: 0.85rem; color: var(--text-dim); line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+
+        footer { margin-top: 4rem; color: var(--text-dim); font-size: 0.9rem; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <a href="index.html" class="logo">Page<span>Guides</span></a>
+            <h1 class="title">Video Schema Gen</h1>
+            <p class="subtitle">Optimize your videos for Google Search and Video results tabs.</p>
+        </header>
+
+        <div class="tool-grid">
+            <div class="card">
+                <div class="form-section">
+                    <h3>Basic Info</h3>
+                    <div class="form-group">
+                        <label>Video Title</label>
+                        <input type="text" id="title" placeholder="How to bake a cake" value="Advanced SEO Strategy for 2026" oninput="updateAll()">
+                    </div>
+                    <div class="form-group">
+                        <label>Description</label>
+                        <textarea id="description" rows="3" placeholder="Short summary of the video content..." oninput="updateAll()">In this video, we explore the latest trends in technical SEO and AI-driven content optimization.</textarea>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3>Media Details</h3>
+                    <div class="form-group">
+                        <label>Thumbnail URL</label>
+                        <input type="text" id="thumbnailUrl" placeholder="https://example.com/thumb.jpg" value="https://example.com/thumbnails/seo-video.jpg" oninput="updateAll()">
+                    </div>
+                    <div class="form-group">
+                        <label>Upload Date</label>
+                        <input type="date" id="uploadDate" oninput="updateAll()">
+                    </div>
+                    <div class="form-group">
+                        <label>Duration (ISO 8601)</label>
+                        <input type="text" id="duration" placeholder="PT1M33S" value="PT5M20S" oninput="updateAll()">
+                    </div>
+                    <div class="form-group">
+                        <label>Content URL</label>
+                        <input type="text" id="contentUrl" placeholder="https://example.com/video.mp4" value="https://example.com/videos/seo-strategy.mp4" oninput="updateAll()">
+                    </div>
+                    <div class="form-group">
+                        <label>Embed URL</label>
+                        <input type="text" id="embedUrl" placeholder="https://youtube.com/embed/..." value="https://www.youtube.com/embed/dQw4w9WgXcQ" oninput="updateAll()">
+                    </div>
+                </div>
+            </div>
+
+            <div class="card output-container">
+                <label>JSON-LD Markup</label>
+                <button class="copy-btn" onclick="copyCode()">Copy Code</button>
+                <pre id="output"></pre>
+
+                <label style="margin-top: 2rem;">Search Appearance Preview</label>
+                <div class="video-preview">
+                    <div class="video-thumb" id="previewThumb">
+                        <div class="play-icon">▶</div>
+                    </div>
+                    <div class="video-info">
+                        <div class="video-title" id="previewTitle">Advanced SEO Strategy for 2026</div>
+                        <div class="video-desc" id="previewDesc">In this video, we explore the latest trends in technical SEO...</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            &copy; 2026 PageGuides — Premium SEO Tool Suite
+        </footer>
+    </div>
+
+    <script>
+        // Set default date to today
+        document.getElementById('uploadDate').value = new Date().toISOString().split('T')[0];
+
+        function updateAll() {
+            const title = document.getElementById('title').value;
+            const description = document.getElementById('description').value;
+            const thumbnailUrl = document.getElementById('thumbnailUrl').value;
+            const uploadDate = document.getElementById('uploadDate').value;
+            const duration = document.getElementById('duration').value;
+            const contentUrl = document.getElementById('contentUrl').value;
+            const embedUrl = document.getElementById('embedUrl').value;
+
+            const schema = {
+                "@context": "https://schema.org",
+                "@type": "VideoObject",
+                "name": title,
+                "description": description,
+                "thumbnailUrl": [thumbnailUrl],
+                "uploadDate": uploadDate,
+                "duration": duration,
+                "contentUrl": contentUrl,
+                "embedUrl": embedUrl,
+                "interactionStatistic": {
+                    "@type": "InteractionCounter",
+                    "interactionType": { "@type": "WatchAction" },
+                    "userInteractionCount": 12345
+                }
+            };
+
+            document.getElementById('output').textContent = JSON.stringify(schema, null, 4);
+
+            // Update Preview
+            document.getElementById('previewTitle').textContent = title;
+            document.getElementById('previewDesc').textContent = description;
+            const thumb = document.getElementById('previewThumb');
+            if (thumbnailUrl) {
+                thumb.style.backgroundImage = `url('${thumbnailUrl}')`;
+            } else {
+                thumb.style.backgroundImage = 'none';
+            }
+        }
+
+        function copyCode() {
+            const code = document.getElementById('output').textContent;
+            navigator.clipboard.writeText(code);
+            const btn = document.querySelector('.copy-btn');
+            btn.textContent = 'Copied!';
+            setTimeout(() => btn.textContent = 'Copy Code', 2000);
+        }
+
+        // Initial update
+        updateAll();
+    </script>
+</body>
+</html>

@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="hi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML संरचना ऑडिटर — PageGuides</title>
+    <meta name="description"
+        content="अपने H1-H6 हेडिंग पदानुक्रम को मान्य करें। सुनिश्चित करें कि आपके पृष्ठ में Google के लिए एक आदर्श अर्थ संरचना है।">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --accent: #10b981;
+            --accent-glow: rgba(16, 185, 129, 0.15);
+            --bg-dark: #050508;
+            --bg-light: #111827;
+            --card-bg: rgba(30, 41, 59, 0.4);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --text: #f8fafc;
+            --text-muted: #94a3b8;
+            --error: #ef4444;
+            --error-bg: rgba(239, 68, 68, 0.1);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: radial-gradient(circle at top center, var(--bg-light) 0%, var(--bg-dark) 100%);
+            background-attachment: fixed;
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* NAV */
+        nav {
+            padding: 1.25rem 2rem;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            background: rgba(5, 5, 8, 0.8);
+            backdrop-filter: blur(12px);
+        }
+
+        .logo {
+            font-weight: 700;
+            font-size: 1.25rem;
+            letter-spacing: -0.02em;
+            color: var(--text);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo span { color: var(--accent); }
+
+        .back-link {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: color 0.2s;
+            font-weight: 500;
+        }
+
+        .back-link:hover { color: var(--text); }
+
+        /* CONTAINER */
+        .container {
+            max-width: 800px;
+            margin: 4rem auto 6rem;
+            padding: 0 1.5rem;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .tool-icon {
+            width: 64px;
+            height: 64px;
+            background: linear-gradient(135deg, rgba(16,185,129,0.15), rgba(16,185,129,0.05));
+            border: 1px solid rgba(16,185,129,0.2);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin: 0 auto 1.5rem;
+            box-shadow: inset 0 2px 4px rgba(255,255,255,0.05), 0 8px 16px rgba(0,0,0,0.2);
+        }
+
+        h1 {
+            font-size: clamp(2rem, 4vw, 2.75rem);
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            max-width: 500px;
+            margin: 0 auto;
+            font-weight: 300;
+        }
+
+        /* CARD */
+        .card {
+            background: var(--card-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
+            margin-bottom: 2rem;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.75rem;
+        }
+
+        textarea {
+            width: 100%;
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: var(--text);
+            padding: 1.25rem;
+            border-radius: 12px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+            height: 16rem;
+            resize: vertical;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px var(--accent-glow);
+        }
+
+        button.primary-btn {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            border: none;
+            padding: 1.1rem;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 1.05rem;
+            width: 100%;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 12px rgba(16,185,129,0.3);
+            font-family: inherit;
+        }
+
+        button.primary-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(16,185,129,0.4);
+        }
+
+        /* RESULTS */
+        .audit-result {
+            display: none;
+            margin-top: 2.5rem;
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .result-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .result-header h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .badge-count {
+            background: var(--accent-glow);
+            color: var(--accent);
+            font-family: 'JetBrains Mono', monospace;
+            padding: 0.25rem 0.75rem;
+            border-radius: 99px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .node {
+            padding: 1rem;
+            border-left: 3px solid var(--accent);
+            margin-bottom: 0.75rem;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 0 8px 8px 0;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            position: relative;
+            transition: background 0.2s;
+        }
+        
+        .node:hover {
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        .node.error {
+            border-left-color: var(--error);
+            background: var(--error-bg);
+        }
+
+        .tag-name {
+            font-weight: 700;
+            color: var(--accent);
+            margin-right: 0.75rem;
+            display: inline-block;
+            min-width: 2.5rem;
+        }
+        
+        .node.error .tag-name {
+            color: var(--error);
+        }
+
+        .node-text {
+            color: var(--text);
+        }
+
+        .warning-text {
+            color: var(--error);
+            font-size: 0.8rem;
+            margin-top: 0.5rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 500;
+            background: rgba(0,0,0,0.2);
+            padding: 0.5rem 0.75rem;
+            border-radius: 6px;
+        }
+
+    </style>
+</head>
+
+<body>
+    <nav>
+        <a href="index.html" class="logo">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                <line x1="12" y1="22.08" x2="12" y2="12"></line>
+            </svg>
+            Page<span>Guides</span>
+        </a>
+        <div style="display: flex; align-items: center; gap: 1.5rem;">
+            
+        <div class="lang-selector">
+            <button class="lang-btn" aria-haspopup="true" aria-expanded="false">
+                🇮🇳 HI
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+            </button>
+            <div class="lang-dropdown">
+                    <a href="../html-structure-auditor.html" class="lang-option"><span class="lang-flag">🇺🇸</span> English</a>
+                    <a href="../es/html-structure-auditor.html" class="lang-option"><span class="lang-flag">🇪🇸</span> Español</a>
+                    <a href="../fr/html-structure-auditor.html" class="lang-option"><span class="lang-flag">🇫🇷</span> Français</a>
+                    <a href="../pt/html-structure-auditor.html" class="lang-option"><span class="lang-flag">🇧🇷</span> Português</a>
+                    <a href="html-structure-auditor.html" class="lang-option active"><span class="lang-flag">🇮🇳</span> हिन्दी</a>
+                </div>
+        </div>
+
+            <a href="/hi/" class="back-link">
+                ← उपकरणों पर वापस जाएं
+            </a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <header>
+            <div class="tool-icon">🏗️</div>
+            <h1>HTML संरचना ऑडिटर</h1>
+            <p class="subtitle">पेज-ऑन एसईओ मुद्दों का तुरंत पता लगाने के लिए अपने पेज के शीर्षक पदानुक्रम और एचटीएमएल संरचना का विश्लेषण करें।</p>
+        </header>
+
+        <main>
+            <div class="card">
+                <label for="htmlInput">अपना HTML कोड यहां पेस्ट करें</label>
+                <textarea id="htmlInput" placeholder="<html>...<body>&#10;  <h1>My Main Title</h1>&#10;  <h2>Secondary Subtitle</h2>&#10;...</body>&#10;</html>"></textarea>
+                <button class="primary-btn" onclick="auditHTML()">ऑडिट संरचना</button>
+
+                <div id="result" class="audit-result">
+                    <div class="result-header">
+                        <h3>पदानुक्रम योजना का पता चला</h3>
+                        <span class="badge-count" id="headerCount">0 हेडिंग</span>
+                    </div>
+                    <div id="nodeList"></div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        function auditHTML() {
+            const raw = document.getElementById('htmlInput').value;
+            if (!raw) return;
+
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(raw, "text/html");
+            const headers = Array.from(doc.querySelectorAll('h1, h2, h3, h4, h5, h6'));
+
+            const nodeList = document.getElementById('nodeList');
+            const resultDiv = document.getElementById('result');
+            const headerCount = document.getElementById('headerCount');
+            
+            nodeList.innerHTML = '';
+            headerCount.innerText = `${headers.length} हेडिंग`;
+
+            let h1Count = 0;
+            let lastLevel = 0;
+
+            headers.forEach(h => {
+                const level = parseInt(h.tagName.substring(1));
+                if (level === 1) h1Count++;
+
+                const node = document.createElement('div');
+                node.className = 'node';
+
+                // Usamos margen izquierdo progresivo para mostrar anidación (max 3rem para evitar overflow)
+                const margin = Math.min((level - 1) * 1.5, 3);
+                node.style.marginLeft = `${margin}rem`;
+
+                let warnings = "";
+                if (level === 1 && h1Count > 1) {
+                    node.classList.add('error');
+                    warnings += '<div class="warning-text"><span>⚠️</span> कई H1 का पता चला। Google प्रति पृष्ठ केवल एक ही अनुशंसा करता है।</div>';
+                }
+                if (level > lastLevel + 1 && lastLevel !== 0) {
+                    node.classList.add('error');
+                    warnings += `<div class="warning-text"><span>⚠️</span> स्तर में कूद का पता चला (H${lastLevel} to H${level}). क्रमिक पदानुक्रम बनाए रखें।</div>`;
+                }
+
+                const textContent = h.innerText.replace(/\s+/g, ' ').trim() || '(Empty)';
+                const truncatedText = textContent.length > 60 ? textContent.substring(0, 60) + '...' : textContent;
+
+                node.innerHTML = `
+                    <div>
+                        <span class="tag-name">${h.tagName}</span>
+                        <span class="node-text">${truncatedText}</span>
+                    </div>
+                    ${warnings}
+                `;
+                
+                nodeList.appendChild(node);
+                lastLevel = level;
+            });
+
+            if (headers.length === 0) {
+                nodeList.innerHTML = '<div style="color:var(--error); padding:1rem; background:var(--error-bg); border-radius:8px; font-weight:500;">प्रदान किए गए कोड में कोई हेडिंग टैग (H1-H6) का पता नहीं चला।</div>';
+            }
+
+            resultDiv.style.display = 'block';
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Favicon Asset Generator — PageGuides</title>
+    <meta name="description" content="Generate the essential HTML tags for your favicons, apple-touch-icons, and web manifest.">
+    <style>
+        :root {
+            --primary: #f59e0b;
+            --primary-hover: #d97706;
+            --bg: #0f172a;
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --text: #f8fafc;
+            --text-dim: #94a3b8;
+            --border: rgba(255, 255, 255, 0.1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', system-ui, sans-serif; }
+
+        body {
+            background-color: var(--bg);
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(245, 158, 11, 0.1) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(30, 41, 59, 1) 0px, transparent 50%);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem;
+        }
+
+        .container { width: 100%; max-width: 900px; }
+
+        .header { text-align: left; margin-bottom: 3rem; width: 100%; }
+        .logo { font-size: 1.5rem; font-weight: 800; color: var(--text); text-decoration: none; display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem; }
+        .logo span { color: var(--primary); }
+        .title { font-size: 2.5rem; font-weight: 800; margin-bottom: 0.5rem; letter-spacing: -0.025em; }
+        .subtitle { color: var(--text-dim); font-size: 1.1rem; }
+
+        .card {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--border);
+            border-radius: 1.5rem;
+            padding: 2.5rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            margin-bottom: 2rem;
+        }
+
+        .form-group { margin-bottom: 1.5rem; }
+        label { display: block; margin-bottom: 0.5rem; color: var(--text-dim); font-size: 0.9rem; font-weight: 600; }
+        
+        input {
+            width: 100%;
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid var(--border);
+            border-radius: 0.75rem;
+            padding: 0.75rem 1rem;
+            color: white;
+            font-size: 1rem;
+            transition: all 0.2s;
+        }
+
+        input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.2); }
+
+        .output-section { position: relative; margin-top: 2rem; }
+        pre {
+            background: #000;
+            padding: 1.5rem;
+            border-radius: 1rem;
+            color: #fbbf24;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.85rem;
+            overflow-x: auto;
+            border: 1px solid var(--border);
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--border);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .copy-btn:hover { background: var(--primary); }
+
+        .favicon-previews {
+            display: flex;
+            gap: 2rem;
+            margin-top: 2rem;
+            align-items: flex-end;
+            padding: 1.5rem;
+            background: rgba(255,255,255,0.02);
+            border-radius: 1rem;
+        }
+
+        .fake-favicon {
+            background: #334155;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+            font-weight: 800;
+            color: white;
+        }
+
+        footer { margin-top: 4rem; color: var(--text-dim); font-size: 0.9rem; text-align: center; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <a href="index.html" class="logo">Page<span>Guides</span></a>
+            <h1 class="title">Favicon Asset Gen</h1>
+            <p class="subtitle">Quickly generate the HTML snippet for all your favicon and PWA assets.</p>
+        </header>
+
+        <div class="card">
+            <div class="form-group">
+                <label>Assets Root Path (e.g. /favicons/)</label>
+                <input type="text" id="rootPath" value="/favicons/" oninput="updateAll()">
+            </div>
+            <div class="form-group">
+                <label>App Name</label>
+                <input type="text" id="appName" value="My Website" oninput="updateAll()">
+            </div>
+            <div class="form-group">
+                <label>Theme Color</label>
+                <input type="color" id="themeColor" value="#0f172a" style="height: 50px; padding: 5px;" oninput="updateAll()">
+            </div>
+
+            <div class="output-section">
+                <label>Add this to your &lt;head&gt;</label>
+                <button class="copy-btn" onclick="copyCode()">Copy HTML</button>
+                <pre id="output"></pre>
+            </div>
+        </div>
+
+        <footer>
+            &copy; 2026 PageGuides — Premium SEO Tool Suite
+        </footer>
+    </div>
+
+    <script>
+        function updateAll() {
+            const path = document.getElementById('rootPath').value.replace(/\/$/, '') + '/';
+            const name = document.getElementById('appName').value;
+            const color = document.getElementById('themeColor').value;
+
+            const html = [
+                `<!-- Favicons -->`,
+                `<link rel="apple-touch-icon" sizes="180x180" href="${path}apple-touch-icon.png">`,
+                `<link rel="icon" type="image/png" sizes="32x32" href="${path}favicon-32x32.png">`,
+                `<link rel="icon" type="image/png" sizes="16x16" href="${path}favicon-16x16.png">`,
+                `<link rel="shortcut icon" href="${path}favicon.ico">`,
+                `<link rel="manifest" href="${path}site.webmanifest">`,
+                `<meta name="msapplication-TileColor" content="${color}">`,
+                `<meta name="theme-color" content="${color}">`,
+                `<meta name="apple-mobile-web-app-title" content="${name}">`,
+                `<meta name="application-name" content="${name}">`
+            ].join('\n');
+
+            document.getElementById('output').textContent = html;
+        }
+
+        function copyCode() {
+            const code = document.getElementById('output').textContent;
+            navigator.clipboard.writeText(code);
+            const btn = document.querySelector('.copy-btn');
+            btn.textContent = 'Copied!';
+            setTimeout(() => btn.textContent = 'Copy HTML', 2000);
+        }
+
+        updateAll();
+    </script>
+</body>
+</html>

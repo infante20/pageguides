@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Color Contrast Checker — PageGuides</title>
+    <meta name="description" content="Check WCAG color contrast ratios to ensure your website is accessible. Real-time preview and compliance validation for designers and developers.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-hover: #4f46e5;
+            --accent: #10b981;
+            --bg: #0f172a;
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --text: #f8fafc;
+            --text-muted: #94a3b8;
+            --border: rgba(255, 255, 255, 0.1);
+            --accent-glow: rgba(16, 185, 129, 0.2);
+            --error: #ef4444;
+            --success: #22c55e;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg);
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.15) 0px, transparent 50%),
+                radial-gradient(at 100% 0%, rgba(16, 185, 129, 0.1) 0px, transparent 50%);
+            color: var(--text);
+            min-height: 100vh;
+            line-height: 1.6;
+            padding: 2rem 1rem;
+        }
+
+        nav {
+            max-width: 800px;
+            margin: 0 auto 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo span { color: var(--primary); }
+
+        .back-link {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .back-link:hover { color: var(--text); }
+
+        main {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: linear-gradient(to right, #fff, #94a3b8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .tool-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 2.5rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        .input-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        label {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .color-input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            background: rgba(15, 23, 42, 0.5);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 0.5rem 1rem;
+            transition: border-color 0.2s;
+        }
+
+        .color-input-wrapper:focus-within {
+            border-color: var(--primary);
+        }
+
+        input[type="color"] {
+            -webkit-appearance: none;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            cursor: pointer;
+            background: none;
+        }
+
+        input[type="color"]::-webkit-color-swatch-wrapper { padding: 0; }
+        input[type="color"]::-webkit-color-swatch { border: none; border-radius: 8px; }
+
+        input[type="text"] {
+            background: none;
+            border: none;
+            color: var(--text);
+            font-size: 1.1rem;
+            font-weight: 600;
+            width: 100%;
+            outline: none;
+            font-family: monospace;
+        }
+
+        .preview-container {
+            border-radius: 16px;
+            padding: 2.5rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid var(--border);
+        }
+
+        .preview-text-large {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+        }
+
+        .preview-text-small {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        .results-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .result-item {
+            background: rgba(15, 23, 42, 0.3);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: transform 0.2s;
+        }
+
+        .result-item:hover {
+            transform: translateY(-2px);
+        }
+
+        .ratio-value {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 0.25rem;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .ratio-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        .compliance-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.25rem 0.75rem;
+            border-radius: 99px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            margin-top: 1rem;
+        }
+
+        .badge-pass { background: rgba(34, 197, 94, 0.15); color: #4ade80; border: 1px solid rgba(34, 197, 94, 0.3); }
+        .badge-fail { background: rgba(239, 68, 68, 0.15); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.3); }
+
+        .info-section {
+            margin-top: 3rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 2rem;
+        }
+
+        .info-section h2 {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+            color: var(--text);
+        }
+
+        .info-section p {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+        }
+
+        @media (max-width: 640px) {
+            .input-grid, .results-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="/" class="logo">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                <line x1="12" y1="22.08" x2="12" y2="12"></line>
+            </svg>
+            Page<span>Guides</span>
+        </a>
+        <a href="/" class="back-link">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+            Back to Tools
+        </a>
+    </nav>
+
+    <main>
+        <div class="hero">
+            <h1>Color Contrast Checker</h1>
+            <p class="subtitle">Ensure your website design meets WCAG accessibility standards by checking the contrast ratio between foreground and background colors.</p>
+        </div>
+
+        <div class="tool-card">
+            <div class="input-grid">
+                <div class="input-group">
+                    <label>Background Color</label>
+                    <div class="color-input-wrapper">
+                        <input type="color" id="bgColor" value="#0f172a">
+                        <input type="text" id="bgText" value="#0F172A">
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label>Text Color</label>
+                    <div class="color-input-wrapper">
+                        <input type="color" id="textColor" value="#6366f1">
+                        <input type="text" id="textText" value="#6366F1">
+                    </div>
+                </div>
+            </div>
+
+            <div id="preview" class="preview-container">
+                <div class="preview-text-large">Sample Title</div>
+                <div class="preview-text-small">This is how your body text will look with these colors. It should be easy to read for everyone.</div>
+            </div>
+
+            <div class="results-grid">
+                <div class="result-item">
+                    <div class="ratio-label">Contrast Ratio</div>
+                    <div id="ratioVal" class="ratio-value">0.0:1</div>
+                </div>
+                <div class="result-item">
+                    <div class="ratio-label">WCAG AA</div>
+                    <div id="aaStatus" class="compliance-badge">...</div>
+                    <div style="font-size: 0.7rem; color: var(--text-muted); margin-top: 0.5rem;">Requirement: 4.5:1</div>
+                </div>
+                <div class="result-item">
+                    <div class="ratio-label">WCAG AAA</div>
+                    <div id="aaaStatus" class="compliance-badge">...</div>
+                    <div style="font-size: 0.7rem; color: var(--text-muted); margin-top: 0.5rem;">Requirement: 7:1</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="info-section">
+            <h2>Why contrast matters</h2>
+            <p>Web accessibility (a11y) starts with readability. Thousands of users with visual impairments, color blindness, or situational limitations (like glare on a phone) rely on high contrast to navigate the web.</p>
+            <p><strong>WCAG AA</strong> requires a ratio of at least 4.5:1 for normal text and 3:1 for large text. <strong>WCAG AAA</strong> (the gold standard) requires 7:1 for normal text and 4.5:1 for large text.</p>
+        </div>
+    </main>
+
+    <script>
+        const bgColorInput = document.getElementById('bgColor');
+        const textColorInput = document.getElementById('textColor');
+        const bgTextInput = document.getElementById('bgText');
+        const textTextInput = document.getElementById('textText');
+        const preview = document.getElementById('preview');
+        const ratioVal = document.getElementById('ratioVal');
+        const aaStatus = document.getElementById('aaStatus');
+        const aaaStatus = document.getElementById('aaaStatus');
+
+        function hexToRgb(hex) {
+            const sh = hex.replace('#', '');
+            const r = parseInt(sh.substring(0, 2), 16);
+            const g = parseInt(sh.substring(2, 4), 16);
+            const b = parseInt(sh.substring(4, 6), 16);
+            return [r, g, b];
+        }
+
+        function getLuminance(r, g, b) {
+            const a = [r, g, b].map(v => {
+                v /= 255;
+                return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4);
+            });
+            return a[0] * 0.2126 + a[1] * 0.7152 + a[2] * 0.0722;
+        }
+
+        function calculateContrast() {
+            const bgHex = bgColorInput.value;
+            const textHex = textColorInput.value;
+
+            bgTextInput.value = bgHex.toUpperCase();
+            textTextInput.value = textHex.toUpperCase();
+
+            const rgb1 = hexToRgb(bgHex);
+            const rgb2 = hexToRgb(textHex);
+
+            const lum1 = getLuminance(rgb1[0], rgb1[1], rgb1[2]);
+            const lum2 = getLuminance(rgb2[0], rgb2[1], rgb2[2]);
+
+            const ratio = (Math.max(lum1, lum2) + 0.05) / (Math.min(lum1, lum2) + 0.05);
+            const finalRatio = ratio.toFixed(2);
+
+            ratioVal.textContent = finalRatio + ':1';
+            
+            preview.style.backgroundColor = bgHex;
+            preview.style.color = textHex;
+
+            // AA
+            if (ratio >= 4.5) {
+                aaStatus.textContent = 'PASS';
+                aaStatus.className = 'compliance-badge badge-pass';
+            } else {
+                aaStatus.textContent = 'FAIL';
+                aaStatus.className = 'compliance-badge badge-fail';
+            }
+
+            // AAA
+            if (ratio >= 7) {
+                aaaStatus.textContent = 'PASS';
+                aaaStatus.className = 'compliance-badge badge-pass';
+            } else {
+                aaaStatus.textContent = 'FAIL';
+                aaaStatus.className = 'compliance-badge badge-fail';
+            }
+        }
+
+        function syncHex(e, picker) {
+            let val = e.target.value;
+            if (!val.startsWith('#')) val = '#' + val;
+            if (/^#[0-9A-F]{6}$/i.test(val)) {
+                picker.value = val;
+                calculateContrast();
+            }
+        }
+
+        bgColorInput.addEventListener('input', calculateContrast);
+        textColorInput.addEventListener('input', calculateContrast);
+        
+        bgTextInput.addEventListener('input', (e) => syncHex(e, bgColorInput));
+        textTextInput.addEventListener('input', (e) => syncHex(e, textColorInput));
+
+        // Init
+        calculateContrast();
+    </script>
+</body>
+</html>

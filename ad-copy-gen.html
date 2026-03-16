@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ad Copy Generator — PageGuides</title>
+    <meta name="description" content="Generate catchy, high-conversion ad hook templates for Google Search, Facebook, and Instagram instantly.">
+    <style>
+        :root {
+            --primary: #f59e0b;
+            --bg: #0f172a;
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --text: #f8fafc;
+            --text-dim: #94a3b8;
+            --border: rgba(255, 255, 255, 0.1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', system-ui, sans-serif; }
+
+        body {
+            background-color: var(--bg);
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(245, 158, 11, 0.1) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(30, 41, 59, 1) 0px, transparent 50%);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem;
+        }
+
+        .container { width: 100%; max-width: 800px; }
+
+        .header { text-align: left; margin-bottom: 3rem; width: 100%; }
+        .logo { font-size: 1.5rem; font-weight: 800; color: var(--text); text-decoration: none; display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem; }
+        .logo span { color: var(--primary); }
+        .title { font-size: 2.5rem; font-weight: 800; margin-bottom: 0.5rem; letter-spacing: -0.025em; }
+        .subtitle { color: var(--text-dim); font-size: 1.1rem; }
+
+        .card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 1.5rem; padding: 2.5rem; }
+        
+        .input-group { margin-bottom: 1.5rem; }
+        label { display: block; font-size: 0.75rem; font-weight: 800; color: var(--text-dim); margin-bottom: 0.5rem; }
+        input { width: 100%; background: rgba(0,0,0,0.3); border: 1px solid var(--border); padding: 0.75rem; border-radius: 0.5rem; color: white; outline: none; }
+
+        .templates-grid { display: grid; gap: 1rem; margin-top: 2rem; }
+        .template-item { background: #000; border: 1px solid var(--border); padding: 1.5rem; border-radius: 1rem; position: relative; }
+        .template-item p { font-size: 1rem; line-height: 1.5; color: #fff; margin-bottom: 0.5rem; }
+        .template-tag { position: absolute; top: -10px; right: 1rem; background: var(--primary); color: #000; font-size: 0.6rem; font-weight: 900; padding: 0.25rem 0.5rem; border-radius: 0.3rem; }
+
+        .btn { border: none; background: transparent; color: var(--primary); font-weight: 700; cursor: pointer; font-size: 0.8rem; }
+
+        footer { margin-top: 4rem; color: var(--text-dim); font-size: 0.9rem; text-align: center; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <a href="index.html" class="logo">Page<span>Guides</span></a>
+            <h1 class="title">Ad Copy Generator</h1>
+            <p class="subtitle">Quickly generate tested ad templates for your product or service.</p>
+        </header>
+
+        <div class="card">
+            <div class="input-group">
+                <label>Product Name</label>
+                <input type="text" id="prod" value="PageGuides" oninput="update()">
+            </div>
+            <div class="input-group">
+                <label>Main Benefit (Hook)</label>
+                <input type="text" id="hook" value="boost your SEO in minutes" oninput="update()">
+            </div>
+
+            <div class="templates-grid" id="out">
+                <!-- Templates here -->
+            </div>
+        </div>
+
+        <footer>
+            &copy; 2026 PageGuides — Premium SEO Tool Suite
+        </footer>
+    </div>
+
+    <script>
+        function update() {
+            const prod = document.getElementById('prod').value || "[Product]";
+            const hook = document.getElementById('hook').value || "[Benefit]";
+
+            const templates = [
+                {tag: "GOOGLE SEARCH", text: `Stop wasting money on bad SEO. Use ${prod} to ${hook} today. Try for free!`},
+                {tag: "FACEBOOK AD", text: `🚀 Want to ${hook}? I found this tool called ${prod} that literally does everything for you. Click below to see how it works! 👇`},
+                {tag: "PROBLEM/SOLVE", text: `Tired of slow rankings? With ${prod}, you can ${hook} without the headache. Join 5000+ users.`},
+                {tag: "URGENCY", text: `Only today! Get ${prod} and ${hook} before the price goes up. Your competitors are already using it.`}
+            ];
+
+            const out = document.getElementById('out');
+            out.innerHTML = templates.map(t => `
+                <div class="template-item">
+                    <div class="template-tag">${t.tag}</div>
+                    <p>${t.text}</p>
+                    <button class="btn" onclick="navigator.clipboard.writeText('${t.text}'); alert('Copied!')">COPY TEXT</button>
+                </div>
+            `).join('');
+        }
+
+        update();
+    </script>
+</body>
+</html>

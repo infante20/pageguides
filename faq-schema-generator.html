@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ Schema Generator — PageGuides</title>
+    <meta name="description"
+        content="Free FAQ Schema Markup Generator. Easily create JSON-LD code for your Frequently Asked Questions to get rich snippets on Google.">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --accent: #10b981;
+            --accent-glow: rgba(16, 185, 129, 0.15);
+            --bg-dark: #050508;
+            --bg-light: #111827;
+            --card-bg: rgba(30, 41, 59, 0.4);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --text: #f8fafc;
+            --text-muted: #94a3b8;
+            --warn: #f59e0b;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: radial-gradient(circle at top center, var(--bg-light) 0%, var(--bg-dark) 100%);
+            background-attachment: fixed;
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* NAV */
+        nav {
+            padding: 1.25rem 2rem;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            background: rgba(5, 5, 8, 0.8);
+            backdrop-filter: blur(12px);
+        }
+
+        .logo {
+            font-weight: 700;
+            font-size: 1.25rem;
+            letter-spacing: -0.02em;
+            color: var(--text);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo span { color: var(--accent); }
+
+        .back-link {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: color 0.2s;
+            font-weight: 500;
+        }
+
+        .back-link:hover { color: var(--text); }
+
+        /* CONTAINER */
+        .container {
+            max-width: 1200px;
+            margin: 4rem auto 6rem;
+            padding: 0 1.5rem;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .tool-icon {
+            width: 64px;
+            height: 64px;
+            background: linear-gradient(135deg, rgba(16,185,129,0.15), rgba(16,185,129,0.05));
+            border: 1px solid rgba(16,185,129,0.2);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin: 0 auto 1.5rem;
+            box-shadow: inset 0 2px 4px rgba(255,255,255,0.05), 0 8px 16px rgba(0,0,0,0.2);
+        }
+
+        h1 {
+            font-size: clamp(2rem, 4vw, 2.75rem);
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+            font-weight: 300;
+            line-height: 1.5;
+        }
+
+        /* LAYOUT */
+        .layout {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            align-items: start;
+        }
+
+        @media (min-width: 900px) {
+            .layout { grid-template-columns: 1fr 1fr; }
+        }
+
+        /* CARD */
+        .card {
+            background: var(--card-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .card-title {
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* FAQ LIST */
+        #faqList {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .faq-item {
+            background: rgba(15, 23, 42, 0.4);
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 12px;
+            padding: 1.5rem;
+            position: relative;
+            transition: all 0.2s;
+        }
+
+        .faq-item:hover {
+            border-color: rgba(255,255,255,0.1);
+        }
+
+        .faq-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .faq-number {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .btn-remove {
+            background: transparent;
+            color: #ef4444;
+            border: none;
+            cursor: pointer;
+            padding: 0.25rem;
+            border-radius: 6px;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-remove:hover {
+            background: rgba(239, 68, 68, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        .form-group:last-child {
+            margin-bottom: 0;
+        }
+
+        label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+        }
+
+        input[type="text"], textarea {
+            width: 100%;
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 10px;
+            padding: 0.875rem 1rem;
+            color: var(--text);
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.95rem;
+            transition: all 0.2s;
+        }
+
+        input[type="text"]:focus, textarea:focus {
+            outline: none;
+            border-color: rgba(16,185,129,0.5);
+            background: rgba(15, 23, 42, 0.8);
+            box-shadow: 0 0 0 3px rgba(16,185,129,0.1);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .btn-add {
+            background: rgba(255,255,255,0.05);
+            border: 1px dashed rgba(255,255,255,0.2);
+            color: var(--text);
+            padding: 1rem;
+            border-radius: 12px;
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            width: 100%;
+        }
+
+        .btn-add:hover {
+            background: rgba(255,255,255,0.1);
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        /* CODE OUTPUT */
+        .code-container {
+            flex: 1;
+            background: rgba(5, 5, 8, 0.8);
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 12px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .code-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 1rem;
+            background: rgba(255,255,255,0.02);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .code-lang {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--accent);
+        }
+
+        .btn-copy {
+            background: rgba(255,255,255,0.1);
+            border: none;
+            color: var(--text);
+            padding: 0.4rem 0.75rem;
+            border-radius: 6px;
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .btn-copy:hover {
+            background: var(--accent);
+            color: #000;
+        }
+
+        pre {
+            margin: 0;
+            padding: 1.5rem;
+            overflow-x: auto;
+            flex: 1;
+        }
+
+        code {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            color: #e2e8f0;
+            line-height: 1.5;
+            white-space: pre;
+        }
+
+        .string { color: #a78bfa; }
+        .property { color: #60a5fa; }
+        .boolean { color: #fbbf24; }
+        .null { color: #94a3b8; }
+
+        @media (max-width: 768px) {
+            nav { padding: 1rem; }
+            .container { margin: 2rem auto 4rem; }
+            .card { padding: 1.5rem; }
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <a href="index.html" class="logo">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+            </svg>
+            PageGuides<span>.</span>
+        </a>
+        <a href="index.html" class="back-link">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+            All Tools
+        </a>
+    </nav>
+
+    <main class="container">
+        <header>
+            <div class="tool-icon">💬</div>
+            <h1>FAQ Schema Generator</h1>
+            <p class="subtitle">Generate valid JSON-LD code for your Frequently Asked Questions to earn Rich Snippets in Google search results.</p>
+        </header>
+
+        <div class="layout">
+            <!-- INPUTS -->
+            <div class="card">
+                <div class="card-title">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                        <polyline points="14 2 14 8 20 8"></polyline>
+                        <line x1="16" y1="13" x2="8" y2="13"></line>
+                        <line x1="16" y1="17" x2="8" y2="17"></line>
+                        <polyline points="10 9 9 9 8 9"></polyline>
+                    </svg>
+                    Questions & Answers
+                </div>
+
+                <div id="faqList">
+                    <!-- Dynamic FAQs will go here -->
+                </div>
+
+                <button class="btn-add" id="btnAdd">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                    Add Another Question
+                </button>
+            </div>
+
+            <!-- PREVIEW -->
+            <div class="card">
+                <div class="card-title">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="16 18 22 12 16 6"></polyline>
+                        <polyline points="8 6 2 12 8 18"></polyline>
+                    </svg>
+                    JSON-LD Code
+                </div>
+                
+                <div class="code-container">
+                    <div class="code-header">
+                        <span class="code-lang">html</span>
+                        <button class="btn-copy" id="btnCopy">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                            Copy Code
+                        </button>
+                    </div>
+                    <pre><code id="jsonOutput"></code></pre>
+                </div>
+                <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 1rem;">
+                    <strong>Instructions:</strong> Paste this code directly into the <code>&lt;head&gt;</code> or <code>&lt;body&gt;</code> section of your HTML page.
+                </p>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const faqList = document.getElementById('faqList');
+            const btnAdd = document.getElementById('btnAdd');
+            const jsonOutput = document.getElementById('jsonOutput');
+            const btnCopy = document.getElementById('btnCopy');
+            
+            let faqs = [
+                { q: 'Is this FAQ Schema Generator free?', a: 'Yes! This tool is completely free to use without any limitations or sign-ups required.' },
+                { q: '', a: '' }
+            ];
+
+            function renderInputFields() {
+                faqList.innerHTML = '';
+                faqs.forEach((faq, index) => {
+                    const item = document.createElement('div');
+                    item.className = 'faq-item';
+                    item.innerHTML = `
+                        <div class="faq-header">
+                            <span class="faq-number">Question #${index + 1}</span>
+                            ${faqs.length > 1 ? `
+                            <button class="btn-remove" onclick="removeFaq(${index})" title="Remove">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                            </button>
+                            ` : ''}
+                        </div>
+                        <div class="form-group">
+                            <label>Question</label>
+                            <input type="text" class="faq-q" value="${faq.q}" data-index="${index}" placeholder="e.g. What is your return policy?">
+                        </div>
+                        <div class="form-group">
+                            <label>Answer</label>
+                            <textarea class="faq-a" data-index="${index}" placeholder="e.g. You can return any item within 30 days of purchase...">${faq.a}</textarea>
+                        </div>
+                    `;
+                    faqList.appendChild(item);
+                });
+
+                // Re-bind listeners
+                document.querySelectorAll('.faq-q, .faq-a').forEach(input => {
+                    input.addEventListener('input', (e) => {
+                        const index = parseInt(e.target.dataset.index);
+                        if (e.target.classList.contains('faq-q')) {
+                            faqs[index].q = e.target.value;
+                        } else {
+                            faqs[index].a = e.target.value;
+                        }
+                        generateSchema();
+                    });
+                });
+            }
+
+            window.removeFaq = function(index) {
+                faqs.splice(index, 1);
+                renderInputFields();
+                generateSchema();
+            };
+
+            btnAdd.addEventListener('click', () => {
+                faqs.push({ q: '', a: '' });
+                renderInputFields();
+                setTimeout(() => {
+                    const inputs = document.querySelectorAll('.faq-q');
+                    inputs[inputs.length - 1].focus();
+                }, 50);
+                generateSchema();
+            });
+
+            function escapeHtml(unsafe) {
+                return String(unsafe)
+                     .replace(/&/g, "&amp;")
+                     .replace(/</g, "&lt;")
+                     .replace(/>/g, "&gt;")
+                     .replace(/"/g, "&quot;")
+                     .replace(/'/g, "&#039;");
+            }
+
+            function syntaxHighlight(json) {
+                json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+                return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function (match) {
+                    let cls = 'number';
+                    if (/^"/.test(match)) {
+                        if (/:$/.test(match)) {
+                            cls = 'property';
+                        } else {
+                            cls = 'string';
+                        }
+                    } else if (/true|false/.test(match)) {
+                        cls = 'boolean';
+                    } else if (/null/.test(match)) {
+                        cls = 'null';
+                    }
+                    return '<span class="' + cls + '">' + match + '</span>';
+                });
+            }
+
+            let finalSchemaText = '';
+
+            function generateSchema() {
+                const validFaqs = faqs.filter(f => f.q.trim() !== '' && f.a.trim() !== '');
+
+                if (validFaqs.length === 0) {
+                    jsonOutput.innerHTML = '<span style="color:var(--text-muted)">// Fill out at least one Question and Answer to generate the schema.</span>';
+                    finalSchemaText = '';
+                    return;
+                }
+
+                const schema = {
+                    "@context": "https://schema.org",
+                    "@type": "FAQPage",
+                    "mainEntity": validFaqs.map(f => ({
+                        "@type": "Question",
+                        "name": f.q.trim(),
+                        "acceptedAnswer": {
+                            "@type": "Answer",
+                            "text": f.a.trim().replace(/\n/g, ' ')
+                        }
+                    }))
+                };
+
+                const jsonStr = JSON.stringify(schema, null, 4);
+                
+                finalSchemaText = `<script type="application/ld+json">\n${jsonStr}\n</script>`;
+                
+                const highlighted = syntaxHighlight(jsonStr);
+                
+                jsonOutput.innerHTML = `<span style="color: #64748b">&lt;script type="application/ld+json"&gt;</span>\n` + highlighted + `\n<span style="color: #64748b">&lt;/script&gt;</span>`;
+            }
+
+            btnCopy.addEventListener('click', () => {
+                if (!finalSchemaText) return;
+                
+                navigator.clipboard.writeText(finalSchemaText).then(() => {
+                    const originalText = btnCopy.innerHTML;
+                    btnCopy.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Copied!';
+                    btnCopy.style.background = 'var(--accent)';
+                    btnCopy.style.color = '#000';
+                    
+                    setTimeout(() => {
+                        btnCopy.innerHTML = originalText;
+                        btnCopy.style.background = '';
+                        btnCopy.style.color = '';
+                    }, 2000);
+                });
+            });
+
+            // Init
+            renderInputFields();
+            generateSchema();
+        });
+    </script>
+</body>
+</html>

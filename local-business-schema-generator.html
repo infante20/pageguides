@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Local Business Schema Generator — PageGuides</title>
+    <meta name="description"
+        content="Free Local Business Schema Markup Generator. Easily create JSON-LD code for your local business to improve local SEO.">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --accent: #10b981;
+            --accent-glow: rgba(16, 185, 129, 0.15);
+            --bg-dark: #050508;
+            --bg-light: #111827;
+            --card-bg: rgba(30, 41, 59, 0.4);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --text: #f8fafc;
+            --text-muted: #94a3b8;
+            --warn: #f59e0b;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: radial-gradient(circle at top center, var(--bg-light) 0%, var(--bg-dark) 100%);
+            background-attachment: fixed;
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* NAV */
+        nav {
+            padding: 1.25rem 2rem;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            background: rgba(5, 5, 8, 0.8);
+            backdrop-filter: blur(12px);
+        }
+
+        .logo {
+            font-weight: 700;
+            font-size: 1.25rem;
+            letter-spacing: -0.02em;
+            color: var(--text);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo span { color: var(--accent); }
+
+        .back-link {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: color 0.2s;
+            font-weight: 500;
+        }
+
+        .back-link:hover { color: var(--text); }
+
+        /* CONTAINER */
+        .container {
+            max-width: 1200px;
+            margin: 4rem auto 6rem;
+            padding: 0 1.5rem;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .tool-icon {
+            width: 64px;
+            height: 64px;
+            background: linear-gradient(135deg, rgba(16,185,129,0.15), rgba(16,185,129,0.05));
+            border: 1px solid rgba(16,185,129,0.2);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin: 0 auto 1.5rem;
+            box-shadow: inset 0 2px 4px rgba(255,255,255,0.05), 0 8px 16px rgba(0,0,0,0.2);
+        }
+
+        h1 {
+            font-size: clamp(2rem, 4vw, 2.75rem);
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+            font-weight: 300;
+            line-height: 1.5;
+        }
+
+        /* LAYOUT */
+        .layout {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            align-items: start;
+        }
+
+        @media (min-width: 900px) {
+            .layout { grid-template-columns: 1fr 1fr; }
+        }
+
+        /* CARD */
+        .card {
+            background: var(--card-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .card-title {
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--accent);
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            padding-bottom: 0.75rem;
+        }
+
+        /* FORMS */
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.25rem;
+        }
+
+        @media (min-width: 768px) {
+            .form-grid { grid-template-columns: 1fr 1fr; }
+            .full-width { grid-column: 1 / -1; }
+        }
+
+        .form-group {
+            position: relative;
+        }
+
+        label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+            letter-spacing: 0.02em;
+        }
+
+        .required { color: var(--accent); }
+
+        input[type="text"], input[type="url"], select {
+            width: 100%;
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            padding: 0.875rem 1rem;
+            color: var(--text);
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.95rem;
+            transition: all 0.2s;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
+            -webkit-appearance: none;
+            appearance: none;
+        }
+        
+        select {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            padding-right: 2.5rem;
+        }
+        select option {
+            background: var(--bg-light);
+            color: var(--text);
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: rgba(16,185,129,0.5);
+            background: rgba(15, 23, 42, 0.8);
+            box-shadow: 0 0 0 3px rgba(16,185,129,0.1), inset 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .section-label {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text);
+            margin-top: 1rem;
+            margin-bottom: 0.5rem;
+            grid-column: 1 / -1;
+        }
+
+        /* CODE OUTPUT */
+        .code-container {
+            flex: 1;
+            background: rgba(5, 5, 8, 0.8);
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 12px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .code-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 1rem;
+            background: rgba(255,255,255,0.02);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .code-lang {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--accent);
+        }
+
+        .btn-copy {
+            background: rgba(255,255,255,0.1);
+            border: none;
+            color: var(--text);
+            padding: 0.4rem 0.75rem;
+            border-radius: 6px;
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .btn-copy:hover {
+            background: var(--accent);
+            color: #000;
+        }
+
+        pre {
+            margin: 0;
+            padding: 1.5rem;
+            overflow-x: auto;
+            flex: 1;
+        }
+
+        code {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            color: #e2e8f0;
+            line-height: 1.5;
+            white-space: pre;
+        }
+
+        .string { color: #a78bfa; }
+        .property { color: #60a5fa; }
+        .boolean { color: #fbbf24; }
+        .null { color: #94a3b8; }
+
+        @media (max-width: 768px) {
+            nav { padding: 1rem; }
+            .container { margin: 2rem auto 4rem; }
+            .card { padding: 1.5rem; }
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <a href="index.html" class="logo">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+            </svg>
+            PageGuides<span>.</span>
+        </a>
+        <a href="index.html" class="back-link">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+            All Tools
+        </a>
+    </nav>
+
+    <main class="container">
+        <header>
+            <div class="tool-icon">🏪</div>
+            <h1>Local Business Schema</h1>
+            <p class="subtitle">Generate accurate JSON-LD markup for your local business to display Rich Snippets and Knowledge Panels in search results.</p>
+        </header>
+
+        <div class="layout">
+            <!-- INPUTS -->
+            <div class="card">
+                <div class="card-title">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                        <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                    </svg>
+                    Business Information
+                </div>
+
+                <div class="form-grid">
+                    <div class="form-group full-width">
+                        <label>Business Type <span class="required">*</span></label>
+                        <select id="inType">
+                            <option value="LocalBusiness">Local Business (Generic)</option>
+                            <option value="Restaurant">Restaurant</option>
+                            <option value="Store">Store</option>
+                            <option value="MedicalClinic">Medical Clinic</option>
+                            <option value="Dentist">Dentist</option>
+                            <option value="LegalService">Legal Service</option>
+                            <option value="RealEstateAgent">Real Estate Agent</option>
+                            <option value="AccountingService">Accounting Service</option>
+                            <option value="AutomotiveBusiness">Automotive Business</option>
+                            <option value="Plumber">Plumber</option>
+                            <option value="HVACBusiness">HVAC Business</option>
+                            <option value="HairSalon">Hair Salon</option>
+                            <option value="HealthAndBeautyBusiness">Health & Beauty</option>
+                            <option value="SportsActivityLocation">Gym / Sports Facility</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label>Business Name <span class="required">*</span></label>
+                        <input type="text" id="inName" placeholder="e.g. Joe's Pizza">
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label>Image URL</label>
+                        <input type="url" id="inImage" placeholder="https://example.com/logo.jpg">
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label>Website URL</label>
+                        <input type="url" id="inUrl" placeholder="https://joespizza.com">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Phone Number <span class="required">*</span></label>
+                        <input type="text" id="inPhone" placeholder="+1-555-555-5555">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Price Range</label>
+                        <input type="text" id="inPrice" placeholder="e.g. $, $$, $$$" maxlength="5">
+                    </div>
+
+                    <div class="section-label">Address details</div>
+
+                    <div class="form-group full-width">
+                        <label>Street Address</label>
+                        <input type="text" id="inStreet" placeholder="123 Main St">
+                    </div>
+
+                    <div class="form-group">
+                        <label>City</label>
+                        <input type="text" id="inCity" placeholder="New York">
+                    </div>
+
+                    <div class="form-group">
+                        <label>State / Region</label>
+                        <input type="text" id="inState" placeholder="NY">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Zip / Postal Code</label>
+                        <input type="text" id="inZip" placeholder="10001">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Country</label>
+                        <input type="text" id="inCountry" placeholder="US">
+                    </div>
+                </div>
+            </div>
+
+            <!-- PREVIEW -->
+            <div class="card">
+                <div class="card-title">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="16 18 22 12 16 6"></polyline>
+                        <polyline points="8 6 2 12 8 18"></polyline>
+                    </svg>
+                    JSON-LD Code
+                </div>
+                
+                <div class="code-container">
+                    <div class="code-header">
+                        <span class="code-lang">html</span>
+                        <button class="btn-copy" id="btnCopy">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                            Copy Code
+                        </button>
+                    </div>
+                    <pre><code id="jsonOutput"></code></pre>
+                </div>
+                <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 1rem;">
+                    <strong>Instructions:</strong> Paste this code directly into the <code>&lt;head&gt;</code> or <code>&lt;body&gt;</code> section of your homepage or contact page.
+                </p>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const inputs = ['inType', 'inName', 'inImage', 'inUrl', 'inPhone', 'inPrice', 'inStreet', 'inCity', 'inState', 'inZip', 'inCountry'].map(id => document.getElementById(id));
+            const jsonOutput = document.getElementById('jsonOutput');
+            const btnCopy = document.getElementById('btnCopy');
+
+            function syntaxHighlight(json) {
+                json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+                return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function (match) {
+                    let cls = 'number';
+                    if (/^"/.test(match)) {
+                        if (/:$/.test(match)) {
+                            cls = 'property';
+                        } else {
+                            cls = 'string';
+                        }
+                    } else if (/true|false/.test(match)) {
+                        cls = 'boolean';
+                    } else if (/null/.test(match)) {
+                        cls = 'null';
+                    }
+                    return '<span class="' + cls + '">' + match + '</span>';
+                });
+            }
+
+            let finalSchemaText = '';
+
+            function generateSchema() {
+                const values = {};
+                inputs.forEach(input => {
+                    values[input.id.replace('in', '')] = input.value.trim();
+                });
+
+                if (!values.Name) {
+                    jsonOutput.innerHTML = '<span style="color:var(--text-muted)">// Provide at least a Business Name to generate schema.</span>';
+                    finalSchemaText = '';
+                    return;
+                }
+
+                const schema = {
+                    "@context": "https://schema.org",
+                    "@type": values.Type,
+                    "name": values.Name,
+                };
+
+                if (values.Image) schema.image = values.Image;
+                if (values.Url) schema.url = values.Url;
+                if (values.Phone) schema.telephone = values.Phone;
+                if (values.Price) schema.priceRange = values.Price;
+
+                if (values.Street || values.City || values.State || values.Zip || values.Country) {
+                    schema.address = {
+                        "@type": "PostalAddress"
+                    };
+                    if (values.Street) schema.address.streetAddress = values.Street;
+                    if (values.City) schema.address.addressLocality = values.City;
+                    if (values.State) schema.address.addressRegion = values.State;
+                    if (values.Zip) schema.address.postalCode = values.Zip;
+                    if (values.Country) schema.address.addressCountry = values.Country;
+                }
+
+                const jsonStr = JSON.stringify(schema, null, 4);
+                
+                finalSchemaText = `<script type="application/ld+json">\n${jsonStr}\n</script>`;
+                
+                const highlighted = syntaxHighlight(jsonStr);
+                
+                jsonOutput.innerHTML = `<span style="color: #64748b">&lt;script type="application/ld+json"&gt;</span>\n` + highlighted + `\n<span style="color: #64748b">&lt;/script&gt;</span>`;
+            }
+
+            inputs.forEach(input => input.addEventListener('input', generateSchema));
+
+            // Init
+            generateSchema();
+
+            btnCopy.addEventListener('click', () => {
+                if (!finalSchemaText) return;
+                
+                navigator.clipboard.writeText(finalSchemaText).then(() => {
+                    const originalText = btnCopy.innerHTML;
+                    btnCopy.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Copied!';
+                    btnCopy.style.background = 'var(--accent)';
+                    btnCopy.style.color = '#000';
+                    
+                    setTimeout(() => {
+                        btnCopy.innerHTML = originalText;
+                        btnCopy.style.background = '';
+                        btnCopy.style.color = '';
+                    }, 2000);
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Subject Line Tester — PageGuides</title>
+    <meta name="description" content="Analyze and score your email subject lines for higher open rates and better deliverability.">
+    <style>
+        :root {
+            --primary: #8b5cf6;
+            --bg: #0f172a;
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --text: #f8fafc;
+            --text-dim: #94a3b8;
+            --border: rgba(255, 255, 255, 0.1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', system-ui, sans-serif; }
+
+        body {
+            background-color: var(--bg);
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(139, 92, 246, 0.1) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(30, 41, 59, 1) 0px, transparent 50%);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem;
+        }
+
+        .container { width: 100%; max-width: 700px; }
+
+        .header { text-align: left; margin-bottom: 3rem; width: 100%; }
+        .logo { font-size: 1.5rem; font-weight: 800; color: var(--text); text-decoration: none; display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem; }
+        .logo span { color: var(--primary); }
+        .title { font-size: 2.5rem; font-weight: 800; margin-bottom: 0.5rem; letter-spacing: -0.025em; }
+        .subtitle { color: var(--text-dim); font-size: 1.1rem; }
+
+        .card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 1.5rem; padding: 2.5rem; }
+        
+        input { width: 100%; background: #000; border: 1px solid var(--border); border-radius: 1rem; padding: 1.5rem; color: white; font-size: 1.2rem; outline: none; margin-bottom: 2rem; }
+
+        .score-box { display: grid; grid-template-columns: 120px 1fr; gap: 2rem; align-items: center; }
+        .score-circle { width: 120px; height: 120px; border-radius: 50%; border: 8px solid rgba(139, 92, 246, 0.1); display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; }
+        .score-circle span { font-size: 2rem; font-weight: 900; color: var(--primary); }
+        .score-circle small { font-size: 0.7rem; font-weight: 700; color: var(--text-dim); }
+
+        .feedback-list { display: flex; flex-direction: column; gap: 0.75rem; }
+        .feedback-item { display: flex; align-items: center; gap: 0.5rem; font-size: 0.9rem; font-weight: 600; }
+        .dot { width: 8px; height: 8px; border-radius: 50%; }
+
+        footer { margin-top: 4rem; color: var(--text-dim); font-size: 0.9rem; text-align: center; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <a href="index.html" class="logo">Page<span>Guides</span></a>
+            <h1 class="title">Email Subject Tester</h1>
+            <p class="subtitle">Optimize your headlines for maximum click-through rates.</p>
+        </header>
+
+        <div class="card">
+            <input type="text" id="input" placeholder="e.g. You won't believe these 7 SEO hacks!" oninput="test()">
+
+            <div class="score-box">
+                <div class="score-circle">
+                    <span id="score">0</span>
+                    <small>SCORE</small>
+                </div>
+                <div class="feedback-list" id="feedback">
+                    <p style="color: var(--text-dim);">Start typing to see results...</p>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            &copy; 2026 PageGuides — Premium SEO Tool Suite
+        </footer>
+    </div>
+
+    <script>
+        function test() {
+            const val = document.getElementById('input').value;
+            const fb = document.getElementById('feedback');
+            const scoreEl = document.getElementById('score');
+
+            if (!val) {
+                fb.innerHTML = '<p style="color: var(--text-dim);">Start typing to see results...</p>';
+                scoreEl.textContent = '0';
+                return;
+            }
+
+            let score = 50;
+            let checks = [];
+
+            // Length check
+            if (val.length >= 40 && val.length <= 60) {
+                score += 15;
+                checks.push({text: 'Ideal length (40-60 chars)', ok: true});
+            } else {
+                score -= 10;
+                checks.push({text: 'Too short or too long', ok: false});
+            }
+
+            // Power words
+            const powerWords = [/free/i, /win/i, /exclusive/i, /now/i, /urgent/i, /hack/i];
+            if (powerWords.some(r => r.test(val))) {
+                score += 15;
+                checks.push({text: 'Includes power words', ok: true});
+            }
+
+            // Emoji
+            if (/[\u{1F300}-\u{1F6FF}]/u.test(val)) {
+                score += 10;
+                checks.push({text: 'Has emoji (increases attention)', ok: true});
+            }
+
+            // Spam words
+            const spam = [/buy/i, /$$$/i, /cash/i];
+            if (spam.some(r => r.test(val))) {
+                score -= 20;
+                checks.push({text: 'Avoid spammy words', ok: false});
+            }
+
+            score = Math.max(0, Math.min(100, score));
+            scoreEl.textContent = score;
+
+            fb.innerHTML = checks.map(c => `
+                <div class="feedback-item">
+                    <div class="dot" style="background: ${c.ok ? '#10b981' : '#ef4444'}"></div>
+                    <span>${c.text}</span>
+                </div>
+            `).join('');
+        }
+    </script>
+</body>
+</html>

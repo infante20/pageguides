@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="hi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>.htaccess रीडायरेक्ट जनरेटर — PageGuides</title>
+    <meta name="description"
+        content="अपनी साइट को तोड़े बिना अपनी .htaccess फ़ाइल के लिए 301 रीडायरेक्ट नियम तैयार करें, HTTPS को बाध्य करें या WWW को हटा दें।">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --accent: #10b981;
+            --accent-glow: rgba(16, 185, 129, 0.15);
+            --bg-dark: #050508;
+            --bg-light: #111827;
+            --card-bg: rgba(30, 41, 59, 0.4);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --text: #f8fafc;
+            --text-muted: #94a3b8;
+            --warn: #f59e0b;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: radial-gradient(circle at top center, var(--bg-light) 0%, var(--bg-dark) 100%);
+            background-attachment: fixed;
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        nav {
+            padding: 1.25rem 2rem;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            background: rgba(5, 5, 8, 0.8);
+            backdrop-filter: blur(12px);
+        }
+
+        .logo {
+            font-weight: 700;
+            font-size: 1.25rem;
+            letter-spacing: -0.02em;
+            color: var(--text);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo span { color: var(--accent); }
+
+        .back-link {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: color 0.2s;
+            font-weight: 500;
+        }
+
+        .back-link:hover { color: var(--text); }
+
+        .container {
+            max-width: 900px;
+            margin: 4rem auto 6rem;
+            padding: 0 1.5rem;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .tool-icon {
+            width: 64px;
+            height: 64px;
+            background: linear-gradient(135deg, rgba(16,185,129,0.15), rgba(16,185,129,0.05));
+            border: 1px solid rgba(16,185,129,0.2);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin: 0 auto 1.5rem;
+            box-shadow: inset 0 2px 4px rgba(255,255,255,0.05), 0 8px 16px rgba(0,0,0,0.2);
+        }
+
+        h1 {
+            font-size: clamp(2rem, 4vw, 2.75rem);
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+            font-weight: 300;
+            line-height: 1.5;
+        }
+
+        .layout {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            align-items: start;
+        }
+
+        @media (min-width: 800px) {
+            .layout { grid-template-columns: 1fr 1fr; }
+        }
+
+        .card {
+            background: var(--card-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
+            margin-bottom: 2rem;
+        }
+
+        .card-title {
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .card-title::before {
+            content: "";
+            display: block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--accent);
+            box-shadow: 0 0 8px var(--accent);
+        }
+
+        .form-group { margin-bottom: 1.5rem; }
+
+        label {
+            display: block;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
+        }
+
+        input[type="text"], input[type="url"], select {
+            width: 100%;
+            background: rgba(15, 23, 42, 0.6);
+            color: var(--text);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            padding: 1rem 1.25rem;
+            font-family: inherit;
+            font-size: 1.05rem;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        
+        input[disabled] {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px var(--accent-glow);
+        }
+
+        select {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            background-size: 1.2em;
+            cursor: pointer;
+        }
+
+        select option {
+            background: var(--bg-light);
+            color: var(--text);
+        }
+
+        /* TABS-LIKE SELECTION */
+        .mode-selection {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .mode-btn {
+            background: rgba(15, 23, 42, 0.4);
+            border: 1px solid rgba(255,255,255,0.05);
+            padding: 1rem 1.25rem;
+            border-radius: 12px;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            font-weight: 500;
+            cursor: pointer;
+            text-align: left;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-family: inherit;
+        }
+
+        .mode-btn:hover {
+            background: rgba(255,255,255,0.02);
+            color: var(--text);
+        }
+
+        .mode-btn.active {
+            background: var(--accent-glow);
+            color: var(--accent);
+            border-color: rgba(16, 185, 129, 0.3);
+        }
+
+        .mode-icon {
+            font-size: 1.25rem;
+        }
+
+        /* OUTPUT PANEL */
+        .output-panel {
+            position: sticky;
+            top: 6rem;
+        }
+
+        .output-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            background: rgba(15, 23, 42, 0.6);
+            padding: 0.75rem 1.25rem;
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .output-title {
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-small {
+            background: rgba(255,255,255,0.05);
+            color: var(--text);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 8px;
+            padding: 0.35rem 0.85rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: inherit;
+            transition: all 0.2s;
+        }
+
+        .btn-small.primary {
+            background: var(--accent-glow);
+            color: var(--accent);
+            border-color: rgba(16, 185, 129, 0.3);
+        }
+
+        .btn-small:hover { transform: translateY(-1px); }
+        .btn-small.primary:hover, .btn-small.active {
+            background: var(--accent);
+            color: #050508;
+        }
+
+        pre {
+            background: #0d1117;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 16px;
+            padding: 1.5rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            color: #e2e8f0;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            min-height: 250px;
+            line-height: 1.6;
+            box-shadow: inset 0 2px 10px rgba(0,0,0,0.5);
+        }
+        
+        pre .kw { color: #8b5cf6; font-weight: bold; } /* Purple for directives like RewriteEngine */
+        pre .cond { color: #f59e0b; } /* Yellow for conditions */
+        pre .rule { color: #3b82f6; } /* Blue for rules */
+        pre .flag { color: #ec4899; } /* Pink for flags [R=301,L] */
+        pre .cmnt { color: #64748b; font-style: italic; }
+
+        .tips {
+            background: linear-gradient(to right, rgba(245,158,11,0.05), transparent);
+            border-left: 3px solid var(--warn);
+            padding: 1.5rem;
+            border-radius: 0 16px 16px 0;
+            margin-top: 2rem;
+        }
+
+        .tips h3 {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--warn);
+            margin-bottom: 0.75rem;
+            font-weight: 700;
+        }
+
+        .tips p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 4rem;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            font-family: 'JetBrains Mono', monospace;
+            grid-column: 1 / -1;
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <a href="index.html" class="logo">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                <line x1="12" y1="22.08" x2="12" y2="12"></line>
+            </svg>
+            Page<span>Guides</span>
+        </a>
+        <div style="display: flex; align-items: center; gap: 1.5rem;">
+            
+        <div class="lang-selector">
+            <button class="lang-btn" aria-haspopup="true" aria-expanded="false">
+                🇮🇳 HI
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+            </button>
+            <div class="lang-dropdown">
+                    <a href="../htaccess-redirect-generator.html" class="lang-option"><span class="lang-flag">🇺🇸</span> English</a>
+                    <a href="../es/htaccess-redirect-generator.html" class="lang-option"><span class="lang-flag">🇪🇸</span> Español</a>
+                    <a href="../fr/htaccess-redirect-generator.html" class="lang-option"><span class="lang-flag">🇫🇷</span> Français</a>
+                    <a href="../pt/htaccess-redirect-generator.html" class="lang-option"><span class="lang-flag">🇧🇷</span> Português</a>
+                    <a href="htaccess-redirect-generator.html" class="lang-option active"><span class="lang-flag">🇮🇳</span> हिन्दी</a>
+                </div>
+        </div>
+
+            <a href="/hi/" class="back-link">
+                ← उपकरणों पर वापस जाएं
+            </a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <header>
+            <div class="tool-icon">🚦</div>
+            <h1>.htaccess Redirect Generator</h1>
+            <p class="subtitle">सुरक्षित 301 रीडायरेक्ट नियम तैयार करें। HTTPS को बाध्य करें, WWW हटाएं या पूर्ण दक्षता के साथ व्यक्तिगत पृष्ठों को रीडायरेक्ट करें।</p>
+        </header>
+
+        <div class="layout">
+            <!-- Controls -->
+            <div class="card">
+                <div class="card-title">रीडायरेक्ट का प्रकार चुनें</div>
+                
+                <div class="mode-selection">
+                    <button class="mode-btn active" onclick="setMode('301', this)">
+                        <span class="mode-icon">🔄</span> व्यक्तिगत 301 रीडायरेक्ट
+                    </button>
+                    <button class="mode-btn" onclick="setMode('https', this)">
+                        <span class="mode-icon">🔒</span> HTTPS (SSL) बाध्य करें
+                    </button>
+                    <button class="mode-btn" onclick="setMode('nowww', this)">
+                        <span class="mode-icon">🌐</span> WWW को गैर-WWW में रीडायरेक्ट करें
+                    </button>
+                    <button class="mode-btn" onclick="setMode('www', this)">
+                        <span class="mode-icon">🕸️</span> गैर-WWW को WWW में रीडायरेक्ट करें
+                    </button>
+                </div>
+
+                <div id="dynamicInputs">
+                    <!-- Inputs injected via JS -->
+                </div>
+
+                <div class="tips">
+                    <h3>ध्यान दें</h3>
+                    <p>इन परिवर्तनों को लागू करने से पहले अपनी वर्तमान <code>.htaccess</code> फ़ाइल का बैकअप लें। एक छोटी सिंटैक्स त्रुटि आपकी पूरी वेबसाइट पर "500 त्रुटि" का कारण बन सकती है।</p>
+                </div>
+            </div>
+
+            <!-- Output -->
+            <div class="output-panel">
+                <div class="output-header">
+                    <span class="output-title">📄 .htaccess कोड</span>
+                    <button class="btn-small primary" onclick="copyCode()">Copy</button>
+                </div>
+                
+                <pre id="outputPre">कोड जनरेट करने के लिए विकल्प चुनें।</pre>
+            </div>
+
+            <footer>
+                &copy; <span id="time"></span> PageGuides.com — StudioLimb Creative Suite
+            </footer>
+        </div>
+    </div>
+
+    <script>
+        let currentMode = '301';
+
+        function setMode(mode, btnEl) {
+            currentMode = mode;
+            document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
+            btnEl.classList.add('active');
+            renderInputs();
+            generate();
+        }
+
+        function renderInputs() {
+            const container = document.getElementById('dynamicInputs');
+            let html = '';
+
+            if (currentMode === '301') {
+                html = `
+                    <div class="form-group slide-in">
+                        <label>मूल URL (सापेक्ष पथ)</label>
+                        <input type="text" id="urlFrom" placeholder="/vieja-pagina.html" oninput="generate()">
+                    </div>
+                    <div class="form-group slide-in">
+                        <label>गंतव्य URL (पूर्ण या सापेक्ष)</label>
+                        <input type="text" id="urlTo" placeholder="https://miweb.com/nueva-pagina/" oninput="generate()">
+                    </div>
+                `;
+            } else if (currentMode === 'nowww' || currentMode === 'www' || currentMode === 'https') {
+                html = `
+                    <div class="form-group slide-in">
+                        <label>आपका डोमेन (प्रोटोकॉल या www के बिना)</label>
+                        <input type="text" id="domain" placeholder="ejemplo.com" oninput="generate()">
+                    </div>
+                `;
+            }
+            container.innerHTML = html;
+        }
+
+        // Add syntax highlighting for apache
+        function highlightApache(text) {
+            let escape = text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+            
+            // Comments
+            escape = escape.replace(/(#.*)/g, '<span class="cmnt">$1</span>');
+            
+            // RewriteEngine, RewriteCond, RewriteRule, Redirect 301
+            escape = escape.replace(/\b(RewriteEngine|RewriteCond|RewriteRule|Redirect(Match)?\s+301)\b/g, '<span class="kw">$1</span>');
+            
+            // Flags like [R=301,L]
+            escape = escape.replace(/(\[[^\]]+\])/g, '<span class="flag">$1</span>');
+            
+            return escape;
+        }
+
+        function generate() {
+            let lines = [];
+            
+            if (currentMode === '301') {
+                const urlFrom = document.getElementById('urlFrom').value.trim() || '/ruta-antigua/';
+                const urlTo = document.getElementById('urlTo').value.trim() || '/ruta-nueva/';
+                
+                lines.push(`# पुराने पेज से नए पेज पर 301 रीडायरेक्ट`);
+                lines.push(`Redirect 301 ${urlFrom} ${urlTo}`);
+            } 
+            else if (currentMode === 'https') {
+                const domain = document.getElementById('domain').value.trim() || 'tusitio.com';
+                
+                lines.push(`# HTTPS बाध्य करें`);
+                lines.push(`RewriteEngine On`);
+                lines.push(`RewriteCond %{HTTPS} off`);
+                lines.push(`RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]`);
+            }
+            else if (currentMode === 'nowww') {
+                const domain = document.getElementById('domain').value.trim() || 'tusitio.com';
+                
+                lines.push(`# WWW को गैर-WWW में रीडायरेक्ट करें`);
+                lines.push(`RewriteEngine On`);
+                lines.push(`RewriteCond %{HTTP_HOST} ^www.${domain.replace(/\./g, '\\.')} [NC]`);
+                lines.push(`RewriteRule ^(.*)$ https://${domain}/$1 [L,R=301]`);
+            }
+            else if (currentMode === 'www') {
+                const domain = document.getElementById('domain').value.trim() || 'tusitio.com';
+                
+                lines.push(`# गैर-WWW को WWW में रीडायरेक्ट करें`);
+                lines.push(`RewriteEngine On`);
+                lines.push(`RewriteCond %{HTTP_HOST} ^${domain.replace(/\./g, '\\.')} [NC]`);
+                lines.push(`RewriteRule ^(.*)$ https://www.${domain}/$1 [L,R=301]`);
+            }
+
+            const raw = lines.join('\n');
+            const pre = document.getElementById('outputPre');
+            
+            pre.innerHTML = highlightApache(raw);
+            pre.dataset.raw = raw;
+        }
+
+        function copyCode() {
+            const raw = document.getElementById('outputPre').dataset.raw;
+            if(!raw) return;
+            
+            navigator.clipboard.writeText(raw).then(() => {
+                const btn = document.querySelector('.btn-small.primary');
+                const orig = btn.textContent;
+                btn.textContent = 'Copied!';
+                btn.classList.add('active');
+                setTimeout(() => {
+                    btn.textContent = orig;
+                    btn.classList.remove('active');
+                }, 1800);
+            });
+        }
+
+        // Init
+        document.getElementById('time').innerText = new Date().getFullYear();
+        renderInputs();
+        generate();
+    </script>
+</body>
+
+</html>

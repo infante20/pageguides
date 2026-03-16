@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UTM Bulk Batcher — PageGuides</title>
+    <meta name="description" content="Generate UTM tracked links for multiple URLs at once to streamline your campaign management.">
+    <style>
+        :root {
+            --primary: #fb7185;
+            --bg: #0f172a;
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --text: #f8fafc;
+            --text-dim: #94a3b8;
+            --border: rgba(255, 255, 255, 0.1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', system-ui, sans-serif; }
+
+        body {
+            background-color: var(--bg);
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(251, 113, 133, 0.1) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(30, 41, 59, 1) 0px, transparent 50%);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem;
+        }
+
+        .container { width: 100%; max-width: 1000px; }
+
+        .header { text-align: left; margin-bottom: 2rem; width: 100%; }
+        .logo { font-size: 1.5rem; font-weight: 800; color: var(--text); text-decoration: none; display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem; }
+        .logo span { color: var(--primary); }
+        .title { font-size: 2.5rem; font-weight: 800; margin-bottom: 0.5rem; letter-spacing: -0.025em; }
+        .subtitle { color: var(--text-dim); font-size: 1.1rem; }
+
+        .card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 1.5rem; padding: 2rem; display: grid; grid-template-columns: 300px 1fr; gap: 2rem; }
+        
+        .sidebar label { display: block; font-size: 0.7rem; font-weight: 800; color: var(--primary); text-transform: uppercase; margin-bottom: 0.5rem; letter-spacing: 0.05em; }
+        .sidebar input { width: 100%; background: #000; border: 1px solid var(--border); padding: 0.75rem; border-radius: 0.5rem; color: white; margin-bottom: 1rem; outline: none; }
+
+        textarea { width: 100%; height: 400px; background: #000; border: 1px solid var(--border); border-radius: 1rem; padding: 1.5rem; color: white; font-family: 'Fira Code', monospace; resize: none; margin-bottom: 1rem; outline: none; }
+
+        .btn { background: var(--primary); color: white; border: none; padding: 0.75rem 1.5rem; border-radius: 0.5rem; font-weight: 700; cursor: pointer; width: 100%; }
+
+        footer { margin-top: 4rem; color: var(--text-dim); font-size: 0.9rem; text-align: center; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <a href="index.html" class="logo">Page<span>Guides</span></a>
+            <h1 class="title">UTM Bulk Batcher</h1>
+            <p class="subtitle">Apply campaign parameters to a list of URLs in seconds.</p>
+        </header>
+
+        <div class="card">
+            <div class="sidebar">
+                <label>Source</label>
+                <input type="text" id="src" value="google" oninput="update()">
+                <label>Medium</label>
+                <input type="text" id="med" value="cpc" oninput="update()">
+                <label>Campaign Name</label>
+                <input type="text" id="cam" value="summer_sale" oninput="update()">
+                <label>Campaign Content</label>
+                <input type="text" id="con" placeholder="optional" oninput="update()">
+                
+                <button class="btn" onclick="copyAll()">COPY ALL LINKS</button>
+            </div>
+            <div>
+                <label style="display: block; font-size: 0.7rem; font-weight: 800; color: var(--text-dim); margin-bottom: 0.5rem;">URL LIST (ONE PER LINE)</label>
+                <textarea id="urls" placeholder="https://example.com/product-1&#10;https://example.com/product-2" oninput="update()"></textarea>
+                <label style="display: block; font-size: 0.7rem; font-weight: 800; color: var(--text-dim); margin-bottom: 0.5rem;">GENERATED LINKS</label>
+                <textarea id="output" readonly></textarea>
+            </div>
+        </div>
+
+        <footer>
+            &copy; 2026 PageGuides — Premium SEO Tool Suite
+        </footer>
+    </div>
+
+    <script>
+        function update() {
+            const urls = document.getElementById('urls').value.split('\n').filter(u => u.trim() !== '');
+            const src = document.getElementById('src').value.trim();
+            const med = document.getElementById('med').value.trim();
+            const cam = document.getElementById('cam').value.trim();
+            const con = document.getElementById('con').value.trim();
+
+            if (!src || !med || !cam) return;
+
+            const results = urls.map(u => {
+                const url = new URL(u.trim());
+                url.searchParams.set('utm_source', src);
+                url.searchParams.set('utm_medium', med);
+                url.searchParams.set('utm_campaign', cam);
+                if (con) url.searchParams.set('utm_content', con);
+                return url.toString();
+            });
+
+            document.getElementById('output').value = results.join('\n');
+        }
+
+        function copyAll() {
+            const out = document.getElementById('output');
+            out.select();
+            document.execCommand('copy');
+            alert('Links copied!');
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generador de Schema JSON-LD — PageGuides</title>
+    <meta name="description"
+        content="Genera marcado profesional de Schema.org (JSON-LD) para FAQs, Artículos y Negocios Locales. Mejora tu visibilidad y CTR en Google.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --accent: #10b981;
+            --accent-glow: rgba(16, 185, 129, 0.15);
+            --bg-dark: #050508;
+            --bg-light: #111827;
+            --card-bg: rgba(30, 41, 59, 0.4);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --text: #f8fafc;
+            --text-muted: #94a3b8;
+            --warn: #f59e0b;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: radial-gradient(circle at top center, var(--bg-light) 0%, var(--bg-dark) 100%);
+            background-attachment: fixed;
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* NAV */
+        nav {
+            padding: 1.25rem 2rem;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            background: rgba(5, 5, 8, 0.8);
+            backdrop-filter: blur(12px);
+        }
+
+        .logo {
+            font-weight: 700;
+            font-size: 1.25rem;
+            letter-spacing: -0.02em;
+            color: var(--text);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo span { color: var(--accent); }
+
+        .back-link {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: color 0.2s;
+            font-weight: 500;
+        }
+
+        .back-link:hover { color: var(--text); }
+
+        /* CONTAINER */
+        .container {
+            max-width: 900px;
+            margin: 4rem auto 6rem;
+            padding: 0 1.5rem;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .tool-icon {
+            width: 64px;
+            height: 64px;
+            background: linear-gradient(135deg, rgba(16,185,129,0.15), rgba(16,185,129,0.05));
+            border: 1px solid rgba(16,185,129,0.2);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin: 0 auto 1.5rem;
+            box-shadow: inset 0 2px 4px rgba(255,255,255,0.05), 0 8px 16px rgba(0,0,0,0.2);
+        }
+
+        h1 {
+            font-size: clamp(2rem, 4vw, 2.75rem);
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+            font-weight: 300;
+            line-height: 1.5;
+        }
+
+        /* LAYOUT */
+        .layout {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            align-items: start;
+        }
+
+        @media (min-width: 800px) {
+            .layout { grid-template-columns: 1.1fr 0.9fr; }
+        }
+
+        /* CARD */
+        .card {
+            background: var(--card-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
+        }
+
+        .card-title {
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .form-group { margin-bottom: 1.25rem; }
+
+        label {
+            display: block;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
+        }
+
+        input[type="text"], input[type="url"], textarea, select {
+            width: 100%;
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: var(--text);
+            padding: 0.9rem 1.1rem;
+            border-radius: 12px;
+            font-family: inherit;
+            font-size: 0.95rem;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px var(--accent-glow);
+        }
+
+        select {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            background-size: 1.2em;
+            cursor: pointer;
+        }
+        
+        select option {
+            background: var(--bg-light);
+            color: var(--text);
+        }
+
+        textarea { resize: vertical; min-height: 80px; }
+
+        /* FAQ LIST */
+        .faq-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        
+        .faq-item {
+            background: rgba(15, 23, 42, 0.3);
+            border: 1px solid rgba(255,255,255,0.05);
+            padding: 1.25rem;
+            border-radius: 12px;
+            position: relative;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .faq-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.75rem;
+        }
+
+        .faq-num {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .remove-faq {
+            background: transparent;
+            color: var(--text-muted);
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+            line-height: 1;
+            padding: 0.2rem;
+            transition: color 0.15s;
+        }
+        
+        .remove-faq:hover { color: #ef4444; }
+
+        .add-btn {
+            background: rgba(16,185,129,0.1);
+            color: var(--accent);
+            border: 1px solid rgba(16,185,129,0.3);
+            border-radius: 8px;
+            padding: 0.75rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: inherit;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            width: 100%;
+            margin-top: 1rem;
+        }
+
+        .add-btn:hover {
+            background: var(--accent);
+            color: #050508;
+            border-color: var(--accent);
+        }
+
+        /* OUTPUT PANEL */
+        .output-panel {
+            position: sticky;
+            top: 6rem;
+        }
+
+        .output-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            background: rgba(15, 23, 42, 0.6);
+            padding: 0.75rem 1.25rem;
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .output-title {
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .action-btn {
+            background: var(--accent-glow);
+            color: var(--accent);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            border-radius: 8px;
+            padding: 0.4rem 1rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: inherit;
+            transition: all 0.2s;
+        }
+
+        .action-btn:hover, .action-btn.active {
+            background: var(--accent);
+            color: #050508;
+            transform: translateY(-1px);
+        }
+
+        pre {
+            background: #0d1117;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 16px;
+            padding: 1.5rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            color: #e2e8f0;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            min-height: 350px;
+            line-height: 1.6;
+            box-shadow: inset 0 2px 10px rgba(0,0,0,0.5);
+        }
+        
+        pre .string { color: #a5d6ff; }
+        pre .number { color: #79c0ff; }
+        pre .boolean { color: #56d364; }
+        pre .null { color: #8b949e; }
+        pre .key { color: #7ee787; font-weight: 500; }
+
+        /* TOOLTIPS & TIPS */
+        .tips {
+            background: linear-gradient(to right, rgba(16,185,129,0.05), transparent);
+            border-left: 3px solid var(--accent);
+            padding: 1.25rem;
+            border-radius: 0 12px 12px 0;
+            margin-top: 2rem;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+        
+        .tips strong { color: var(--text); }
+
+        footer {
+            text-align: center;
+            margin-top: 4rem;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            font-family: 'JetBrains Mono', monospace;
+            grid-column: 1 / -1;
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <a href="index.html" class="logo">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                <line x1="12" y1="22.08" x2="12" y2="12"></line>
+            </svg>
+            Page<span>Guides</span>
+        </a>
+        <div style="display: flex; align-items: center; gap: 1.5rem;">
+            
+        <div class="lang-selector">
+            <button class="lang-btn" aria-haspopup="true" aria-expanded="false">
+                🇪🇸 ES
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+            </button>
+            <div class="lang-dropdown">
+                    <a href="../schema-generator.html" class="lang-option"><span class="lang-flag">🇺🇸</span> English</a>
+                    <a href="schema-generator.html" class="lang-option active"><span class="lang-flag">🇪🇸</span> Español</a>
+                    <a href="../fr/schema-generator.html" class="lang-option"><span class="lang-flag">🇫🇷</span> Français</a>
+                    <a href="../pt/schema-generator.html" class="lang-option"><span class="lang-flag">🇧🇷</span> Português</a>
+                    <a href="../hi/schema-generator.html" class="lang-option"><span class="lang-flag">🇮🇳</span> हिन्दी</a>
+                </div>
+        </div>
+
+            <a href="/es/" class="back-link">
+                ← Volver a Herramientas
+            </a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <header>
+            <div class="tool-icon">🧱</div>
+            <h1>Generador de Schema JSON-LD</h1>
+            <p class="subtitle">Genera datos estructurados válidos listos para Google. Aumenta tus posibilidades de obtener Fragmentos Enriquecidos.</p>
+        </header>
+
+        <div class="layout">
+            <!-- Inputs -->
+            <div class="card">
+                <div class="form-group">
+                    <label>Tipo de Schema</label>
+                    <select id="schemaType" onchange="toggleFields(); generate()">
+                        <option value="faq">Preguntas Frecuentes (FAQPage)</option>
+                        <option value="article">Artículo de Blog (Article)</option>
+                        <option value="local">Negocio Local (LocalBusiness)</option>
+                    </select>
+                </div>
+
+                <div id="faqFields">
+                    <div class="card-title" style="margin-top:1.5rem">Preguntas y Respuestas</div>
+                    <div id="faqContainer" class="faq-list">
+                        <!-- FAQs will be generated here -->
+                    </div>
+                    <button class="add-btn" onclick="addFAQ()">+ Añadir Pregunta</button>
+                    
+                    <div class="tips">
+                        <strong>Tip:</strong> Google prefers FAQs that directly answer search intent. Avoid long promotional texts.
+                    </div>
+                </div>
+
+                <div id="articleFields" style="display:none">
+                    <div class="card-title" style="margin-top:1.5rem">Datos del Artículo</div>
+                    <div class="form-group">
+                        <label>Titular</label>
+                        <input type="text" id="artTitular" placeholder="E.g.: 10 Advanced SEO Tricks" oninput="generate()">
+                    </div>
+                    <div class="form-group">
+                        <label>URL de Imagen Principal</label>
+                        <input type="url" id="artImage" placeholder="https://pageguides.com/img/seo.jpg" oninput="generate()">
+                    </div>
+                    <div class="form-group">
+                        <label>Autor / Escritor</label>
+                        <input type="text" id="artAuthor" placeholder="Author name" oninput="generate()">
+                    </div>
+                    <div class="form-group">
+                        <label>Editor (URL del Logo del Sitio)</label>
+                        <input type="url" id="artLogo" placeholder="https://pageguides.com/logo.png" oninput="generate()">
+                    </div>
+                    <div class="form-group">
+                        <label>Fecha de Publicación</label>
+                        <input style="color-scheme: dark" type="date" id="artDate" oninput="generate()">
+                    </div>
+                </div>
+
+                <div id="localFields" style="display:none">
+                    <div class="card-title" style="margin-top:1.5rem">Información del Negocio</div>
+                    <div class="form-group">
+                        <label>Nombre del Negocio</label>
+                        <input type="text" id="bizName" placeholder="E.g.: Dental Clinic New York" oninput="generate()">
+                    </div>
+                    <div class="form-group">
+                        <label>URL de Imagen o Foto</label>
+                        <input type="url" id="bizImage" placeholder="https://miweb.com/foto-local.jpg" oninput="generate()">
+                    </div>
+                    <div class="form-group">
+                        <label>Teléfono</label>
+                        <input type="text" id="bizTeléfono" placeholder="+1 212 345 678" oninput="generate()">
+                    </div>
+                    <div class="form-group">
+                        <label>Dirección</label>
+                        <input type="text" id="bizStreet" placeholder="123 Example Street" oninput="generate()" style="margin-bottom:0.5rem">
+                        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:0.5rem">
+                            <input type="text" id="bizCity" placeholder="City" oninput="generate()">
+                            <input type="text" id="bizZip" placeholder="ZIP" oninput="generate()">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Output -->
+            <div class="output-panel">
+                <div class="output-header">
+                    <span class="output-title">📋 Código JSON-LD</span>
+                    <button class="action-btn" onclick="copySchema()">Copiar Código</button>
+                </div>
+                
+                <pre id="outputPre"></pre>
+            </div>
+        </div>
+
+        <footer>
+            &copy; <span id="time"></span> PageGuides.com — StudioLimb Creative Suite
+        </footer>
+    </div>
+
+    <script>
+        // Syntax Highlight logic for JSON
+        function syntaxHighlight(json) {
+            if (typeof json != 'string') {
+                 json = JSON.stringify(json, undefined, 2);
+            }
+            json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+            return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function (match) {
+                var cls = 'number';
+                if (/^"/.test(match)) {
+                    if (/:$/.test(match)) {
+                        cls = 'key';
+                    } else {
+                        cls = 'string';
+                    }
+                } else if (/true|false/.test(match)) {
+                    cls = 'boolean';
+                } else if (/null/.test(match)) {
+                    cls = 'null';
+                }
+                return '<span class="' + cls + '">' + match + '</span>';
+            });
+        }
+
+        // FAQ Logic
+        let faqCount = 0;
+        function addFAQ() {
+            faqCount++;
+            const container = document.getElementById('faqContainer');
+            const div = document.createElement('div');
+            div.className = 'faq-item';
+            div.innerHTML = `
+                <div class="faq-header">
+                    <span class="faq-num">Question ${faqCount}</span>
+                    <button class="remove-faq" onclick="this.parentElement.parentElement.remove(); generate()">×</button>
+                </div>
+                <div class="form-group" style="margin-bottom:0.75rem">
+                    <input type="text" class="q-input" placeholder="E.g.: What does the service include?" oninput="generate()">
+                </div>
+                <div class="form-group" style="margin-bottom:0">
+                    <textarea class="a-input" rows="2" placeholder="Briefly describe the answer..." oninput="generate()"></textarea>
+                </div>
+            `;
+            container.appendChild(div);
+            generate();
+        }
+
+        // Toggle Fields
+        function toggleFields() {
+            const type = document.getElementById('schemaType').value;
+            document.getElementById('faqFields').style.display = type === 'faq' ? 'block' : 'none';
+            document.getElementById('articleFields').style.display = type === 'article' ? 'block' : 'none';
+            document.getElementById('localFields').style.display = type === 'local' ? 'block' : 'none';
+            
+            // Set initial state for new type
+            if(type === 'faq' && document.querySelectorAll('.faq-item').length === 0) {
+                addFAQ();
+            } else if (type === 'article' && !document.getElementById('artDate').value) {
+                document.getElementById('artDate').valueAsDate = new Date();
+            }
+        }
+
+        // Generate Schema
+        function generate() {
+            const type = document.getElementById('schemaType').value;
+            let schema = { "@context": "https://schema.org" };
+
+            if (type === 'faq') {
+                schema["@type"] = "FAQPage";
+                const qInputs = document.querySelectorAll('.q-input');
+                const aInputs = document.querySelectorAll('.a-input');
+                let mainEntity = [];
+                
+                for(let i=0; i<qInputs.length; i++) {
+                    let q = qInputs[i].value.trim() || 'Question?';
+                    let a = aInputs[i].value.trim() || 'Answer.';
+                    mainEntity.push({
+                        "@type": "Question",
+                        "name": q,
+                        "acceptedAnswer": {
+                            "@type": "Answer",
+                            "text": a
+                        }
+                    });
+                }
+                
+                if(mainEntity.length > 0) schema["mainEntity"] = mainEntity;
+                else schema["mainEntity"] = [];
+                
+            } 
+            else if (type === 'article') {
+                schema["@type"] = "Article";
+                schema["headline"] = document.getElementById('artTitular').value.trim() || "Article Titular";
+                
+                let img = document.getElementById('artImage').value.trim();
+                if(img) schema["image"] = img;
+                
+                let date = document.getElementById('artDate').value;
+                if(date) schema["datePublished"] = new Date(date).toISOString();
+                
+                let author = document.getElementById('artAuthor').value.trim();
+                if(author) {
+                    schema["author"] = [{
+                        "@type": "Person",
+                        "name": author
+                    }];
+                }
+            }
+            else if (type === 'local') {
+                schema["@type"] = "LocalBusiness";
+                schema["name"] = document.getElementById('bizName').value.trim() || "Nombre del Negocio";
+                
+                let img = document.getElementById('bizImage').value.trim();
+                let phone = document.getElementById('bizTeléfono').value.trim();
+                let street = document.getElementById('bizStreet').value.trim();
+                let city = document.getElementById('bizCity').value.trim();
+                let zip = document.getElementById('bizZip').value.trim();
+                
+                if(img) schema["image"] = img;
+                if(phone) schema["telephone"] = phone;
+                
+                if(street || city || zip) {
+                    schema["address"] = {
+                        "@type": "PostalDirección",
+                        "streetDirección": street,
+                        "addressLocality": city,
+                        "postalCode": zip
+                    };
+                }
+            }
+
+            // Create script tags wrap
+            const scriptTop = '&lt;script type="application/ld+json"\&gt;\n';
+            const jsonBody = syntaxHighlight(schema);
+            const scriptBot = '\n&lt;/script\&gt;';
+
+            document.getElementById('outputPre').innerHTML = scriptTop + jsonBody + scriptBot;
+            
+            // Store raw for copying
+            document.getElementById('outputPre').setAttribute('data-raw', `<script type="application/ld+json">\n${JSON.stringify(schema, null, 2)}\n</script>`);
+        }
+
+        function copySchema() {
+            const raw = document.getElementById('outputPre').getAttribute('data-raw');
+            navigator.clipboard.writeText(raw).then(() => {
+                const btn = document.querySelector('.action-btn');
+                const orig = btn.innerText;
+                btn.innerText = 'COPIED!';
+                btn.classList.add('active');
+                setTimeout(() => {
+                    btn.innerText = orig;
+                    btn.classList.remove('active');
+                }, 1800);
+            });
+        }
+
+        // Init
+        document.getElementById('time').innerText = new Date().getFullYear();
+        toggleFields();
+        generate();
+    </script>
+</body>
+
+</html>

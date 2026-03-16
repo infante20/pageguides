@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Keyword Typo Generator — PageGuides</title>
+    <meta name="description"
+        content="Free Keyword Typo Generator. Generate common misspellings of your keywords to capture typo search traffic or build negative keyword lists.">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --accent: #10b981;
+            --accent-glow: rgba(16, 185, 129, 0.15);
+            --bg-dark: #050508;
+            --bg-light: #111827;
+            --card-bg: rgba(30, 41, 59, 0.4);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --text: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: radial-gradient(circle at top center, var(--bg-light) 0%, var(--bg-dark) 100%);
+            background-attachment: fixed;
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* NAV */
+        nav {
+            padding: 1.25rem 2rem;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            background: rgba(5, 5, 8, 0.8);
+            backdrop-filter: blur(12px);
+        }
+
+        .logo {
+            font-weight: 700;
+            font-size: 1.25rem;
+            letter-spacing: -0.02em;
+            color: var(--text);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo span { color: var(--accent); }
+
+        .back-link {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: color 0.2s;
+            font-weight: 500;
+        }
+
+        .back-link:hover { color: var(--text); }
+
+        /* CONTAINER */
+        .container {
+            max-width: 900px;
+            margin: 4rem auto 6rem;
+            padding: 0 1.5rem;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .tool-icon {
+            width: 64px;
+            height: 64px;
+            background: linear-gradient(135deg, rgba(16,185,129,0.15), rgba(16,185,129,0.05));
+            border: 1px solid rgba(16,185,129,0.2);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin: 0 auto 1.5rem;
+            box-shadow: inset 0 2px 4px rgba(255,255,255,0.05), 0 8px 16px rgba(0,0,0,0.2);
+        }
+
+        h1 {
+            font-size: clamp(2rem, 4vw, 2.75rem);
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+            font-weight: 300;
+            line-height: 1.5;
+        }
+
+        /* CARD */
+        .card {
+            background: var(--card-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
+            margin-bottom: 2rem;
+        }
+
+        .card-title {
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* OPTIONS */
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            font-size: 0.95rem;
+            color: var(--text);
+            user-select: none;
+            padding: 0.75rem 1rem;
+            background: rgba(15, 23, 42, 0.4);
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 10px;
+            transition: all 0.2s;
+        }
+
+        .checkbox-label:hover {
+            background: rgba(15, 23, 42, 0.8);
+            border-color: rgba(255,255,255,0.1);
+        }
+
+        .checkbox-label input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+            height: 0;
+            width: 0;
+        }
+
+        .checkmark {
+            position: relative;
+            height: 20px;
+            width: 20px;
+            background-color: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 6px;
+            margin-right: 12px;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .checkbox-label input:checked ~ .checkmark {
+            background-color: var(--accent);
+            border-color: var(--accent);
+        }
+
+        .checkmark:after {
+            content: "";
+            position: absolute;
+            display: none;
+            left: 6px;
+            top: 2px;
+            width: 5px;
+            height: 10px;
+            border: solid #000;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+
+        .checkbox-label input:checked ~ .checkmark:after {
+            display: block;
+        }
+
+        /* TEXTAREA */
+        .form-group { margin-bottom: 2rem; }
+        
+        label.block-label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            margin-bottom: 0.75rem;
+            letter-spacing: 0.02em;
+        }
+
+        textarea {
+            width: 100%;
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            padding: 1rem;
+            color: var(--text);
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.95rem;
+            transition: all 0.2s;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
+            resize: vertical;
+            min-height: 120px;
+            line-height: 1.5;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: rgba(16,185,129,0.5);
+            background: rgba(15, 23, 42, 0.8);
+            box-shadow: 0 0 0 3px rgba(16,185,129,0.1), inset 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        /* BUTTONS */
+        .actions {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text);
+            padding: 0.75rem 1.75rem;
+            border-radius: 8px;
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: #000;
+            border: none;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+        }
+
+        .btn-primary:hover {
+            background: #34d399;
+            transform: translateY(-1px);
+        }
+
+        /* RESULTS */
+        .results-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .results-count {
+            font-size: 0.9rem;
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        .output-wrapper {
+            position: relative;
+        }
+
+        #outTypos {
+            min-height: 300px;
+            font-family: 'JetBrains Mono', monospace;
+            background: rgba(5, 5, 8, 0.8);
+            cursor: auto;
+        }
+
+        .btn-copy {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(255,255,255,0.1);
+            border: none;
+            color: var(--text);
+            padding: 0.4rem 0.75rem;
+            border-radius: 6px;
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .btn-copy:hover {
+            background: var(--accent);
+            color: #000;
+        }
+
+    </style>
+</head>
+
+<body>
+    <nav>
+        <a href="index.html" class="logo">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+            </svg>
+            PageGuides<span>.</span>
+        </a>
+        <a href="index.html" class="back-link">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+            All Tools
+        </a>
+    </nav>
+
+    <main class="container">
+        <header>
+            <div class="tool-icon">⌨️</div>
+            <h1>Keyword Typo Generator</h1>
+            <p class="subtitle">Generate common misspellings of your keywords to capture typo search traffic or build negative keyword lists for PPC.</p>
+        </header>
+
+        <div class="card">
+            <div class="card-title">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                    <polyline points="14 2 14 8 20 8"></polyline>
+                    <line x1="16" y1="13" x2="8" y2="13"></line>
+                    <line x1="16" y1="17" x2="8" y2="17"></line>
+                    <polyline points="10 9 9 9 8 9"></polyline>
+                </svg>
+                Base Keywords
+            </div>
+            
+            <div class="form-group">
+                <label class="block-label">Enter keywords (one per line)</label>
+                <textarea id="inKeywords" placeholder="e.g.&#10;headphones&#10;smartphone&#10;bluetooth"></textarea>
+            </div>
+
+            <div class="card-title">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="9 11 12 14 22 4"></polyline>
+                    <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+                </svg>
+                Typo Methods
+            </div>
+
+            <div class="options-grid">
+                <label class="checkbox-label">
+                    <input type="checkbox" id="chkSkip" checked>
+                    <span class="checkmark"></span>
+                    Skip Letters (headpones)
+                </label>
+                <label class="checkbox-label">
+                    <input type="checkbox" id="chkDouble" checked>
+                    <span class="checkmark"></span>
+                    Double Letters (headdphones)
+                </label>
+                <label class="checkbox-label">
+                    <input type="checkbox" id="chkSwap" checked>
+                    <span class="checkmark"></span>
+                    Swap Letters (haedphones)
+                </label>
+                <label class="checkbox-label">
+                    <input type="checkbox" id="chkWrong" checked>
+                    <span class="checkmark"></span>
+                    Wrong Keys (hesdphones)
+                </label>
+                <label class="checkbox-label">
+                    <input type="checkbox" id="chkMissingSpace" checked>
+                    <span class="checkmark"></span>
+                    Missing Spaces (head phones)
+                </label>
+            </div>
+
+            <div class="actions">
+                <button class="btn btn-primary" id="btnGenerate">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                    </svg>
+                    Generate Typos
+                </button>
+            </div>
+        </div>
+
+        <div class="card" id="resultsCard" style="display: none;">
+            <div class="results-header">
+                <div class="card-title" style="margin-bottom: 0;">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                    Generated Typo List
+                </div>
+                <span class="results-count" id="resultsCount">0 typos generated</span>
+            </div>
+
+            <div class="output-wrapper">
+                <button class="btn-copy" id="btnCopy">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                    Copy All
+                </button>
+                <textarea id="outTypos" readonly placeholder="Typos will appear here..."></textarea>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const el = {
+                keywords: document.getElementById('inKeywords'),
+                genBtn: document.getElementById('btnGenerate'),
+                resultsCard: document.getElementById('resultsCard'),
+                outTypos: document.getElementById('outTypos'),
+                resultsCount: document.getElementById('resultsCount'),
+                btnCopy: document.getElementById('btnCopy'),
+                
+                chkSkip: document.getElementById('chkSkip'),
+                chkDouble: document.getElementById('chkDouble'),
+                chkSwap: document.getElementById('chkSwap'),
+                chkWrong: document.getElementById('chkWrong'),
+                chkMissingSpace: document.getElementById('chkMissingSpace')
+            };
+
+            // Adjacent keys mapping on a standard QWERTY keyboard
+            const keyboardMap = {
+                'a': ['q','w','s','z'], 'b': ['v','g','h','n'], 'c': ['x','d','f','v'],
+                'd': ['s','e','r','f','c','x'], 'e': ['w','s','d','r'], 'f': ['d','r','t','g','v','c'],
+                'g': ['f','t','y','h','b','v'], 'h': ['g','y','u','j','n','b'], 'i': ['u','j','k','o'],
+                'j': ['h','u','i','k','m','n'], 'k': ['j','i','o','l','m'], 'l': ['k','o','p'],
+                'm': ['j','k','n'], 'n': ['b','h','j','m'], 'o': ['i','k','l','p'],
+                'p': ['o','l'], 'q': ['w','a'], 'r': ['e','d','f','t'], 's': ['a','w','e','d','x','z'],
+                't': ['r','f','g','y'], 'u': ['y','h','j','i'], 'v': ['c','f','g','b'],
+                'w': ['q','a','s','e'], 'x': ['z','s','d','c'], 'y': ['t','g','h','u'], 'z': ['a','s','x']
+            };
+
+            function getTypos(word) {
+                let typos = new Set();
+                const chars = word.split('');
+                
+                // Keep original if we just want it included, but usually typos only. Let's not include original.
+
+                // Skip Letters
+                if (el.chkSkip.checked) {
+                    for (let i = 0; i < chars.length; i++) {
+                        let temp = chars.slice();
+                        temp.splice(i, 1);
+                        if (temp.length > 0) typos.add(temp.join(''));
+                    }
+                }
+
+                // Double Letters
+                if (el.chkDouble.checked) {
+                    for (let i = 0; i < chars.length; i++) {
+                        let temp = chars.slice();
+                        temp.splice(i, 0, chars[i]);
+                        typos.add(temp.join(''));
+                    }
+                }
+
+                // Swap Letters
+                if (el.chkSwap.checked) {
+                    for (let i = 0; i < chars.length - 1; i++) {
+                        if (chars[i] !== chars[i+1]) {
+                            let temp = chars.slice();
+                            let t = temp[i];
+                            temp[i] = temp[i+1];
+                            temp[i+1] = t;
+                            typos.add(temp.join(''));
+                        }
+                    }
+                }
+
+                // Wrong Keys
+                if (el.chkWrong.checked) {
+                    for (let i = 0; i < chars.length; i++) {
+                        const charLower = chars[i].toLowerCase();
+                        if (keyboardMap[charLower]) {
+                            for (let wrongChar of keyboardMap[charLower]) {
+                                let temp = chars.slice();
+                                // Preserve case
+                                temp[i] = chars[i] === charLower ? wrongChar : wrongChar.toUpperCase();
+                                typos.add(temp.join(''));
+                            }
+                        }
+                    }
+                }
+
+                // Missing Spaces
+                if (el.chkMissingSpace.checked) {
+                    const noSpace = word.replace(/\s+/g, '');
+                    if (word !== noSpace) {
+                        typos.add(noSpace);
+                    }
+                    if (!/\s/.test(word) && word.length > 3) {
+                        for (let i = 2; i < word.length - 1; i++) {
+                            typos.add(word.substring(0, i) + ' ' + word.substring(i));
+                        }
+                    }
+                }
+
+                // Remove the original word just in case
+                typos.delete(word);
+                return Array.from(typos);
+            }
+
+            el.genBtn.addEventListener('click', () => {
+                const text = el.keywords.value;
+                const lines = text.split('\n').map(l => l.trim()).filter(l => l.length > 0);
+                
+                if (lines.length === 0) {
+                    alert('Please enter at least one keyword.');
+                    return;
+                }
+
+                let allTypos = [];
+
+                for (let word of lines) {
+                    const generated = getTypos(word);
+                    allTypos.push(...generated);
+                }
+
+                // Remove duplicates across all
+                allTypos = [...new Set(allTypos)];
+
+                if (allTypos.length > 0) {
+                    el.outTypos.value = allTypos.join('\n');
+                    el.resultsCount.textContent = `${allTypos.length} typos generated`;
+                    el.resultsCard.style.display = 'block';
+                    el.resultsCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                } else {
+                    el.resultsCard.style.display = 'none';
+                    alert('No typos generated based on your settings.');
+                }
+            });
+
+            el.btnCopy.addEventListener('click', () => {
+                navigator.clipboard.writeText(el.outTypos.value).then(() => {
+                    const originalHTML = el.btnCopy.innerHTML;
+                    el.btnCopy.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Copied!';
+                    el.btnCopy.style.background = 'var(--accent)';
+                    el.btnCopy.style.color = '#000';
+                    
+                    setTimeout(() => {
+                        el.btnCopy.innerHTML = originalHTML;
+                        el.btnCopy.style.background = '';
+                        el.btnCopy.style.color = '';
+                    }, 2000);
+                });
+            });
+        });
+    </script>
+</body>
+</html>

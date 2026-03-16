@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Domain Name Generator — PageGuides</title>
+    <meta name="description" content="Generate catchy and brandable domain name ideas for your next project. Use keywords to find available combinations and check SEO potential.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-hover: #4f46e5;
+            --bg: #0f172a;
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --text: #f8fafc;
+            --text-muted: #94a3b8;
+            --border: rgba(255, 255, 255, 0.1);
+            --accent: #10b981;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg);
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.15) 0px, transparent 50%),
+                radial-gradient(at 100% 0%, rgba(16, 185, 129, 0.1) 0px, transparent 50%);
+            color: var(--text);
+            min-height: 100vh;
+            line-height: 1.6;
+            padding: 2rem 1rem;
+        }
+
+        nav {
+            max-width: 800px;
+            margin: 0 auto 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo span { color: var(--primary); }
+
+        .back-link {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .back-link:hover { color: var(--text); }
+
+        main {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: linear-gradient(to right, #fff, #94a3b8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .tool-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 2.5rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        .search-container {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        input[type="text"] {
+            flex: 1;
+            background: rgba(15, 23, 42, 0.5);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            color: var(--text);
+            padding: 1rem 1.5rem;
+            font-size: 1.1rem;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        input[type="text"]:focus {
+            border-color: var(--primary);
+        }
+
+        .btn-generate {
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            padding: 1rem 2rem;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-generate:hover {
+            background: var(--primary-hover);
+            transform: translateY(-1px);
+        }
+
+        .options-bar {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .option-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        input[type="checkbox"] {
+            accent-color: var(--primary);
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 1rem;
+        }
+
+        .domain-item {
+            background: rgba(15, 23, 42, 0.4);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 1.25rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+
+        .domain-item:hover {
+            transform: translateY(-2px);
+            border-color: var(--primary);
+        }
+
+        .domain-name {
+            font-weight: 600;
+            color: var(--text);
+            font-size: 1rem;
+        }
+
+        .domain-tld {
+            color: var(--primary);
+            opacity: 0.8;
+        }
+
+        .copy-icon {
+            color: var(--text-muted);
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 8px;
+            transition: background 0.2s;
+        }
+
+        .copy-icon:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+
+        .placeholder-text {
+            text-align: center;
+            color: var(--text-muted);
+            padding: 3rem;
+            border: 2px dashed var(--border);
+            border-radius: 20px;
+        }
+
+        .badge-new {
+            background: var(--accent);
+            color: white;
+            font-size: 0.7rem;
+            padding: 0.1rem 0.4rem;
+            border-radius: 4px;
+            margin-left: 0.5rem;
+            text-transform: uppercase;
+            font-weight: 800;
+        }
+
+        @media (max-width: 600px) {
+            .search-container { flex-direction: column; }
+            .btn-generate { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="/" class="logo">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                <line x1="12" y1="22.08" x2="12" y2="12"></line>
+            </svg>
+            Page<span>Guides</span>
+        </a>
+        <a href="/" class="back-link">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+            Back to Tools
+        </a>
+    </nav>
+
+    <main>
+        <div class="hero">
+            <h1>Domain Name Generator</h1>
+            <p class="subtitle">Turn your keywords into brandable domain name ideas. Perfect for startups, blogs, and new SEO projects.</p>
+        </div>
+
+        <div class="tool-card">
+            <div class="search-container">
+                <input type="text" id="keyword" placeholder="Enter a keyword (e.g. tech, health, seo)...">
+                <button class="btn-generate" onclick="generate()">Generate Names</button>
+            </div>
+
+            <div class="options-bar">
+                <label class="option-item"><input type="checkbox" id="checkCom" checked> .com</label>
+                <label class="option-item"><input type="checkbox" id="checkNet"> .net</label>
+                <label class="option-item"><input type="checkbox" id="checkIo"> .io</label>
+                <label class="option-item"><input type="checkbox" id="checkAi"> .ai</label>
+                <label class="option-item"><input type="checkbox" id="checkApp"> .app</label>
+            </div>
+
+            <div id="results" class="results-grid">
+                <div class="placeholder-text">Enter a keyword and click generate to see suggestions.</div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const prefixes = ['my', 'get', 'try', 'the', 'pure', 'fast', 'smart', 'neo', 'prime', 'meta', 'pro', 'simply', 'easy', 'open', 'top', 'ultra', 'epic', 'vibe', 'cloud', 'flow'];
+        const suffixes = ['hub', 'lab', 'ly', 'ify', 'base', 'space', 'site', 'node', 'grid', 'zone', 'deck', 'cent', 'wise', 'way', 'mind', 'path', 'line', 'force', 'arc', 'tech'];
+
+        function generate() {
+            const kw = document.getElementById('keyword').value.trim().toLowerCase();
+            const resultsDiv = document.getElementById('results');
+            
+            if (!kw) {
+                resultsDiv.innerHTML = '<div class="placeholder-text">Please enter a keyword first.</div>';
+                return;
+            }
+
+            const tlds = [];
+            if (document.getElementById('checkCom').checked) tlds.push('.com');
+            if (document.getElementById('checkNet').checked) tlds.push('.net');
+            if (document.getElementById('checkIo').checked) tlds.push('.io');
+            if (document.getElementById('checkAi').checked) tlds.push('.ai');
+            if (document.getElementById('checkApp').checked) tlds.push('.app');
+
+            if (tlds.length === 0) tlds.push('.com');
+
+            let suggestions = [];
+
+            // Add basic
+            suggestions.push(kw);
+            
+            // Add prefixes
+            prefixes.forEach(p => suggestions.push(p + kw));
+
+            // Add suffixes
+            suffixes.forEach(s => suggestions.push(kw + s));
+
+            // Mix
+            suggestions.push(prefixes[Math.floor(Math.random()*prefixes.length)] + kw + suffixes[Math.floor(Math.random()*suffixes.length)]);
+
+            // Shuffle
+            suggestions = suggestions.sort(() => Math.random() - 0.5).slice(0, 24);
+
+            resultsDiv.innerHTML = '';
+            
+            suggestions.forEach(s => {
+                const tld = tlds[Math.floor(Math.random()*tlds.length)];
+                const item = document.createElement('div');
+                item.className = 'domain-item';
+                item.innerHTML = `
+                    <div class="domain-name">${s}<span class="domain-tld">${tld}</span></div>
+                    <svg class="copy-icon" onclick="copyText('${s}${tld}')" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                `;
+                resultsDiv.appendChild(item);
+            });
+        }
+
+        function copyText(text) {
+            navigator.clipboard.writeText(text);
+        }
+    </script>
+</body>
+</html>

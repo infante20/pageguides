@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marketing QR Generator — PageGuides</title>
+    <meta name="description" content="Generate high-quality QR codes for your marketing campaigns, PDFs, or business cards instantly.">
+    <style>
+        :root {
+            --primary: #2dd4bf;
+            --bg: #0f172a;
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --text: #f8fafc;
+            --text-dim: #94a3b8;
+            --border: rgba(255, 255, 255, 0.1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', system-ui, sans-serif; }
+
+        body {
+            background-color: var(--bg);
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(45, 212, 191, 0.1) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(30, 41, 59, 1) 0px, transparent 50%);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem;
+        }
+
+        .container { width: 100%; max-width: 600px; }
+
+        .header { text-align: left; margin-bottom: 3rem; width: 100%; }
+        .logo { font-size: 1.5rem; font-weight: 800; color: var(--text); text-decoration: none; display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem; }
+        .logo span { color: var(--primary); }
+        .title { font-size: 2.5rem; font-weight: 800; margin-bottom: 0.5rem; letter-spacing: -0.025em; }
+        .subtitle { color: var(--text-dim); font-size: 1.1rem; }
+
+        .card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 1.5rem; padding: 2.5rem; text-align: center; }
+        
+        input { width: 100%; background: #000; border: 1px solid var(--border); border-radius: 0.75rem; padding: 1rem; color: white; margin-bottom: 2rem; outline: none; }
+
+        .qr-placeholder { 
+            width: 250px; height: 250px; background: white; margin: 0 auto 2rem auto; border-radius: 1rem; 
+            display: flex; align-items: center; justify-content: center; overflow: hidden;
+            border: 8px solid white;
+        }
+        .qr-placeholder img { max-width: 100%; }
+
+        .btn { background: var(--primary); color: #000; border: none; padding: 0.75rem 2rem; border-radius: 0.5rem; font-weight: 900; cursor: pointer; }
+
+        footer { margin-top: 4rem; color: var(--text-dim); font-size: 0.9rem; text-align: center; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <a href="index.html" class="logo">Page<span>Guides</span></a>
+            <h1 class="title">Marketing QR Gen</h1>
+            <p class="subtitle">Create premium QR codes for your physical and digital assets.</p>
+        </header>
+
+        <div class="card">
+            <label style="display: block; font-size: 0.7rem; font-weight: 800; color: var(--text-dim); text-align: left; margin-bottom: 0.5rem; text-transform: uppercase;">Destination URL</label>
+            <input type="url" id="url" value="https://pageguides.com" oninput="update()">
+
+            <div class="qr-placeholder">
+                <img id="qr-img" src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=https://pageguides.com" alt="QR Code">
+            </div>
+
+            <button class="btn" onclick="download()">DOWNLOAD PNG</button>
+        </div>
+
+        <footer>
+            &copy; 2026 PageGuides — Premium SEO Tool Suite
+        </footer>
+    </div>
+
+    <script>
+        function update() {
+            const val = document.getElementById('url').value;
+            const img = document.getElementById('qr-img');
+            img.src = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(val)}`;
+        }
+
+        async function download() {
+            const img = document.getElementById('qr-img');
+            const response = await fetch(img.src);
+            const blob = await response.blob();
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'marketing-qr.png';
+            a.click();
+        }
+    </script>
+</body>
+</html>

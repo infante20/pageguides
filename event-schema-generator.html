@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Schema Generator — PageGuides</title>
+    <meta name="description" content="Create JSON-LD Event schema for concerts, workshops, and festivals to appear in Google Event rich results.">
+    <style>
+        :root {
+            --primary: #8b5cf6;
+            --primary-hover: #7c3aed;
+            --bg: #0f172a;
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --text: #f8fafc;
+            --text-dim: #94a3b8;
+            --border: rgba(255, 255, 255, 0.1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', system-ui, sans-serif; }
+
+        body {
+            background-color: var(--bg);
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(139, 92, 246, 0.1) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(30, 41, 59, 1) 0px, transparent 50%);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem;
+        }
+
+        .container { width: 100%; max-width: 1100px; }
+
+        .header { text-align: left; margin-bottom: 3rem; width: 100%; }
+        .logo { font-size: 1.5rem; font-weight: 800; color: var(--text); text-decoration: none; display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem; }
+        .logo span { color: var(--primary); }
+        .title { font-size: 2.5rem; font-weight: 800; margin-bottom: 0.5rem; letter-spacing: -0.025em; }
+        .subtitle { color: var(--text-dim); font-size: 1.1rem; }
+
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+        @media (max-width: 900px) { .grid { grid-template-columns: 1fr; } }
+
+        .card {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border);
+            border-radius: 1.5rem;
+            padding: 2rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+        .form-group { margin-bottom: 1rem; }
+        label { display: block; margin-bottom: 0.4rem; color: var(--text-dim); font-size: 0.85rem; font-weight: 600; }
+        input, select, textarea {
+            width: 100%;
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid var(--border);
+            border-radius: 0.75rem;
+            padding: 0.75rem 1rem;
+            color: white;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+
+        .output-section { position: relative; margin-top: 1rem; }
+        pre {
+            background: #000;
+            padding: 1.5rem;
+            border-radius: 1rem;
+            color: #a78bfa;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.8rem;
+            overflow-x: auto;
+            border: 1px solid var(--border);
+            min-height: 480px;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--border);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            font-size: 0.8rem;
+            cursor: pointer;
+        }
+
+        footer { margin-top: 4rem; color: var(--text-dim); font-size: 0.9rem; text-align: center; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <a href="index.html" class="logo">Page<span>Guides</span></a>
+            <h1 class="title">Event Schema Generator</h1>
+            <p class="subtitle">Generate standard JSON-LD Event markup to get featured in Google's rich snippets.</p>
+        </header>
+
+        <div class="grid">
+            <div class="card">
+                <div class="form-group">
+                    <label>Event Name</label>
+                    <input type="text" id="eventName" value="SEO Summit 2026" oninput="updateAll()">
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Start Date</label>
+                        <input type="datetime-local" id="startDate" value="2026-10-15T09:00" oninput="updateAll()">
+                    </div>
+                    <div class="form-group">
+                        <label>End Date</label>
+                        <input type="datetime-local" id="endDate" value="2026-10-15T18:00" oninput="updateAll()">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Event Description</label>
+                    <textarea id="description" oninput="updateAll()">Join the world's leading experts for a day of deep-dive SEO strategies.</textarea>
+                </div>
+                <div class="form-group">
+                    <label>Location Name</label>
+                    <input type="text" id="locName" value="Digital Hall" oninput="updateAll()">
+                </div>
+                <div class="form-group">
+                    <label>Street Address</label>
+                    <input type="text" id="street" value="123 Tech Avenue" oninput="updateAll()">
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>City</label>
+                        <input type="text" id="city" value="San Francisco" oninput="updateAll()">
+                    </div>
+                    <div class="form-group">
+                        <label>Country</label>
+                        <input type="text" id="country" value="US" oninput="updateAll()">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Price</label>
+                        <input type="number" id="price" value="99" oninput="updateAll()">
+                    </div>
+                    <div class="form-group">
+                        <label>Currency</label>
+                        <input type="text" id="currency" value="USD" oninput="updateAll()">
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <label>JSON-LD Code</label>
+                <div class="output-section">
+                    <button class="copy-btn" onclick="copyCode()">Copy JSON</button>
+                    <pre id="output"></pre>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            &copy; 2026 PageGuides — Premium SEO Tool Suite
+        </footer>
+    </div>
+
+    <script>
+        function updateAll() {
+            const schema = {
+                "@context": "https://schema.org",
+                "@type": "Event",
+                "name": document.getElementById('eventName').value,
+                "startDate": document.getElementById('startDate').value,
+                "endDate": document.getElementById('endDate').value,
+                "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+                "eventStatus": "https://schema.org/EventScheduled",
+                "location": {
+                    "@type": "Place",
+                    "name": document.getElementById('locName').value,
+                    "address": {
+                        "@type": "PostalAddress",
+                        "streetAddress": document.getElementById('street').value,
+                        "addressLocality": document.getElementById('city').value,
+                        "addressCountry": document.getElementById('country').value
+                    }
+                },
+                "description": document.getElementById('description').value,
+                "offers": {
+                    "@type": "Offer",
+                    "url": window.location.href,
+                    "price": document.getElementById('price').value,
+                    "priceCurrency": document.getElementById('currency').value,
+                    "availability": "https://schema.org/InStock",
+                    "validFrom": new Date().toISOString().split('T')[0]
+                }
+            };
+
+            document.getElementById('output').textContent = JSON.stringify(schema, null, 4);
+        }
+
+        function copyCode() {
+            const code = document.getElementById('output').textContent;
+            navigator.clipboard.writeText(code);
+            const btn = document.querySelector('.copy-btn');
+            btn.textContent = 'Copied!';
+            setTimeout(() => btn.textContent = 'Copy JSON', 2000);
+        }
+
+        updateAll();
+    </script>
+</body>
+</html>

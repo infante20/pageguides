@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visualização Open Graph — PageGuides</title>
+    <meta name="description"
+        content="Visualize como será a aparência da sua página ao ser compartilhada no Twitter/X, Facebook e LinkedIn. Gere tags meta OG prontas para copiar.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --accent: #10b981;
+            --accent-glow: rgba(16, 185, 129, 0.15);
+            --bg-dark: #050508;
+            --bg-light: #111827;
+            --card-bg: rgba(30, 41, 59, 0.4);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --text: #f8fafc;
+            --text-muted: #94a3b8;
+            --warn: #f59e0b;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: radial-gradient(circle at top center, var(--bg-light) 0%, var(--bg-dark) 100%);
+            background-attachment: fixed;
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* NAV */
+        nav {
+            padding: 1.25rem 2rem;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            background: rgba(5, 5, 8, 0.8);
+            backdrop-filter: blur(12px);
+        }
+
+        .logo {
+            font-weight: 700;
+            font-size: 1.25rem;
+            letter-spacing: -0.02em;
+            color: var(--text);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo span { color: var(--accent); }
+
+        .back-link {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: color 0.2s;
+            font-weight: 500;
+        }
+
+        .back-link:hover { color: var(--text); }
+
+        /* CONTAINER */
+        .container {
+            max-width: 900px;
+            margin: 4rem auto 6rem;
+            padding: 0 1.5rem;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .tool-icon {
+            width: 64px;
+            height: 64px;
+            background: linear-gradient(135deg, rgba(16,185,129,0.15), rgba(16,185,129,0.05));
+            border: 1px solid rgba(16,185,129,0.2);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin: 0 auto 1.5rem;
+            box-shadow: inset 0 2px 4px rgba(255,255,255,0.05), 0 8px 16px rgba(0,0,0,0.2);
+        }
+
+        h1 {
+            font-size: clamp(2rem, 4vw, 2.75rem);
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            max-width: 500px;
+            margin: 0 auto;
+            font-weight: 300;
+        }
+
+        /* LAYOUT */
+        .layout {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            align-items: start;
+        }
+
+        @media (min-width: 800px) {
+            .layout { grid-template-columns: 1fr 1fr; }
+        }
+
+        /* CARD */
+        .card {
+            background: var(--card-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 2.25rem;
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
+        }
+
+        .field { margin-bottom: 1.5rem; }
+
+        .label-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        label {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .char-count {
+            font-size: 0.75rem;
+            font-family: 'JetBrains Mono', monospace;
+            background: rgba(255,255,255,0.05);
+            padding: 0.2rem 0.6rem;
+            border-radius: 6px;
+            transition: all 0.3s;
+        }
+
+        .char-count.warn { color: var(--warn); background: rgba(245, 158, 11, 0.1); border: 1px solid rgba(245, 158, 11, 0.2); }
+        .char-count.ok { color: var(--accent); background: var(--accent-glow); border: 1px solid rgba(16, 185, 129, 0.2); }
+
+        input[type="text"], input[type="url"], textarea, select {
+            width: 100%;
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: var(--text);
+            padding: 1rem 1.25rem;
+            border-radius: 12px;
+            font-family: inherit;
+            font-size: 1rem;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px var(--accent-glow);
+        }
+
+        select {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            background-size: 1em;
+        }
+        
+        select option {
+            background: var(--bg-light);
+            color: var(--text);
+        }
+
+        textarea { resize: vertical; }
+
+        /* PREVIEWS */
+        .platform-tabs {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            background: rgba(15, 23, 42, 0.4);
+            padding: 0.5rem;
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .tab {
+            flex-grow: 1;
+            padding: 0.6rem 0;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            background: transparent;
+            color: var(--text-muted);
+            font-family: inherit;
+            transition: all 0.2s;
+        }
+
+        .tab:hover {
+            color: var(--text);
+            background: rgba(255,255,255,0.05);
+        }
+
+        .tab.active {
+            background: var(--accent);
+            color: #050508;
+            box-shadow: 0 2px 8px rgba(16,185,129,0.3);
+        }
+
+        /* Twitter Card */
+        .preview-twitter {
+            background: #000;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid #2f3336;
+            font-family: -apple-system, system-ui, sans-serif;
+            transition: transform 0.3s ease;
+        }
+        
+        .preview-twitter:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+        }
+
+        .tw-image, .fb-image, .li-image {
+            width: 100%;
+            background: #1a1a2e;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #555;
+            font-size: 0.85rem;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .tw-image::before, .fb-image::before, .li-image::before {
+            content: "🎬 FORMAT 1200x630";
+            position: absolute;
+            opacity: 0.5;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+        }
+
+        .tw-image { aspect-ratio: 16/9; }
+        .fb-image { aspect-ratio: 1.91/1; }
+        .li-image { aspect-ratio: 1.91/1; }
+
+        .tw-image img, .fb-image img, .li-image img { 
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover; 
+            position: relative;
+            z-index: 10;
+        }
+
+        .tw-body {
+            padding: 0.75rem 1rem;
+            border-top: 1px solid #2f3336;
+        }
+
+        .tw-domain {
+            font-size: 0.8rem;
+            color: #71767b;
+            text-transform: lowercase;
+            margin-bottom: 0.2rem;
+        }
+
+        .tw-title {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: #e7e9ea;
+            line-height: 1.3;
+            margin-bottom: 0.2rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .tw-desc {
+            font-size: 0.85rem;
+            color: #71767b;
+            line-height: 1.4;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        /* Facebook Card */
+        .preview-facebook {
+            background: #1c1e21;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid #3a3b3c;
+            font-family: -apple-system, system-ui, sans-serif;
+            transition: transform 0.3s ease;
+        }
+        
+        .preview-facebook:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+        }
+
+        .fb-body {
+            padding: 0.85rem 1rem;
+            background: #242526;
+        }
+
+        .fb-domain {
+            font-size: 0.75rem;
+            color: #b0b3b8;
+            text-transform: uppercase;
+            margin-bottom: 0.25rem;
+            letter-spacing: 0.02em;
+        }
+
+        .fb-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #e4e6eb;
+            line-height: 1.3;
+            margin-bottom: 0.2rem;
+        }
+
+        .fb-desc {
+            font-size: 0.85rem;
+            color: #b0b3b8;
+            line-height: 1.4;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        /* LinkedIn Card */
+        .preview-linkedin {
+            background: #1b1f23;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid #283039;
+            font-family: -apple-system, system-ui, sans-serif;
+            transition: transform 0.3s ease;
+        }
+        
+        .preview-linkedin:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+        }
+
+        .li-body {
+            padding: 0.85rem 1.2rem;
+            background: #1b1f23;
+        }
+
+        .li-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #c9d1d9;
+            line-height: 1.3;
+            margin-bottom: 0.3rem;
+        }
+
+        .li-domain {
+            font-size: 0.75rem;
+            color: #8b949e;
+        }
+
+        /* Code output */
+        .code-wrap {
+            margin-top: 2rem;
+            background: rgba(15, 23, 42, 0.6);
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.05);
+            overflow: hidden;
+        }
+
+        .code-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.75rem 1.25rem;
+            background: rgba(255,255,255,0.02);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .code-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .copy-code-btn {
+            background: var(--accent-glow);
+            color: var(--accent);
+            border: none;
+            border-radius: 6px;
+            padding: 0.3rem 0.8rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: 'JetBrains Mono', monospace;
+            transition: all 0.2s;
+            text-transform: uppercase;
+        }
+
+        .copy-code-btn:hover {
+            background: var(--accent);
+            color: #050508;
+        }
+
+        pre {
+            padding: 1.25rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            color: #e2e8f0;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            word-break: break-all;
+            line-height: 1.7;
+        }
+
+        pre .tag { color: #60a5fa; }
+        pre .attr { color: #a78bfa; }
+        pre .val { color: #34d399; }
+
+        footer {
+            text-align: center;
+            margin-top: 4rem;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            font-family: 'JetBrains Mono', monospace;
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <a href="index.html" class="logo">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                <line x1="12" y1="22.08" x2="12" y2="12"></line>
+            </svg>
+            Page<span>Guides</span>
+        </a>
+        <div style="display: flex; align-items: center; gap: 1.5rem;">
+            
+        <div class="lang-selector">
+            <button class="lang-btn" aria-haspopup="true" aria-expanded="false">
+                🇧🇷 PT
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+            </button>
+            <div class="lang-dropdown">
+                    <a href="../og-preview.html" class="lang-option"><span class="lang-flag">🇺🇸</span> English</a>
+                    <a href="../es/og-preview.html" class="lang-option"><span class="lang-flag">🇪🇸</span> Español</a>
+                    <a href="../fr/og-preview.html" class="lang-option"><span class="lang-flag">🇫🇷</span> Français</a>
+                    <a href="og-preview.html" class="lang-option active"><span class="lang-flag">🇧🇷</span> Português</a>
+                    <a href="../hi/og-preview.html" class="lang-option"><span class="lang-flag">🇮🇳</span> हिन्दी</a>
+                </div>
+        </div>
+
+            <a href="/pt/" class="back-link">
+                ← Voltar para Ferramentas
+            </a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <header>
+            <div class="tool-icon">🖼️</div>
+            <h1>Visualização Open Graph</h1>
+            <p class="subtitle">Visualize e gere suas tags meta Open Graph para impressionar no Twitter/X, Facebook e LinkedIn.</p>
+        </header>
+
+        <div class="layout">
+            <!-- Inputs -->
+            <div class="card">
+                <div class="field">
+                    <div class="label-row">
+                        <label>Título OG <span style="color:var(--accent)">*</span></label>
+                        <div class="char-count" id="titleCount">0 / 60</div>
+                    </div>
+                    <input type="text" id="ogTitle" placeholder="O título que verão ao compartilhar" oninput="update()">
+                </div>
+                <div class="field">
+                    <div class="label-row">
+                        <label>Descrição OG</label>
+                        <div class="char-count" id="descCount">0 / 160</div>
+                    </div>
+                    <textarea id="ogDesc" rows="3" placeholder="Descrição envolvente (máx 160 caracteres)" oninput="update()"></textarea>
+                </div>
+                <div class="field">
+                    <label>URL da Página</label>
+                    <input type="url" id="ogUrl" placeholder="https://pageguides.com/article" oninput="update()">
+                </div>
+                <div class="field">
+                    <label>URL da Imagem (1200×630 recomendado)</label>
+                    <input type="url" id="ogImage" placeholder="https://pageguides.com/image.jpg" oninput="update()">
+                </div>
+                <div class="field">
+                    <label>Tipo de Conteúdo</label>
+                    <select id="ogType" onchange="update()">
+                        <option value="website">Site da Web (website)</option>
+                        <option value="article">Artigo (article)</option>
+                        <option value="product">Produto (product)</option>
+                        <option value="video.other">Vídeo (video.other)</option>
+                    </select>
+                </div>
+                <div class="field">
+                    <label>Nome do Site</label>
+                    <input type="text" id="ogSiteName" placeholder="PageGuides" oninput="update()">
+                </div>
+            </div>
+
+            <!-- Previews -->
+            <div>
+                <div class="platform-tabs">
+                    <button class="tab active" onclick="switchTab(this, 'twitter')">Twitter/X</button>
+                    <button class="tab" onclick="switchTab(this, 'facebook')">Facebook</button>
+                    <button class="tab" onclick="switchTab(this, 'linkedin')">LinkedIn</button>
+                </div>
+
+                <div id="preview-twitter">
+                    <div class="preview-twitter">
+                        <div class="tw-image" id="tw-img-wrap"></div>
+                        <div class="tw-body">
+                            <div class="tw-domain" id="tw-domain">pageguides.com</div>
+                            <div class="tw-title" id="tw-title">Page title</div>
+                            <div class="tw-desc" id="tw-desc">Page description...</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="preview-facebook" style="display:none">
+                    <div class="preview-facebook">
+                        <div class="fb-image" id="fb-img-wrap"></div>
+                        <div class="fb-body">
+                            <div class="fb-domain" id="fb-domain">PAGEGUIDES.COM</div>
+                            <div class="fb-title" id="fb-title">Page title</div>
+                            <div class="fb-desc" id="fb-desc">Page description...</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="preview-linkedin" style="display:none">
+                    <div class="preview-linkedin">
+                        <div class="li-image" id="li-img-wrap"></div>
+                        <div class="li-body">
+                            <div class="li-title" id="li-title">Page title</div>
+                            <div class="li-domain" id="li-domain">pageguides.com</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="code-wrap">
+                    <div class="code-header">
+                        <span class="code-label">Código de Tags Meta HTML</span>
+                        <button class="copy-code-btn" onclick="copyCode()">Copiar Código</button>
+                    </div>
+                    <pre id="codeOutput"></pre>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            &copy; <span id="time"></span> PageGuides.com — StudioLimb Creative Suite
+        </footer>
+    </div>
+
+    <script>
+        function getDomain(url) {
+            try { return new URL(url).hostname; } catch { return url || 'pageguides.com'; }
+        }
+
+        function escapeHTML(str) {
+            return str.replace(/&/g, "&amp;")
+                       .replace(/</g, "&lt;")
+                       .replace(/>/g, "&gt;")
+                       .replace(/"/g, "&quot;")
+                       .replace(/'/g, "&#039;");
+        }
+
+        function highlightTag(tag, attr, val) {
+            return `<span class="tag">&lt;meta</span> <span class="attr">${attr}</span>="<span class="val">${val}</span>" <span class="attr">content</span>="<span class="val">${escapeHTML(val === 'og:title' || val === 'twitter:title' ? document.getElementById('ogTitle').value : (val === 'og:description' || val === 'twitter:description' ? document.getElementById('ogDesc').value : (val === 'og:url' || val === 'twitter:url' ? document.getElementById('ogUrl').value : (val === 'og:image' || val === 'twitter:image' ? document.getElementById('ogImage').value : (val === 'og:type' ? document.getElementById('ogType').value : document.getElementById('ogSiteName').value)))))}</span>"<span class="tag">&gt;</span>`;
+        }
+
+        function setImage(wrapId, imageUrl) {
+            const wrap = document.getElementById(wrapId);
+            if (imageUrl) {
+                wrap.innerHTML = `<img src="${imageUrl}" alt="OG Image" onerror="this.parentElement.innerHTML=''">`;
+            } else {
+                wrap.innerHTML = '';
+            }
+        }
+
+        function update() {
+            const title = document.getElementById('ogTitle').value.trim() || 'Page title';
+            const desc = document.getElementById('ogDesc').value.trim() || 'Page description...';
+            const url = document.getElementById('ogUrl').value.trim();
+            const image = document.getElementById('ogImage').value.trim();
+            const type = document.getElementById('ogType').value;
+            const siteName = document.getElementById('ogSiteName').value.trim();
+            const domain = getDomain(url);
+
+            // Char counts
+            const titleLen = document.getElementById('ogTitle').value.length;
+            const descLen = document.getElementById('ogDesc').value.length;
+            const tc = document.getElementById('titleCount');
+            const dc = document.getElementById('descCount');
+            tc.textContent = `${titleLen} / 60`;
+            tc.className = 'char-count' + (titleLen > 60 ? ' warn' : titleLen >= 50 ? ' ok' : '');
+            dc.textContent = `${descLen} / 160`;
+            dc.className = 'char-count' + (descLen > 160 ? ' warn' : descLen >= 120 ? ' ok' : '');
+
+            // Twitter
+            document.getElementById('tw-title').textContent = title;
+            document.getElementById('tw-desc').textContent = desc;
+            document.getElementById('tw-domain').textContent = domain;
+            setImage('tw-img-wrap', image);
+
+            // Facebook
+            document.getElementById('fb-title').textContent = title;
+            document.getElementById('fb-desc').textContent = desc;
+            document.getElementById('fb-domain').textContent = domain.toUpperCase();
+            setImage('fb-img-wrap', image);
+
+            // LinkedIn
+            document.getElementById('li-title').textContent = title;
+            document.getElementById('li-domain').textContent = domain;
+            setImage('li-img-wrap', image);
+
+            // Code
+            const lines = [];
+            lines.push(`&lt;!-- Open Graph --&gt;`);
+            lines.push(`<span class="tag">&lt;meta</span> <span class="attr">property</span>="<span class="val">og:type</span>" <span class="attr">content</span>="<span class="val">${escapeHTML(type)}</span>"<span class="tag">&gt;</span>`);
+            lines.push(`<span class="tag">&lt;meta</span> <span class="attr">property</span>="<span class="val">og:title</span>" <span class="attr">content</span>="<span class="val">${escapeHTML(title)}</span>"<span class="tag">&gt;</span>`);
+            if (desc) lines.push(`<span class="tag">&lt;meta</span> <span class="attr">property</span>="<span class="val">og:description</span>" <span class="attr">content</span>="<span class="val">${escapeHTML(desc)}</span>"<span class="tag">&gt;</span>`);
+            if (url) lines.push(`<span class="tag">&lt;meta</span> <span class="attr">property</span>="<span class="val">og:url</span>" <span class="attr">content</span>="<span class="val">${escapeHTML(url)}</span>"<span class="tag">&gt;</span>`);
+            if (image) lines.push(`<span class="tag">&lt;meta</span> <span class="attr">property</span>="<span class="val">og:image</span>" <span class="attr">content</span>="<span class="val">${escapeHTML(image)}</span>"<span class="tag">&gt;</span>`);
+            if (siteName) lines.push(`<span class="tag">&lt;meta</span> <span class="attr">property</span>="<span class="val">og:site_name</span>" <span class="attr">content</span>="<span class="val">${escapeHTML(siteName)}</span>"<span class="tag">&gt;</span>`);
+            lines.push('');
+            lines.push(`&lt;!-- Twitter Card --&gt;`);
+            lines.push(`<span class="tag">&lt;meta</span> <span class="attr">name</span>="<span class="val">twitter:card</span>" <span class="attr">content</span>="<span class="val">summary_large_image</span>"<span class="tag">&gt;</span>`);
+            lines.push(`<span class="tag">&lt;meta</span> <span class="attr">name</span>="<span class="val">twitter:title</span>" <span class="attr">content</span>="<span class="val">${escapeHTML(title)}</span>"<span class="tag">&gt;</span>`);
+            if (desc) lines.push(`<span class="tag">&lt;meta</span> <span class="attr">name</span>="<span class="val">twitter:description</span>" <span class="attr">content</span>="<span class="val">${escapeHTML(desc)}</span>"<span class="tag">&gt;</span>`);
+            if (image) lines.push(`<span class="tag">&lt;meta</span> <span class="attr">name</span>="<span class="val">twitter:image</span>" <span class="attr">content</span>="<span class="val">${escapeHTML(image)}</span>"<span class="tag">&gt;</span>`);
+            if (url) lines.push(`<span class="tag">&lt;meta</span> <span class="attr">name</span>="<span class="val">twitter:url</span>" <span class="attr">content</span>="<span class="val">${escapeHTML(url)}</span>"<span class="tag">&gt;</span>`);
+
+            document.getElementById('codeOutput').innerHTML = lines.join('\n');
+        }
+
+        function switchTab(btn, platform) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            btn.classList.add('active');
+            ['twitter', 'facebook', 'linkedin'].forEach(p => {
+                document.getElementById('preview-' + p).style.display = p === platform ? 'block' : 'none';
+            });
+        }
+
+        function copyCode() {
+            const rawCode = document.getElementById('codeOutput').innerText;
+            navigator.clipboard.writeText(rawCode).then(() => {
+                const btn = document.querySelector('.copy-code-btn');
+                const orig = btn.innerText;
+                btn.innerText = 'COPIED!';
+                btn.style.background = 'var(--accent)';
+                btn.style.color = '#050508';
+                setTimeout(() => {
+                    btn.innerText = orig;
+                    btn.style.background = 'var(--accent-glow)';
+                    btn.style.color = 'var(--accent)';
+                }, 1800);
+            });
+        }
+
+        document.getElementById('time').innerText = new Date().getFullYear();
+        update();
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page Maturity Score — PageGuides</title>
+    <meta name="description" content="Audit the maturity of your individual pages to see if they are ready to rank for competitive terms.">
+    <style>
+        :root {
+            --primary: #f59e0b;
+            --bg: #0f172a;
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --text: #f8fafc;
+            --text-dim: #94a3b8;
+            --border: rgba(255, 255, 255, 0.1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', system-ui, sans-serif; }
+
+        body {
+            background-color: var(--bg);
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(245, 158, 11, 0.1) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(30, 41, 59, 1) 0px, transparent 50%);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem;
+        }
+
+        .container { width: 100%; max-width: 700px; }
+
+        .header { text-align: left; margin-bottom: 3rem; width: 100%; }
+        .logo { font-size: 1.5rem; font-weight: 800; color: var(--text); text-decoration: none; display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem; }
+        .logo span { color: var(--primary); }
+        .title { font-size: 2.5rem; font-weight: 800; margin-bottom: 0.5rem; letter-spacing: -0.025em; }
+        .subtitle { color: var(--text-dim); font-size: 1.1rem; }
+
+        .card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 1.5rem; padding: 2.5rem; }
+        
+        .checklist { display: flex; flex-direction: column; gap: 1rem; margin-top: 2rem; }
+        .item { display: flex; align-items: center; gap: 1rem; padding: 1rem; background: rgba(0,0,0,0.2); border-radius: 0.75rem; border: 1px solid var(--border); cursor: pointer; transition: all 0.2s; }
+        .item:hover { border-color: var(--primary); }
+        .item.checked { background: rgba(245, 158, 11, 0.1); border-color: var(--primary); }
+        .checkbox { width: 20px; height: 20px; border-radius: 4px; border: 2px solid var(--text-dim); display: flex; align-items: center; justify-content: center; }
+        .item.checked .checkbox { background: var(--primary); border-color: var(--primary); }
+        .item.checked .checkbox::after { content: '✓'; color: #000; font-size: 12px; font-weight: 900; }
+
+        .score-bar { height: 12px; background: rgba(0,0,0,0.3); border-radius: 6px; overflow: hidden; margin-top: 2rem; }
+        .score-fill { height: 100%; background: var(--primary); width: 0%; transition: width 0.3s; }
+
+        footer { margin-top: 4rem; color: var(--text-dim); font-size: 0.9rem; text-align: center; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <a href="index.html" class="logo">Page<span>Guides</span></a>
+            <h1 class="title">Page Maturity Score</h1>
+            <p class="subtitle">Audit how consolidated your page is for ranking factors.</p>
+        </header>
+
+        <div class="card">
+            <div class="score-bar"><div class="score-fill" id="fill"></div></div>
+            <p style="text-align: center; font-weight: 800; margin-top: 0.5rem; color: var(--primary);" id="score">0% MATURITY</p>
+
+            <div class="checklist" id="list">
+                <div class="item" onclick="toggle(this)">
+                    <div class="checkbox"></div>
+                    <div><strong>Content Depth:</strong> Over 1,500 words of original content.</div>
+                </div>
+                <div class="item" onclick="toggle(this)">
+                    <div class="checkbox"></div>
+                    <div><strong>Backlinks:</strong> At least 5 unique referring domains to this URL.</div>
+                </div>
+                <div class="item" onclick="toggle(this)">
+                    <div class="checkbox"></div>
+                    <div><strong>Internal Links:</strong> Over 10 internal pages linking here.</div>
+                </div>
+                <div class="item" onclick="toggle(this)">
+                    <div class="checkbox"></div>
+                    <div><strong>Evergreen Factor:</strong> Content updated within the last 6 months.</div>
+                </div>
+                <div class="item" onclick="toggle(this)">
+                    <div class="checkbox"></div>
+                    <div><strong>Social Proof:</strong> Has comments or social share signals.</div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            &copy; 2026 PageGuides — Premium SEO Tool Suite
+        </footer>
+    </div>
+
+    <script>
+        function toggle(el) {
+            el.classList.toggle('checked');
+            update();
+        }
+
+        function update() {
+            const total = document.querySelectorAll('.item').length;
+            const checked = document.querySelectorAll('.item.checked').length;
+            const pct = Math.round((checked / total) * 100);
+
+            document.getElementById('fill').style.width = pct + '%';
+            document.getElementById('score').textContent = pct + '% MATURITY';
+        }
+    </script>
+</body>
+</html>

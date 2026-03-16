@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Social Hashtag Generator — PageGuides</title>
+    <meta name="description" content="Generate trending and relevant hashtags for your Instagram, TikTok, and X posts to increase reach.">
+    <style>
+        :root {
+            --primary: #ec4899;
+            --bg: #0f172a;
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --text: #f8fafc;
+            --text-dim: #94a3b8;
+            --border: rgba(255, 255, 255, 0.1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', system-ui, sans-serif; }
+
+        body {
+            background-color: var(--bg);
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(236, 72, 153, 0.1) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(30, 41, 59, 1) 0px, transparent 50%);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem;
+        }
+
+        .container { width: 100%; max-width: 800px; }
+
+        .header { text-align: left; margin-bottom: 3rem; width: 100%; }
+        .logo { font-size: 1.5rem; font-weight: 800; color: var(--text); text-decoration: none; display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem; }
+        .logo span { color: var(--primary); }
+        .title { font-size: 2.5rem; font-weight: 800; margin-bottom: 0.5rem; letter-spacing: -0.025em; }
+        .subtitle { color: var(--text-dim); font-size: 1.1rem; }
+
+        .card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 1.5rem; padding: 2.5rem; }
+        
+        input { width: 100%; background: #000; border: 1px solid var(--border); border-radius: 1rem; padding: 1.5rem; color: white; margin-bottom: 2rem; outline: none; font-size: 1.1rem; }
+
+        .hashtag-pool { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+        .hashtag { padding: 0.4rem 0.8rem; background: rgba(236,72,153,0.1); border: 1px solid rgba(236,72,153,0.3); border-radius: 2rem; font-size: 0.85rem; color: var(--primary); cursor: pointer; transition: all 0.2s; }
+        .hashtag:hover { background: var(--primary); color: white; }
+
+        .btn { background: var(--primary); color: white; border: none; padding: 0.75rem 2rem; border-radius: 0.5rem; font-weight: 900; margin-top: 2rem; cursor: pointer; width: 100%; }
+
+        footer { margin-top: 4rem; color: var(--text-dim); font-size: 0.9rem; text-align: center; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <a href="index.html" class="logo">Page<span>Guides</span></a>
+            <h1 class="title">Hashtag Generator</h1>
+            <p class="subtitle">Get the best tags to viralize your content across social platforms.</p>
+        </header>
+
+        <div class="card">
+            <label style="display: block; font-size: 0.7rem; font-weight: 800; color: var(--text-dim); margin-bottom: 0.5rem; text-transform: uppercase;">Topic or Keyword</label>
+            <input type="text" id="topic" value="SEO Marketing" oninput="update()">
+
+            <div class="hashtag-pool" id="pool">
+                <!-- Tags here -->
+            </div>
+
+            <button class="btn" onclick="copyAll()">COPY ALL TAGS</button>
+        </div>
+
+        <footer>
+            &copy; 2026 PageGuides — Premium SEO Tool Suite
+        </footer>
+    </div>
+
+    <script>
+        function update() {
+            const topic = document.getElementById('topic').value.toLowerCase().trim().replace(/\s+/g, '');
+            if (!topic) return;
+
+            const tags = [
+                `#${topic}`, `#${topic}Tips`, `#${topic}Guide`, `#${topic}2026`,
+                `#DigitalMarketing`, `#SEO`, `#Strategy`, `#GrowthHacking`,
+                `#MarketingTips`, `#Business`, `#WebDevelopment`, `#ContentMarketing`
+            ];
+
+            const pool = document.getElementById('pool');
+            pool.innerHTML = tags.map(t => `<div class="hashtag" onclick="copyOne('${t}')">${t}</div>`).join('');
+        }
+
+        function copyOne(t) {
+            navigator.clipboard.writeText(t);
+            alert(`Copied: ${t}`);
+        }
+
+        function copyAll() {
+            const tags = Array.from(document.querySelectorAll('.hashtag')).map(el => el.textContent).join(' ');
+            navigator.clipboard.writeText(tags);
+            alert('All tags copied!');
+        }
+
+        update();
+    </script>
+</body>
+</html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Console RegEx Filter — PageGuides</title>
+    <meta name="description" content="Generate complex Regular Expressions to filter your Google Search Console reports like a pro.">
+    <style>
+        :root {
+            --primary: #14b8a6;
+            --bg: #0f172a;
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --text: #f8fafc;
+            --text-dim: #94a3b8;
+            --border: rgba(255, 255, 255, 0.1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', system-ui, sans-serif; }
+
+        body {
+            background-color: var(--bg);
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(20, 184, 166, 0.1) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(30, 41, 59, 1) 0px, transparent 50%);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem;
+        }
+
+        .container { width: 100%; max-width: 900px; }
+
+        .header { text-align: left; margin-bottom: 3rem; width: 100%; }
+        .logo { font-size: 1.5rem; font-weight: 800; color: var(--text); text-decoration: none; display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem; }
+        .logo span { color: var(--primary); }
+        .title { font-size: 2.5rem; font-weight: 800; margin-bottom: 0.5rem; letter-spacing: -0.025em; }
+        .subtitle { color: var(--text-dim); font-size: 1.1rem; }
+
+        .card {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border);
+            border-radius: 1.5rem;
+            padding: 2.5rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        .option-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 2rem; }
+        .option-item { background: rgba(255,255,255,0.03); border: 1px solid var(--border); padding: 1.5rem; border-radius: 1rem; cursor: pointer; transition: all 0.2s; }
+        .option-item:hover { border-color: var(--primary); background: rgba(20, 184, 166, 0.05); }
+        .option-item.active { border-color: var(--primary); background: rgba(20, 184, 166, 0.1); }
+
+        .option-item b { display: block; margin-bottom: 0.5rem; color: var(--primary); }
+        .option-item p { font-size: 0.85rem; color: var(--text-dim); }
+
+        .result-box { background: #000; padding: 2rem; border-radius: 1rem; position: relative; border: 1px solid var(--border); }
+        #regex { font-family: 'Fira Code', monospace; color: #5eead4; font-size: 1.2rem; }
+        .copy-btn { position: absolute; top: 1rem; right: 1rem; background: var(--primary); color: #000; border: none; padding: 0.4rem 0.8rem; border-radius: 0.4rem; font-weight: 800; font-size: 0.7rem; cursor: pointer; }
+
+        footer { margin-top: 4rem; color: var(--text-dim); font-size: 0.9rem; text-align: center; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <a href="index.html" class="logo">Page<span>Guides</span></a>
+            <h1 class="title">Search Console RegEx</h1>
+            <p class="subtitle">Filter your GSC queries by intent, length, or keywords using custom RegEx.</p>
+        </header>
+
+        <div class="card">
+            <div class="option-grid">
+                <div class="option-item" onclick="setRegEx('questions', this)">
+                    <b>Question Intent</b>
+                    <p>Matches queries starting with What, How, Why, When, etc.</p>
+                </div>
+                <div class="option-item" onclick="setRegEx('branded', this)">
+                    <b>Branded Exclusion</b>
+                    <p>Matches all queries EXCEPT those containing your brand name.</p>
+                </div>
+                <div class="option-item" onclick="setRegEx('longtail', this)">
+                    <b>Long Tail (5+ Words)</b>
+                    <p>Matches queries that have more than 5 words in them.</p>
+                </div>
+                <div class="option-item" onclick="setRegEx('ecommerce', this)">
+                    <b>Transaccional Intent</b>
+                    <p>Matches queries with Buy, Price, Cheap, Online.</p>
+                </div>
+            </div>
+
+            <div class="result-box">
+                <button class="copy-btn" onclick="copy()">COPY REGEX</button>
+                <code id="regex">^(how|what|why|when|where|who).*</code>
+            </div>
+            <p style="margin-top: 1rem; font-size: 0.8rem; color: var(--text-dim);">Paste this into the GSC "Query" filter set to "Custom (Regex)".</p>
+        </div>
+
+        <footer>
+            &copy; 2026 PageGuides — Premium SEO Tool Suite
+        </footer>
+    </div>
+
+    <script>
+        function setRegEx(type, el) {
+            document.querySelectorAll('.option-item').forEach(x => x.classList.remove('active'));
+            el.classList.add('active');
+            
+            const box = document.getElementById('regex');
+            if (type === 'questions') box.textContent = "^(how|what|why|when|where|who).*";
+            else if (type === 'branded') box.textContent = "^(?!.*brandname).*$";
+            else if (type === 'longtail') box.textContent = "([^\\s]+\\s+){5,}[^\\s]+";
+            else box.textContent = ".*(buy|price|cheap|online|discount).*";
+        }
+
+        function copy() {
+            navigator.clipboard.writeText(document.getElementById('regex').textContent);
+            alert('RegEx copied!');
+        }
+    </script>
+</body>
+</html>

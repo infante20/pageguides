@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Word & Character Counter — PageGuides</title>
+    <meta name="description"
+        content="Free Word and Character Counter Tool. Analyze your SEO content length, keyword density, and reading time instantly.">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --accent: #10b981;
+            --accent-glow: rgba(16, 185, 129, 0.15);
+            --bg-dark: #050508;
+            --bg-light: #111827;
+            --card-bg: rgba(30, 41, 59, 0.4);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --text: #f8fafc;
+            --text-muted: #94a3b8;
+            --warn: #f59e0b;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: radial-gradient(circle at top center, var(--bg-light) 0%, var(--bg-dark) 100%);
+            background-attachment: fixed;
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* NAV */
+        nav {
+            padding: 1.25rem 2rem;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            background: rgba(5, 5, 8, 0.8);
+            backdrop-filter: blur(12px);
+        }
+
+        .logo {
+            font-weight: 700;
+            font-size: 1.25rem;
+            letter-spacing: -0.02em;
+            color: var(--text);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo span { color: var(--accent); }
+
+        .back-link {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: color 0.2s;
+            font-weight: 500;
+        }
+
+        .back-link:hover { color: var(--text); }
+
+        /* CONTAINER */
+        .container {
+            max-width: 1000px;
+            margin: 4rem auto 6rem;
+            padding: 0 1.5rem;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .tool-icon {
+            width: 64px;
+            height: 64px;
+            background: linear-gradient(135deg, rgba(16,185,129,0.15), rgba(16,185,129,0.05));
+            border: 1px solid rgba(16,185,129,0.2);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin: 0 auto 1.5rem;
+            box-shadow: inset 0 2px 4px rgba(255,255,255,0.05), 0 8px 16px rgba(0,0,0,0.2);
+        }
+
+        h1 {
+            font-size: clamp(2rem, 4vw, 2.75rem);
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+            font-weight: 300;
+            line-height: 1.5;
+        }
+
+        /* CARD */
+        .card {
+            background: var(--card-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        @media (min-width: 900px) {
+            .card {
+                flex-direction: row;
+                padding: 3rem;
+            }
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+        }
+
+        .editor-section {
+            flex: 1.5;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .stats-section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            background: rgba(15, 23, 42, 0.4);
+            border-radius: 16px;
+            padding: 2rem;
+            border: 1px solid rgba(255,255,255,0.03);
+        }
+
+        .card-title {
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* TEXTAREA */
+        textarea {
+            width: 100%;
+            flex: 1;
+            min-height: 350px;
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            padding: 1.25rem;
+            color: var(--text);
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            resize: vertical;
+            transition: all 0.2s;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: rgba(16,185,129,0.5);
+            background: rgba(15, 23, 42, 0.8);
+            box-shadow: 0 0 0 3px rgba(16,185,129,0.1), inset 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        /* STATS GRID */
+        .stat-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .stat-box {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 12px;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+            transition: transform 0.2s, background 0.2s;
+        }
+        
+        .stat-box:hover {
+            transform: translateY(-2px);
+            background: rgba(255,255,255,0.05);
+            border-color: rgba(16,185,129,0.3);
+        }
+
+        .stat-value {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--accent);
+            line-height: 1;
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+        }
+
+        .reading-time {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid rgba(255,255,255,0.05);
+            padding: 1rem 1.25rem;
+            border-radius: 12px;
+        }
+
+        .reading-time svg {
+            color: var(--accent);
+        }
+
+        .reading-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .kw-density {
+            margin-top: 1rem;
+        }
+
+        .kw-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            margin-top: 0.75rem;
+            font-size: 0.9rem;
+        }
+
+        .kw-item {
+            display: flex;
+            justify-content: space-between;
+            background: rgba(0,0,0,0.2);
+            padding: 0.5rem 0.75rem;
+            border-radius: 6px;
+        }
+        
+        .kw-item .kw-word {
+            font-weight: 500;
+        }
+
+        .kw-item .kw-count {
+            color: var(--accent);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+        }
+
+        .toolbar {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1rem;
+        }
+
+        .btn {
+            background: transparent;
+            border: 1px solid rgba(255,255,255,0.1);
+            color: var(--text);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn:hover {
+            background: rgba(255,255,255,0.05);
+            border-color: rgba(255,255,255,0.2);
+        }
+
+        .btn-clear {
+            color: #ef4444;
+            border-color: rgba(239, 68, 68, 0.2);
+        }
+        
+        .btn-clear:hover {
+            background: rgba(239, 68, 68, 0.1);
+            border-color: rgba(239, 68, 68, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            nav { padding: 1rem; }
+            .container { margin: 2rem auto 4rem; }
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <a href="index.html" class="logo">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+            </svg>
+            PageGuides<span>.</span>
+        </a>
+        <a href="index.html" class="back-link">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+            All Tools
+        </a>
+    </nav>
+
+    <main class="container">
+        <header>
+            <div class="tool-icon">📝</div>
+            <h1>Word & Character Counter</h1>
+            <p class="subtitle">Quickly count words, characters, sentences, and paragraphs. Analyze reading time and keyword density for your SEO content.</p>
+        </header>
+
+        <div class="card">
+            <!-- EDITOR -->
+            <div class="editor-section">
+                <div class="card-title">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                        <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                    </svg>
+                    Content Editor
+                </div>
+
+                <textarea id="textInput" placeholder="Start typing or paste your content here..."></textarea>
+                
+                <div class="toolbar">
+                    <button class="btn" id="btnCopy">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                        Copy Text
+                    </button>
+                    <button class="btn btn-clear" id="btnClear">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"></path></svg>
+                        Clear
+                    </button>
+                </div>
+            </div>
+
+            <!-- STATS -->
+            <div class="stats-section">
+                <div class="card-title">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                        <line x1="3" y1="9" x2="21" y2="9"></line>
+                        <line x1="9" y1="21" x2="9" y2="9"></line>
+                    </svg>
+                    Text Analytics
+                </div>
+
+                <div class="stat-grid">
+                    <div class="stat-box">
+                        <span class="stat-value" id="valWords">0</span>
+                        <span class="stat-label">Words</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-value" id="valChars">0</span>
+                        <span class="stat-label">Characters</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-value" id="valCharsNoSpace">0</span>
+                        <span class="stat-label">Chars (n/s)</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-value" id="valSentences">0</span>
+                        <span class="stat-label">Sentences</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-value" id="valParagraphs">0</span>
+                        <span class="stat-label">Paragraphs</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-value" id="valSyllables">0</span>
+                        <span class="stat-label">Syllables (est)</span>
+                    </div>
+                </div>
+
+                <div class="reading-time">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <polyline points="12 6 12 12 16 14"></polyline>
+                    </svg>
+                    <div class="reading-text">
+                        <span style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600; letter-spacing: 0.05em;">Est. Reading Time</span>
+                        <span style="font-size: 1.1rem; font-weight: 500;" id="valReadTime">0 min 0 sec</span>
+                    </div>
+                </div>
+
+                <div class="kw-density">
+                    <div class="card-title" style="margin-bottom: 0;">Top Keywords</div>
+                    <div class="kw-list" id="kwList">
+                        <div class="text-slate-500 text-sm italic" style="padding-top: 0.5rem;">Start typing to see keyword density...</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const textInput = document.getElementById('textInput');
+            
+            const stats = {
+                words: document.getElementById('valWords'),
+                chars: document.getElementById('valChars'),
+                charsNS: document.getElementById('valCharsNoSpace'),
+                sentences: document.getElementById('valSentences'),
+                paragraphs: document.getElementById('valParagraphs'),
+                syllables: document.getElementById('valSyllables'),
+                readingTime: document.getElementById('valReadTime'),
+                kwList: document.getElementById('kwList')
+            };
+
+            // English stop words
+            const stopWords = new Set(["a", "about", "above", "after", "again", "against", "all", "am", "an", "and", "any", "are", "aren't", "as", "at", "be", "because", "been", "before", "being", "below", "between", "both", "but", "by", "can't", "cannot", "could", "couldn't", "did", "didn't", "do", "does", "doesn't", "doing", "don't", "down", "during", "each", "few", "for", "from", "further", "had", "hadn't", "has", "hasn't", "have", "haven't", "having", "he", "he'd", "he'll", "he's", "her", "here", "here's", "hers", "herself", "him", "himself", "his", "how", "how's", "i", "i'd", "i'll", "i'm", "i've", "if", "in", "into", "is", "isn't", "it", "it's", "its", "itself", "let's", "me", "more", "most", "mustn't", "my", "myself", "no", "nor", "not", "of", "off", "on", "once", "only", "or", "other", "ought", "our", "ours", "ourselves", "out", "over", "own", "same", "shan't", "she", "she'd", "she'll", "she's", "should", "shouldn't", "so", "some", "such", "than", "that", "that's", "the", "their", "theirs", "them", "themselves", "then", "there", "there's", "these", "they", "they'd", "they'll", "they're", "they've", "this", "those", "through", "to", "too", "under", "until", "up", "very", "was", "wasn't", "we", "we'd", "we'll", "we're", "we've", "were", "weren't", "what", "what's", "when", "when's", "where", "where's", "which", "while", "who", "who's", "whom", "why", "why's", "with", "won't", "would", "wouldn't", "you", "you'd", "you'll", "you're", "you've", "your", "yours", "yourself", "yourselves"]);
+
+            function countSyllables(word) {
+                word = word.toLowerCase();
+                if(word.length <= 3) return 1;
+                word = word.replace(/(?:[^laeiouy]es|ed|[^laeiouy]e)$/, '');
+                word = word.replace(/^y/, '');
+                const syllables = word.match(/[aeiouy]{1,2}/g);
+                return syllables ? syllables.length : 1;
+            }
+
+            function updateAnalytics() {
+                const text = textInput.value;
+                
+                // Character counts
+                stats.chars.textContent = text.length;
+                stats.charsNS.textContent = text.replace(/\s+/g, '').length;
+
+                // Word count
+                const words = text.match(/\b\w+\b/g) || [];
+                const wordCount = words.length;
+                stats.words.textContent = wordCount;
+
+                // Sentences
+                const sentences = text.match(/[^.!?]+[.!?]+/g) || [];
+                stats.sentences.textContent = text.trim() === '' ? 0 : Math.max(1, sentences.length);
+                if (text.trim() === '') stats.sentences.textContent = 0;
+
+                // Paragraphs
+                const paragraphs = text.split(/\n\s*\n/).filter(p => p.trim() !== '');
+                stats.paragraphs.textContent = paragraphs.length;
+
+                // Syllables
+                let syllableCount = 0;
+                words.forEach(word => {
+                    syllableCount += countSyllables(word);
+                });
+                stats.syllables.textContent = syllableCount;
+
+                // Reading time (average 238 WPM)
+                const readMinutes = Math.floor(wordCount / 238);
+                const readSeconds = Math.round(((wordCount / 238) - readMinutes) * 60);
+                stats.readingTime.textContent = `${readMinutes} min ${readSeconds} sec`;
+
+                // Keyword Density
+                if (words.length > 0) {
+                    const frequency = {};
+                    words.forEach(w => {
+                        const word = w.toLowerCase();
+                        if (!stopWords.has(word) && word.length > 2) {
+                            frequency[word] = (frequency[word] || 0) + 1;
+                        }
+                    });
+
+                    const sortedKeywords = Object.entries(frequency)
+                        .sort((a, b) => b[1] - a[1])
+                        .slice(0, 5);
+
+                    if (sortedKeywords.length > 0) {
+                        stats.kwList.innerHTML = sortedKeywords.map(([word, count]) => {
+                            const percent = ((count / wordCount) * 100).toFixed(1);
+                            return `
+                            <div class="kw-item">
+                                <span class="kw-word">${word}</span>
+                                <span class="kw-count">${count} (${percent}%)</span>
+                            </div>`;
+                        }).join('');
+                    } else {
+                        stats.kwList.innerHTML = '<div class="text-slate-500 text-sm italic" style="padding-top: 0.5rem;">Not enough content.</div>';
+                    }
+                } else {
+                    stats.kwList.innerHTML = '<div class="text-slate-500 text-sm italic" style="padding-top: 0.5rem;">Start typing to see keyword density...</div>';
+                }
+            }
+
+            textInput.addEventListener('input', updateAnalytics);
+
+            document.getElementById('btnClear').addEventListener('click', () => {
+                textInput.value = '';
+                updateAnalytics();
+                textInput.focus();
+            });
+
+            document.getElementById('btnCopy').addEventListener('click', () => {
+                textInput.select();
+                document.execCommand('copy');
+                const btn = document.getElementById('btnCopy');
+                const originalText = btn.innerHTML;
+                btn.innerHTML = 'Copied!';
+                setTimeout(() => { btn.innerHTML = originalText; }, 2000);
+            });
+        });
+    </script>
+</body>
+</html>

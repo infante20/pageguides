@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text Summarizer — PageGuides</title>
+    <style>
+        :root {
+            --bg-dark: #0f172a;
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --accent: #10b981;
+            --text-main: #f8fafc;
+            --text-dim: #94a3b8;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-image: radial-gradient(circle at 50% 0%, #1e293b 0%, #0f172a 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .header {
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin: 0 0 10px 0;
+            background: linear-gradient(to right, #10b981, #34d399);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .back-link {
+            color: var(--accent);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 500;
+            margin-bottom: 20px;
+            transition: transform 0.2s;
+        }
+
+        .back-link:hover {
+            transform: translateX(-5px);
+        }
+
+        .tool-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .controls {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+            align-items: center;
+        }
+
+        .control-group {
+            flex: 1;
+        }
+
+        label {
+            display: block;
+            font-size: 0.85rem;
+            color: var(--text-dim);
+            margin-bottom: 8px;
+        }
+
+        select, input[type="range"] {
+            width: 100%;
+            background: rgba(15, 23, 42, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            color: white;
+            padding: 10px;
+            font-family: inherit;
+        }
+
+        textarea {
+            width: 100%;
+            height: 200px;
+            background: rgba(15, 23, 42, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            color: white;
+            padding: 15px;
+            font-size: 1rem;
+            margin-bottom: 20px;
+            resize: vertical;
+            box-sizing: border-box;
+            font-family: inherit;
+        }
+
+        .btn {
+            background: var(--accent);
+            color: #064e3b;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            width: 100%;
+            margin-bottom: 30px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(16, 185, 129, 0.3);
+        }
+
+        .summary-result {
+            margin-top: 30px;
+            display: none;
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .summary-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .badge {
+            background: rgba(16, 185, 129, 0.2);
+            color: var(--accent);
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .summary-content {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 12px;
+            line-height: 1.6;
+            color: var(--text-main);
+            white-space: pre-wrap;
+        }
+
+        .stats {
+            display: flex;
+            gap: 20px;
+            margin-top: 15px;
+        }
+
+        .stat-item {
+            font-size: 0.85rem;
+            color: var(--text-dim);
+        }
+
+        .copy-btn {
+            background: transparent;
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .copy-btn:hover {
+            background: var(--accent);
+            color: #064e3b;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="back-link">← All Tools</a>
+        
+        <div class="header">
+            <h1>Text Summarizer</h1>
+            <p style="color: var(--text-dim)">Extract the most important sentences from your content using extraction-based logic.</p>
+        </div>
+
+        <div class="tool-card">
+            <div class="controls">
+                <div class="control-group">
+                    <label>Summary Length (Sentences)</label>
+                    <input type="range" id="summary-length" min="1" max="10" value="3" oninput="document.getElementById('length-val').innerText = this.value">
+                    <span id="length-val" style="font-size: 0.75rem; color: var(--accent)">3</span>
+                </div>
+                <div class="control-group">
+                    <label>Algorithm Mode</label>
+                    <select id="mode">
+                        <option value="frequency">Word Frequency Focus</option>
+                        <option value="leading">Introduction Focus</option>
+                    </select>
+                </div>
+            </div>
+
+            <textarea id="text-input" placeholder="Paste your long article or blog post here..."></textarea>
+            <button class="btn" onclick="generateSummary()">Generate Extraction Summary</button>
+
+            <div id="result-panel" class="summary-result">
+                <div class="summary-header">
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <h3 style="margin: 0;">Extracted Summary</h3>
+                        <span id="reduction-badge" class="badge">0% Reduced</span>
+                    </div>
+                    <button class="copy-btn" onclick="copySummary()">Copy Summary</button>
+                </div>
+
+                <div id="summary-output" class="summary-content"></div>
+
+                <div class="stats">
+                    <div id="stat-original" class="stat-item">Original: 0 words</div>
+                    <div id="stat-summary" class="stat-item">Summary: 0 words</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function generateSummary() {
+            const text = document.getElementById('text-input').value.trim();
+            const length = parseInt(document.getElementById('summary-length').value);
+            const mode = document.getElementById('mode').value;
+
+            if (text.length < 100) {
+                alert('Please enter at least 100 characters for a useful summary.');
+                return;
+            }
+
+            const sentences = text.split(/[.!?]\s+/).filter(s => s.length > 10);
+            if (sentences.length <= length) {
+                document.getElementById('summary-output').innerText = text;
+                updateStats(text, text);
+                return;
+            }
+
+            let result = [];
+
+            if (mode === 'leading') {
+                result = sentences.slice(0, length);
+            } else {
+                // EXTRATIVE FREQUENCY LOGIC
+                // 1. Tokenize and count word frequency (strip stop words)
+                const stopWords = new Set(['the', 'a', 'is', 'and', 'or', 'in', 'on', 'at', 'to', 'for', 'with', 'by', 'an', 'this', 'that', 'it', 'was', 'were', 'be', 'are']);
+                const words = text.toLowerCase().match(/\b\w+\b/g) || [];
+                const freqMap = {};
+                words.forEach(w => {
+                    if (!stopWords.has(w) && w.length > 3) {
+                        freqMap[w] = (freqMap[w] || 0) + 1;
+                    }
+                });
+
+                // 2. Score sentences based on frequency of words they contain
+                const sentenceScores = sentences.map((s, idx) => {
+                    let score = 0;
+                    const sWords = s.toLowerCase().match(/\b\w+\b/g) || [];
+                    sWords.forEach(w => {
+                        score += (freqMap[w] || 0);
+                    });
+                    
+                    // Boost first and last sentences slightly
+                    if (idx === 0) score *= 1.5;
+                    if (idx === sentences.length - 1) score *= 1.2;
+
+                    return { text: s, score: score, index: idx };
+                });
+
+                // 3. Pick top N sentences but return in original order
+                const sorted = [...sentenceScores].sort((a, b) => b.score - a.score);
+                const selection = sorted.slice(0, length);
+                const finalSentences = selection.sort((a, b) => a.index - b.index);
+                result = finalSentences.map(s => s.text);
+            }
+
+            const summaryText = result.join('. ') + '.';
+            document.getElementById('summary-output').innerText = summaryText;
+            updateStats(text, summaryText);
+            document.getElementById('result-panel').style.display = 'block';
+        }
+
+        function updateStats(original, summary) {
+            const oCount = original.split(/\s+/).length;
+            const sCount = summary.split(/\s+/).length;
+            const reduction = Math.round((1 - sCount / oCount) * 100);
+
+            document.getElementById('stat-original').innerText = `Original: ${oCount} words`;
+            document.getElementById('stat-summary').innerText = `Summary: ${sCount} words`;
+            document.getElementById('reduction-badge').innerText = `${reduction}% Reduced`;
+        }
+
+        function copySummary() {
+            const text = document.getElementById('summary-output').innerText;
+            navigator.clipboard.writeText(text);
+            alert('Summary copied to clipboard!');
+        }
+    </script>
+</body>
+</html>

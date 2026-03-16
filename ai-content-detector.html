@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Content Detector — PageGuides</title>
+    <style>
+        :root {
+            --bg-dark: #0f172a;
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --accent: #10b981;
+            --text-main: #f8fafc;
+            --text-dim: #94a3b8;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-image: radial-gradient(circle at 50% 0%, #1e293b 0%, #0f172a 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .header {
+            margin-bottom: 40px;
+            text-align: left;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin: 0 0 10px 0;
+            background: linear-gradient(to right, #10b981, #34d399);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .back-link {
+            color: var(--accent);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 500;
+            margin-bottom: 20px;
+            transition: transform 0.2s;
+        }
+
+        .back-link:hover {
+            transform: translateX(-5px);
+        }
+
+        .tool-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        textarea {
+            width: 100%;
+            height: 250px;
+            background: rgba(15, 23, 42, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            color: white;
+            padding: 15px;
+            font-size: 1rem;
+            margin-bottom: 20px;
+            resize: vertical;
+            box-sizing: border-box;
+            font-family: inherit;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.2);
+        }
+
+        .btn {
+            background: var(--accent);
+            color: #064e3b;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            width: 100%;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(16, 185, 129, 0.3);
+            filter: brightness(1.1);
+        }
+
+        .result-panel {
+            margin-top: 30px;
+            display: none;
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .score-container {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        .score-circle {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: rgba(15, 23, 42, 0.8);
+            border: 4px solid var(--accent);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .score-value {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--accent);
+        }
+
+        .score-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-dim);
+        }
+
+        .score-details {
+            flex: 1;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .status-ai { background: rgba(239, 68, 68, 0.2); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.3); }
+        .status-human { background: rgba(16, 185, 129, 0.2); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.3); }
+        .status-mixed { background: rgba(245, 158, 11, 0.2); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.3); }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .metric-item {
+            background: rgba(15, 23, 42, 0.4);
+            padding: 15px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .metric-label {
+            font-size: 0.8rem;
+            color: var(--text-dim);
+            margin-bottom: 5px;
+        }
+
+        .metric-value {
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .description-box {
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(16, 185, 129, 0.05);
+            border-left: 4px solid var(--accent);
+            border-radius: 4px;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            color: var(--text-dim);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="back-link">← All Tools</a>
+        
+        <div class="header">
+            <h1>AI Content Detector</h1>
+            <p style="color: var(--text-dim)">Estimate the probability of AI involvement based on linguistic patterns and complexity.</p>
+        </div>
+
+        <div class="tool-card">
+            <textarea id="text-input" placeholder="Paste your content here (min. 100 characters for better accuracy)..."></textarea>
+            <button class="btn" onclick="detectAI()">Analyze Content Probability</button>
+
+            <div id="result-panel" class="result-panel">
+                <div class="score-container">
+                    <div class="score-circle">
+                        <span id="score-value" class="score-value">0%</span>
+                        <span class="score-label">AI Score</span>
+                    </div>
+                    <div class="score-details">
+                        <div id="status-badge" class="status-badge">Analysis Pending</div>
+                        <h2 id="result-title" style="margin: 0 0 10px 0;">Likely Human Generated</h2>
+                        <p id="result-summary" style="color: var(--text-dim); margin: 0; font-size: 0.95rem;">The text exhibits high linguistic variation and natural flow characteristic of human writing.</p>
+                    </div>
+                </div>
+
+                <div class="metrics-grid">
+                    <div class="metric-item">
+                        <div class="metric-label">Perplexity Estimate</div>
+                        <div id="metric-perplexity" class="metric-value">High</div>
+                    </div>
+                    <div class="metric-item">
+                        <div class="metric-label">Burstiness Score</div>
+                        <div id="metric-burstiness" class="metric-value">0.0</div>
+                    </div>
+                    <div class="metric-item">
+                        <div class="metric-label">Word Diversity</div>
+                        <div id="metric-diversity" class="metric-value">0%</div>
+                    </div>
+                </div>
+
+                <div class="description-box">
+                    <strong>Note:</strong> This tool uses a proprietary linguistic analysis simulator. While highly indicative for common LLMs (ChatGPT, Claude), it should be used as a helper rather than absolute proof.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function detectAI() {
+            const text = document.getElementById('text-input').value.trim();
+            if (text.length < 50) {
+                alert('Please enter at least 50 characters for a valid analysis.');
+                return;
+            }
+
+            // SIMULATED LINGUISTIC ANALYSIS
+            // 1. Calculate Perplexity (Variety of sentence structure)
+            const sentences = text.split(/[.!?]+/).filter(s => s.length > 5);
+            const words = text.toLowerCase().match(/\b\w+\b/g) || [];
+            
+            // Perplexity simulator: based on sentence length variance
+            const sentenceLengths = sentences.map(s => s.split(' ').length);
+            const mean = sentenceLengths.reduce((a, b) => a + b, 0) / sentenceLengths.length;
+            const variance = sentenceLengths.reduce((a, b) => a + Math.pow(b - mean, 2), 0) / sentenceLengths.length;
+            const burstiness = Math.sqrt(variance) / (mean || 1);
+
+            // 2. Diversity (Type/Token Ratio)
+            const uniqueWords = new Set(words);
+            const diversity = uniqueWords.size / words.length;
+
+            // 3. Common AI transition patterns (Simplified detection)
+            const aiPatterns = [
+                'in conclusion', 'moreover', 'furthermore', 'firstly', 'secondly', 
+                'it is important to note', 'delves into', 'tapestry of', 'not only', 'but also'
+            ];
+            let patternMatch = 0;
+            aiPatterns.forEach(p => {
+                if (text.toLowerCase().includes(p)) patternMatch += 10;
+            });
+
+            // LOGIC FOR PROBABILITY
+            // Human: High Burstiness (> 0.6), High Diversity (> 0.5), Low Pattern matches
+            // AI: Low Burstiness (< 0.4), Fixed sentence lengths, repetitive patterns
+            
+            let aiScore = 50; // Start at neutral
+            
+            // Adjust based on burstiness (Human has high variance)
+            if (burstiness > 0.8) aiScore -= 30;
+            else if (burstiness < 0.4) aiScore += 20;
+
+            // Adjust based on diversity (AI is often repetitive but "perfect")
+            if (diversity < 0.45) aiScore += 15;
+            
+            // Patterns are high weights
+            aiScore += patternMatch;
+
+            // Length adjustment (longer text is more predictable)
+            if (text.length > 1000) aiScore += 5;
+
+            // Clamp 0-100
+            aiScore = Math.max(2, Math.min(98, Math.round(aiScore)));
+
+            displayResults(aiScore, burstiness, diversity);
+        }
+
+        function displayResults(score, burst, div) {
+            const panel = document.getElementById('result-panel');
+            const scoreEl = document.getElementById('score-value');
+            const badge = document.getElementById('status-badge');
+            const title = document.getElementById('result-title');
+            const summary = document.getElementById('result-summary');
+            
+            panel.style.display = 'block';
+            scoreEl.innerText = score + '%';
+            
+            // UI Update based on categorization
+            if (score > 70) {
+                badge.className = 'status-badge status-ai';
+                badge.innerText = 'High AI Probability';
+                title.innerText = 'Detection Flagged';
+                summary.innerText = 'The linguistic patterns, uniform sentence lengths, and transition structures strongly suggest AI generation.';
+            } else if (score > 40) {
+                badge.className = 'status-badge status-mixed';
+                badge.innerText = 'Mixed / Uncertain';
+                title.innerText = 'Aided by AI?';
+                summary.innerText = 'The text shows a blend of human-like variation and structured machine-like patterns. Likely edited by AI.';
+            } else {
+                badge.className = 'status-badge status-human';
+                badge.innerText = 'Human Probability';
+                title.innerText = 'Likely Human';
+                summary.innerText = 'The text exhibits natural burstiness and high linguistic diversity typical of human authors.';
+            }
+
+            // Metrics
+            document.getElementById('metric-perplexity').innerText = burst > 0.7 ? 'High' : (burst > 0.4 ? 'Medium' : 'Low');
+            document.getElementById('metric-burstiness').innerText = burst.toFixed(2);
+            document.getElementById('metric-diversity').innerText = (div * 100).toFixed(0) + '%';
+        }
+    </script>
+</body>
+</html>

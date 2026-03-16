@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Review Schema Generator — PageGuides</title>
+    <meta name="description" content="Generate JSON-LD Review and Rating markup for products, services, or books to gain rich snippets in SERP.">
+    <style>
+        :root {
+            --primary: #8b5cf6;
+            --primary-hover: #7c3aed;
+            --bg: #0f172a;
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --text: #f8fafc;
+            --text-dim: #94a3b8;
+            --border: rgba(255, 255, 255, 0.1);
+            --star: #fbbf24;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', system-ui, sans-serif; }
+
+        body {
+            background-color: var(--bg);
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(139, 92, 246, 0.15) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(236, 72, 153, 0.15) 0px, transparent 50%);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem;
+        }
+
+        .container { width: 100%; max-width: 1000px; }
+
+        .header { text-align: left; margin-bottom: 3rem; width: 100%; }
+        .logo { font-size: 1.5rem; font-weight: 800; color: var(--text); text-decoration: none; display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem; }
+        .logo span { color: var(--primary); }
+        .title { font-size: 2.5rem; font-weight: 800; margin-bottom: 0.5rem; letter-spacing: -0.025em; }
+        .subtitle { color: var(--text-dim); font-size: 1.1rem; }
+
+        .tool-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+        @media (max-width: 900px) { .tool-grid { grid-template-columns: 1fr; } }
+
+        .card {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--border);
+            border-radius: 1.5rem;
+            padding: 2rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        .form-section { margin-bottom: 2rem; }
+        .form-section h3 { font-size: 1.1rem; margin-bottom: 1rem; color: var(--primary); border-bottom: 1px solid var(--border); padding-bottom: 0.5rem; }
+
+        .form-group { margin-bottom: 1.25rem; }
+        label { display: block; margin-bottom: 0.5rem; color: var(--text-dim); font-size: 0.85rem; font-weight: 500; }
+        
+        input, select, textarea {
+            width: 100%;
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid var(--border);
+            border-radius: 0.75rem;
+            padding: 0.75rem 1rem;
+            color: white;
+            font-size: 1rem;
+            transition: all 0.2s;
+        }
+
+        input:focus, select:focus, textarea:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2); }
+
+        .range-wrap { display: flex; align-items: center; gap: 1rem; }
+        .range-value { font-weight: 700; color: var(--star); min-width: 2rem; }
+
+        .output-container { position: relative; }
+        pre {
+            background: #000;
+            padding: 1.5rem;
+            border-radius: 1rem;
+            color: #10b981;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.8rem;
+            overflow-x: auto;
+            border: 1px solid var(--border);
+            min-height: 300px;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--border);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            z-index: 10;
+        }
+
+        .copy-btn:hover { background: var(--primary); }
+
+        .preview-box {
+            background: white;
+            color: #1f2937;
+            padding: 1.5rem;
+            border-radius: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .stars { color: var(--star); font-size: 1.2rem; margin-bottom: 0.5rem; }
+        .preview-title { font-weight: 700; font-size: 1.1rem; margin-bottom: 0.25rem; }
+        .preview-meta { font-size: 0.85rem; color: #6b7280; margin-bottom: 1rem; }
+        .preview-body { font-size: 0.95rem; line-height: 1.5; color: #374151; }
+
+        footer { margin-top: 4rem; color: var(--text-dim); font-size: 0.9rem; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <a href="index.html" class="logo">Page<span>Guides</span></a>
+            <h1 class="title">Review Schema Gen</h1>
+            <p class="subtitle">Gain stars in search results with valid JSON-LD Review markup.</p>
+        </header>
+
+        <div class="tool-grid">
+            <div class="card">
+                <div class="form-section">
+                    <h3>Review Object</h3>
+                    <div class="form-group">
+                        <label>Item Name</label>
+                        <input type="text" id="itemName" placeholder="Product or Service Name" value="Premium SEO Content" oninput="updateAll()">
+                    </div>
+                    <div class="form-group">
+                        <label>Review Headline</label>
+                        <input type="text" id="headline" placeholder="Great product!" value="Exceptional quality and value" oninput="updateAll()">
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3>Rating & Author</h3>
+                    <div class="form-group">
+                        <label>Rating Value (1-5)</label>
+                        <div class="range-wrap">
+                            <input type="range" id="ratingValue" min="1" max="5" step="0.1" value="4.8" oninput="updateAll()">
+                            <span class="range-value" id="ratingValDisplay">4.8</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Author Name</label>
+                        <input type="text" id="author" placeholder="Reviewer Name" value="John Doe" oninput="updateAll()">
+                    </div>
+                    <div class="form-group">
+                        <label>Review Body</label>
+                        <textarea id="reviewBody" rows="4" placeholder="The review text content..." oninput="updateAll()">The content delivered was highly optimized and well-structured. It significantly improved our rankings within weeks.</textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card output-container">
+                <label>JSON-LD Markup</label>
+                <button class="copy-btn" onclick="copyCode()">Copy Code</button>
+                <pre id="output"></pre>
+
+                <label style="margin-top: 2rem;">Rich Snippet Preview</label>
+                <div class="preview-box">
+                    <div class="stars" id="previewStars">★★★★☆</div>
+                    <div class="preview-title" id="previewHeadline">Exceptional quality and value</div>
+                    <div class="preview-meta">Reviewed by <span id="previewAuthor">John Doe</span> for <span id="previewItem">Premium SEO Content</span></div>
+                    <div class="preview-body" id="previewBodyText">The content delivered was highly optimized and well-structured...</div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            &copy; 2026 PageGuides — Premium SEO Tool Suite
+        </footer>
+    </div>
+
+    <script>
+        function updateAll() {
+            const itemName = document.getElementById('itemName').value;
+            const headline = document.getElementById('headline').value;
+            const ratingValue = document.getElementById('ratingValue').value;
+            const author = document.getElementById('author').value;
+            const reviewBody = document.getElementById('reviewBody').value;
+
+            document.getElementById('ratingValDisplay').textContent = ratingValue;
+
+            const schema = {
+                "@context": "https://schema.org/",
+                "@type": "Review",
+                "itemReviewed": {
+                    "@type": "Thing",
+                    "name": itemName
+                },
+                "author": {
+                    "@type": "Person",
+                    "name": author
+                },
+                "reviewRating": {
+                    "@type": "Rating",
+                    "ratingValue": ratingValue,
+                    "bestRating": "5"
+                },
+                "publisher": {
+                    "@type": "Organization",
+                    "name": "User Content"
+                },
+                "headline": headline,
+                "reviewBody": reviewBody
+            };
+
+            document.getElementById('output').textContent = JSON.stringify(schema, null, 4);
+
+            // Update Visual Preview
+            document.getElementById('previewStars').textContent = '★'.repeat(Math.round(ratingValue)) + '☆'.repeat(5 - Math.round(ratingValue));
+            document.getElementById('previewHeadline').textContent = headline;
+            document.getElementById('previewAuthor').textContent = author;
+            document.getElementById('previewItem').textContent = itemName;
+            document.getElementById('previewBodyText').textContent = reviewBody;
+        }
+
+        function copyCode() {
+            const code = document.getElementById('output').textContent;
+            navigator.clipboard.writeText(code);
+            const btn = document.querySelector('.copy-btn');
+            btn.textContent = 'Copied!';
+            setTimeout(() => btn.textContent = 'Copy Code', 2000);
+        }
+
+        // Initial update
+        updateAll();
+    </script>
+</body>
+</html>

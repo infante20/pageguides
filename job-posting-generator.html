@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Posting Schema Generator — PageGuides</title>
+    <meta name="description" content="Generate JSON-LD JobPosting schema to list your job openings on Google For Jobs.">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-hover: #1d4ed8;
+            --bg: #0f172a;
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --text: #f8fafc;
+            --text-dim: #94a3b8;
+            --border: rgba(255, 255, 255, 0.1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', system-ui, sans-serif; }
+
+        body {
+            background-color: var(--bg);
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(37, 99, 235, 0.1) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(30, 41, 59, 1) 0px, transparent 50%);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem;
+        }
+
+        .container { width: 100%; max-width: 1100px; }
+
+        .header { text-align: left; margin-bottom: 3rem; width: 100%; }
+        .logo { font-size: 1.5rem; font-weight: 800; color: var(--text); text-decoration: none; display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem; }
+        .logo span { color: var(--primary); }
+        .title { font-size: 2.5rem; font-weight: 800; margin-bottom: 0.5rem; letter-spacing: -0.025em; }
+        .subtitle { color: var(--text-dim); font-size: 1.1rem; }
+
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+        @media (max-width: 900px) { .grid { grid-template-columns: 1fr; } }
+
+        .card {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border);
+            border-radius: 1.5rem;
+            padding: 2rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        .form-group { margin-bottom: 1rem; }
+        label { display: block; margin-bottom: 0.4rem; color: var(--text-dim); font-size: 0.85rem; font-weight: 600; }
+        input, select, textarea {
+            width: 100%;
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid var(--border);
+            border-radius: 0.75rem;
+            padding: 0.75rem 1rem;
+            color: white;
+            font-size: 0.9rem;
+        }
+
+        .output-section { position: relative; margin-top: 1rem; }
+        pre {
+            background: #000;
+            padding: 1.5rem;
+            border-radius: 1rem;
+            color: #60a5fa;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.8rem;
+            overflow-x: auto;
+            border: 1px solid var(--border);
+            min-height: 600px;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--border);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            font-size: 0.8rem;
+            cursor: pointer;
+        }
+
+        footer { margin-top: 4rem; color: var(--text-dim); font-size: 0.9rem; text-align: center; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <a href="index.html" class="logo">Page<span>Guides</span></a>
+            <h1 class="title">Job Posting Schema</h1>
+            <p class="subtitle">Get your job listings on Google For Jobs instantly.</p>
+        </header>
+
+        <div class="grid">
+            <div class="card">
+                <div class="form-group">
+                    <label>Job Title</label>
+                    <input type="text" id="title" value="Senior SEO Specialist" oninput="updateAll()">
+                </div>
+                <div class="form-group">
+                    <label>Description (HTML recommended)</label>
+                    <textarea id="description" oninput="updateAll()" style="height: 100px;"><p>We are looking for a rockstar SEO...</p></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Company Name</label>
+                    <input type="text" id="company" value="StudioLimb" oninput="updateAll()">
+                </div>
+                <div class="form-group">
+                    <label>Company Website</label>
+                    <input type="text" id="website" value="https://studiolimb.com" oninput="updateAll()">
+                </div>
+                <div class="form-group">
+                    <label>Job Location (City, State, Country)</label>
+                    <input type="text" id="location" value="New York, NY, US" oninput="updateAll()">
+                </div>
+                <div class="form-group">
+                    <label>Employment Type</label>
+                    <select id="type" onchange="updateAll()">
+                        <option value="FULL_TIME">Full Time</option>
+                        <option value="PART_TIME">Part Time</option>
+                        <option value="CONTRACTOR">Contractor</option>
+                        <option value="INTERN">Intern</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Base Salary (e.g. 80000)</label>
+                    <input type="number" id="salary" value="95000" oninput="updateAll()">
+                </div>
+                <div class="form-group">
+                    <label>Expiry Date</label>
+                    <input type="date" id="expiry" value="2026-12-31" oninput="updateAll()">
+                </div>
+            </div>
+
+            <div class="card">
+                <label>JSON-LD Code</label>
+                <div class="output-section">
+                    <button class="copy-btn" onclick="copyCode()">Copy JSON</button>
+                    <pre id="output"></pre>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            &copy; 2026 PageGuides — Premium SEO Tool Suite
+        </footer>
+    </div>
+
+    <script>
+        function updateAll() {
+            const schema = {
+                "@context": "https://schema.org/",
+                "@type": "JobPosting",
+                "title": document.getElementById('title').value,
+                "description": document.getElementById('description').value,
+                "hiringOrganization": {
+                    "@type": "Organization",
+                    "name": document.getElementById('company').value,
+                    "sameAs": document.getElementById('website').value
+                },
+                "employmentType": document.getElementById('type').value,
+                "datePosted": new Date().toISOString().split('T')[0],
+                "validThrough": document.getElementById('expiry').value,
+                "jobLocation": {
+                    "@type": "Place",
+                    "address": {
+                        "@type": "PostalAddress",
+                        "addressLocality": document.getElementById('location').value.split(',')[0].trim(),
+                        "addressRegion": (document.getElementById('location').value.split(',')[1] || '').trim(),
+                        "addressCountry": (document.getElementById('location').value.split(',')[2] || '').trim()
+                    }
+                },
+                "baseSalary": {
+                    "@type": "MonetaryAmount",
+                    "currency": "USD",
+                    "value": {
+                        "@type": "QuantitativeValue",
+                        "value": document.getElementById('salary').value,
+                        "unitText": "YEAR"
+                    }
+                }
+            };
+
+            document.getElementById('output').textContent = JSON.stringify(schema, null, 4);
+        }
+
+        function copyCode() {
+            const code = document.getElementById('output').textContent;
+            navigator.clipboard.writeText(code);
+            const btn = document.querySelector('.copy-btn');
+            btn.textContent = 'Copied!';
+            setTimeout(() => btn.textContent = 'Copy JSON', 2000);
+        }
+
+        updateAll();
+    </script>
+</body>
+</html>

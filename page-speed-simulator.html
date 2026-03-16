@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page Speed Metric Simulator — PageGuides</title>
+    <meta name="description" content="Simulate how your page speed metrics like Time to First Byte and First Contentful Paint look to users.">
+    <style>
+        :root {
+            --primary: #22d3ee;
+            --bg: #0f172a;
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --text: #f8fafc;
+            --text-dim: #94a3b8;
+            --border: rgba(255, 255, 255, 0.1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', system-ui, sans-serif; }
+
+        body {
+            background-color: var(--bg);
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(34, 211, 238, 0.1) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(30, 41, 59, 1) 0px, transparent 50%);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem;
+        }
+
+        .container { width: 100%; max-width: 900px; }
+
+        .header { text-align: left; margin-bottom: 3rem; width: 100%; }
+        .logo { font-size: 1.5rem; font-weight: 800; color: var(--text); text-decoration: none; display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem; }
+        .logo span { color: var(--primary); }
+        .title { font-size: 2.5rem; font-weight: 800; margin-bottom: 0.5rem; letter-spacing: -0.025em; }
+        .subtitle { color: var(--text-dim); font-size: 1.1rem; }
+
+        .card {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border);
+            border-radius: 1.5rem;
+            padding: 2.5rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        .simulator-area {
+            background: #000;
+            border-radius: 1rem;
+            padding: 2rem;
+            position: relative;
+            height: 300px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+
+        .browser-header {
+            background: #1e293b;
+            padding: 0.5rem 1rem;
+            display: flex;
+            gap: 0.5rem;
+            border-radius: 0.5rem 0.5rem 0 0;
+            margin: -2rem -2rem 1.5rem -2rem;
+        }
+        .dot { width: 10px; height: 10px; border-radius: 50%; }
+
+        .timeline { position: relative; height: 100px; margin-top: 2rem; background: rgba(255,255,255,0.05); border-radius: 0.5rem; overflow: hidden; }
+        .marker { position: absolute; top: 0; bottom: 0; width: 2px; background: var(--primary); transition: left 0.5s; }
+        .marker-label { position: absolute; top: -20px; font-size: 0.7rem; font-weight: 700; transform: translateX(-50%); }
+
+        .controls { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 2rem; }
+        .input-group label { display: block; font-size: 0.8rem; font-weight: 700; color: var(--text-dim); margin-bottom: 0.5rem; }
+        input { width: 100%; background: #1e293b; border: 1px solid var(--border); color: white; padding: 0.5rem; border-radius: 0.4rem; }
+
+        footer { margin-top: 4rem; color: var(--text-dim); font-size: 0.9rem; text-align: center; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <a href="index.html" class="logo">Page<span>Guides</span></a>
+            <h1 class="title">Page Speed Metric Simulator</h1>
+            <p class="subtitle">Visualize and understand the loading sequence of your web pages.</p>
+        </header>
+
+        <div class="card">
+            <div class="simulator-area">
+                <div class="browser-header">
+                    <div class="dot" style="background: #ef4444;"></div>
+                    <div class="dot" style="background: #f59e0b;"></div>
+                    <div class="dot" style="background: #10b981;"></div>
+                </div>
+                
+                <p id="sim-status" style="color: var(--text-dim); text-align: center; margin-top: 2rem;">Ready to simulate...</p>
+                <div class="timeline">
+                    <div id="m-ttfb" class="marker" style="left: 0; display: none;"><span class="marker-label">TTFB</span></div>
+                    <div id="m-fcp" class="marker" style="left: 0; display: none; background: #f59e0b;"><span class="marker-label">FCP</span></div>
+                    <div id="m-onload" class="marker" style="left: 0; display: none; background: #10b981;"><span class="marker-label">ONLOAD</span></div>
+                </div>
+            </div>
+
+            <div class="controls">
+                <div class="input-group">
+                    <label>TTFB (ms)</label>
+                    <input type="number" id="ttfb" value="200">
+                </div>
+                <div class="input-group">
+                    <label>FCP (ms)</label>
+                    <input type="number" id="fcp" value="800">
+                </div>
+                <div class="input-group">
+                    <label>Onload (ms)</label>
+                    <input type="number" id="onload" value="2500">
+                </div>
+            </div>
+            <button class="btn" style="width: 100%; height: 50px; background: var(--primary); color: #000; font-weight: 900; border: none; border-radius: 0.5rem; cursor: pointer; margin-top: 1.5rem;" onclick="runSimulation()">RUN SIMULATION</button>
+        </div>
+
+        <footer>
+            &copy; 2026 PageGuides — Premium SEO Tool Suite
+        </footer>
+    </div>
+
+    <script>
+        function runSimulation() {
+            const ttfb = parseInt(document.getElementById('ttfb').value);
+            const fcp = parseInt(document.getElementById('fcp').value);
+            const onload = parseInt(document.getElementById('onload').value);
+
+            const status = document.getElementById('sim-status');
+            const total = onload + 500;
+
+            const m_ttfb = document.getElementById('m-ttfb');
+            const m_fcp = document.getElementById('m-fcp');
+            const m_onload = document.getElementById('m-onload');
+
+            m_ttfb.style.display = 'block';
+            m_fcp.style.display = 'block';
+            m_onload.style.display = 'block';
+
+            status.textContent = "Loading...";
+
+            setTimeout(() => {
+                m_ttfb.style.left = (ttfb / total * 100) + '%';
+            }, 0);
+
+            setTimeout(() => {
+                m_fcp.style.left = (fcp / total * 100) + '%';
+            }, 200);
+
+            setTimeout(() => {
+                m_onload.style.left = (onload / total * 100) + '%';
+                status.textContent = "Page Loaded successfully!";
+            }, 500);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meta Tag Extractor — PageGuides</title>
+    <meta name="description" content="Extract meta tags, Open Graph, and Twitter Cards from any HTML source code instantly.">
+    <style>
+        :root {
+            --primary: #06b6d4;
+            --primary-hover: #0891b2;
+            --bg: #0f172a;
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --text: #f8fafc;
+            --text-dim: #94a3b8;
+            --border: rgba(255, 255, 255, 0.1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', system-ui, sans-serif; }
+
+        body {
+            background-color: var(--bg);
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(6, 182, 212, 0.15) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(20, 184, 166, 0.15) 0px, transparent 50%);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem;
+        }
+
+        .container { width: 100%; max-width: 1100px; }
+
+        .header { text-align: left; margin-bottom: 3rem; width: 100%; }
+        .logo { font-size: 1.5rem; font-weight: 800; color: var(--text); text-decoration: none; display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem; }
+        .logo span { color: var(--primary); }
+        .title { font-size: 2.5rem; font-weight: 800; margin-bottom: 0.5rem; letter-spacing: -0.025em; }
+        .subtitle { color: var(--text-dim); font-size: 1.1rem; }
+
+        .card {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--border);
+            border-radius: 1.5rem;
+            padding: 2.5rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            margin-bottom: 2rem;
+        }
+
+        .input-group { margin-bottom: 2rem; }
+        label { display: block; margin-bottom: 0.75rem; color: var(--text-dim); font-size: 0.9rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
+        
+        textarea {
+            width: 100%;
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid var(--border);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            color: #10b981;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+            resize: vertical;
+            min-height: 200px;
+        }
+
+        textarea:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 4px rgba(6, 182, 212, 0.1); }
+
+        .btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 0.75rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1rem;
+        }
+
+        .btn:hover { background: var(--primary-hover); transform: translateY(-1px); }
+
+        .results {
+            margin-top: 3rem;
+            display: none;
+        }
+
+        .results.active { display: block; }
+
+        .tag-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; }
+
+        .tag-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border);
+            border-radius: 1rem;
+            padding: 1.25rem;
+            transition: all 0.2s;
+        }
+
+        .tag-card:hover { background: rgba(255, 255, 255, 0.06); border-color: var(--primary); }
+
+        .tag-label { color: var(--primary); font-size: 0.75rem; font-weight: 800; text-transform: uppercase; margin-bottom: 0.5rem; }
+        .tag-name { color: var(--text-dim); font-size: 0.85rem; margin-bottom: 0.25rem; }
+        .tag-value { word-break: break-all; font-size: 0.95rem; font-weight: 500; }
+
+        footer { margin-top: 4rem; color: var(--text-dim); font-size: 0.9rem; text-align: center; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <a href="index.html" class="logo">Page<span>Guides</span></a>
+            <h1 class="title">Meta Tag Extractor</h1>
+            <p class="subtitle">Paste your HTML source code to analyze and extract all important meta tags.</p>
+        </header>
+
+        <div class="card">
+            <div class="input-group">
+                <label>HTML Source Code</label>
+                <textarea id="htmlInput" placeholder="Paste <head>...</head> or the full HTML source here..."></textarea>
+            </div>
+            <button class="btn" onclick="extractTags()">
+                <span>🔍</span> Extract Meta Tags
+            </button>
+        </div>
+
+        <div class="results" id="results">
+            <h2 style="margin-bottom: 1.5rem; font-size: 1.5rem;">Extracted Tags</h2>
+            <div class="tag-grid" id="tagGrid"></div>
+        </div>
+
+        <footer>
+            &copy; 2026 PageGuides — Premium SEO Tool Suite
+        </footer>
+    </div>
+
+    <script>
+        function extractTags() {
+            const html = document.getElementById('htmlInput').value;
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
+            const grid = document.getElementById('tagGrid');
+            grid.innerHTML = '';
+
+            const resultsDiv = document.getElementById('results');
+            resultsDiv.classList.add('active');
+
+            // Title
+            const title = doc.querySelector('title');
+            if (title) addTag('TITLE', 'Page Title', title.innerText);
+
+            // Meta tags
+            const metas = doc.querySelectorAll('meta');
+            metas.forEach(meta => {
+                const name = meta.getAttribute('name') || meta.getAttribute('property');
+                const content = meta.getAttribute('content');
+                if (name && content) {
+                    let type = 'META';
+                    if (name.startsWith('og:')) type = 'OPEN GRAPH';
+                    if (name.startsWith('twitter:')) type = 'TWITTER CARD';
+                    addTag(type, name, content);
+                }
+            });
+
+            // Canonical
+            const canonical = doc.querySelector('link[rel="canonical"]');
+            if (canonical) addTag('LINK', 'canonical', canonical.getAttribute('href'));
+
+            if (grid.children.length === 0) {
+                grid.innerHTML = '<div style="color: #ef4444; padding: 2rem; text-align: center; width: 100%;">No meta tags found in the provided HTML.</div>';
+            }
+        }
+
+        function addTag(type, name, value) {
+            const grid = document.getElementById('tagGrid');
+            const card = document.createElement('div');
+            card.className = 'tag-card';
+            card.innerHTML = `
+                <div class="tag-label">${type}</div>
+                <div class="tag-name">${name}</div>
+                <div class="tag-value">${value}</div>
+            `;
+            grid.appendChild(card);
+        }
+    </script>
+</body>
+</html>

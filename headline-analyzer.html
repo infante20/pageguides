@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Headline Analyzer — PageGuides</title>
+    <style>
+        :root {
+            --bg-dark: #0f172a;
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --accent: #10b981;
+            --text-main: #f8fafc;
+            --text-dim: #94a3b8;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-image: radial-gradient(circle at 50% 0%, #1e293b 0%, #0f172a 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .header {
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin: 0 0 10px 0;
+            background: linear-gradient(to right, #10b981, #34d399);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .back-link {
+            color: var(--accent);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 500;
+            margin-bottom: 20px;
+            transition: transform 0.2s;
+        }
+
+        .back-link:hover {
+            transform: translateX(-5px);
+        }
+
+        .tool-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .input-group {
+            margin-bottom: 30px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            background: rgba(15, 23, 42, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            color: white;
+            padding: 20px;
+            font-size: 1.2rem;
+            box-sizing: border-box;
+            font-family: inherit;
+            text-align: center;
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 15px rgba(16, 185, 129, 0.1);
+        }
+
+        .btn {
+            background: var(--accent);
+            color: #064e3b;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            width: 100%;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 10px 30px rgba(16, 185, 129, 0.3);
+        }
+
+        .result-view {
+            margin-top: 40px;
+            display: none;
+            animation: slideUp 0.5s ease-out;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .score-hero {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .big-score {
+            font-size: 5rem;
+            font-weight: 800;
+            line-height: 1;
+            margin-bottom: 10px;
+        }
+
+        .score-label {
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.9rem;
+        }
+
+        .analysis-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .analysis-card {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 20px;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .analysis-title {
+            font-size: 0.8rem;
+            color: var(--text-dim);
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .analysis-val {
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="back-link">← All Tools</a>
+        
+        <div class="header">
+            <h1>Headline Analyzer</h1>
+            <p style="color: var(--text-dim)">Score your headlines based on emotional impact, length, and SEO power.</p>
+        </div>
+
+        <div class="tool-card">
+            <div class="input-group">
+                <input type="text" id="headline-input" placeholder="Type your headline here..." autocomplete="off">
+            </div>
+            <button class="btn" onclick="analyzeHeadline()">Analyze Headline</button>
+
+            <div id="result-view" class="result-view">
+                <div class="score-hero">
+                    <div id="big-score" class="big-score">0</div>
+                    <div class="score-label">Headline Score</div>
+                </div>
+
+                <div class="analysis-grid">
+                    <div class="analysis-card">
+                        <div class="analysis-title">Word Balance</div>
+                        <div id="word-balance" class="analysis-val">Neutral</div>
+                    </div>
+                    <div class="analysis-card">
+                        <div class="analysis-title">Length Check</div>
+                        <div id="length-check" class="analysis-val">0 Characters</div>
+                    </div>
+                    <div class="analysis-card">
+                        <div class="analysis-title">Sentiment</div>
+                        <div id="sentiment-check" class="analysis-val">Neutral</div>
+                    </div>
+                    <div class="analysis-card">
+                        <div class="analysis-title">Clarity</div>
+                        <div id="clarity-check" class="analysis-val">Good</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const powerWords = ['best', 'top', 'free', 'new', 'ultimate', 'guide', 'fast', 'easy', 'secret', 'proven', 'hacks', 'tips', 'why', 'how', 'get', 'unlimited'];
+        const emotionalWords = ['amazing', 'incredible', 'heartbreaking', 'shocking', 'surprise', 'fear', 'win', 'happy', 'life-changing', 'mistake', 'don\'t', 'stop'];
+
+        function analyzeHeadline() {
+            const headline = document.getElementById('headline-input').value.trim();
+            if (headline.length < 5) return;
+
+            const words = headline.toLowerCase().match(/\b\w+\b/g) || [];
+            let score = 50;
+
+            // 1. Length Logic (Optimal is 50-60 chars)
+            const len = headline.length;
+            if (len >= 50 && len <= 65) score += 20;
+            else if (len < 20 || len > 100) score -= 10;
+
+            // 2. Power words count
+            let pCount = 0;
+            words.forEach(w => { if (powerWords.includes(w)) pCount++; });
+            score += (pCount * 10);
+
+            // 3. Emotional words count
+            let eCount = 0;
+            words.forEach(w => { if (emotionalWords.includes(w)) eCount++; });
+            score += (eCount * 15);
+
+            // 4. Clarity logic (number of words)
+            if (words.length >= 6 && words.length <= 12) score += 10;
+
+            // Final score clamp
+            score = Math.min(100, score);
+
+            showResults(score, len, pCount, eCount);
+        }
+
+        function showResults(score, len, power, emotion) {
+            const resultView = document.getElementById('result-view');
+            const bigScore = document.getElementById('big-score');
+            
+            resultView.style.display = 'block';
+            bigScore.innerText = score;
+            
+            // Color based on score
+            if (score > 70) bigScore.style.color = '#10b981';
+            else if (score > 40) bigScore.style.color = '#facc15';
+            else bigScore.style.color = '#f87171';
+
+            document.getElementById('length-check').innerText = `${len} Characters`;
+            document.getElementById('word-balance').innerText = power > 0 ? 'Powerful' : 'Common';
+            document.getElementById('sentiment-check').innerText = emotion > 0 ? 'Emotional' : 'Neutral';
+            document.getElementById('clarity-check').innerText = len > 80 ? 'Too Long' : 'Clear';
+        }
+    </script>
+</body>
+</html>
