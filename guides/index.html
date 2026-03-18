@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SEO & Web Performance Guides — PageGuides</title>
+    <meta name="description" content="Master search engine optimization with our free guides. From technical SEO checklists to rich snippet strategies for 2026.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --accent: #10b981;
+            --bg-dark: #050508;
+            --bg-light: #111827;
+            --text: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 4rem 1.5rem;
+        }
+
+        nav {
+            padding: 1.5rem 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text);
+            text-decoration: none;
+        }
+
+        .logo span { color: var(--accent); }
+
+        .hero {
+            padding: 6rem 0 4rem;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            letter-spacing: -0.04em;
+            margin-bottom: 1rem;
+        }
+
+        .guides-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .guide-card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 24px;
+            padding: 2rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .guide-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--accent);
+            background: rgba(16, 185, 129, 0.05);
+        }
+
+        .guide-badge {
+            background: var(--accent);
+            color: #000;
+            padding: 0.25rem 0.75rem;
+            border-radius: 99px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            width: fit-content;
+            margin-bottom: 1rem;
+        }
+
+        .guide-card h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            line-height: 1.3;
+        }
+
+        .guide-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+        }
+
+        .read-more {
+            color: var(--accent);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        footer {
+            margin-top: 8rem;
+            padding: 4rem 0;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <nav>
+            <a href="/" class="logo">Page<span>Guides</span></a>
+            <a href="/" style="color: var(--text-muted); text-decoration: none; font-weight: 500;">← Back to Tools</a>
+        </nav>
+
+        <section class="hero">
+            <h1>Expert <span style="color: var(--accent);">SEO Insights</span></h1>
+            <p style="font-size: 1.25rem; color: var(--text-muted); max-width: 600px; margin: 0 auto;">Master technical SEO, structured data, and performance optimization with our in-depth guides.</p>
+        </section>
+
+        <div class="guides-grid">
+            <a href="/guides/essential-seo-checklist-2026.html" class="guide-card">
+                <span class="guide-badge">PILLAR ARTICLE</span>
+                <h2>The Essential SEO Checklist for 2026</h2>
+                <p>From AI-driven search dynamics to Core Web Vitals, stay ahead with our 2026 roadmap for organic growth.</p>
+                <span class="read-more">Read Guide →</span>
+            </a>
+            
+            <div class="guide-card" style="opacity: 0.5; filter: grayscale(1);">
+                <span class="guide-badge" style="background: #334155; color: #fff;">COMING SOON</span>
+                <h2>Mastering JSON-LD for Rich Snippets</h2>
+                <p>A deep dive into advanced schema markup implementation for maximum Google visibility.</p>
+                <span class="read-more">Coming Soon...</span>
+            </div>
+        </div>
+
+        <footer>
+            <p>&copy; 2026 PageGuides. All rights reserved.</p>
+        </footer>
+    </div>
+</body>
+</html>
