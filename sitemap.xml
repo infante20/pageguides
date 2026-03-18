@@ -1,1409 +1,1409 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://pageguides.com/</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://pageguides.com/es/" />
-    <xhtml:link rel="alternate" hreflang="fr" href="https://pageguides.com/fr/" />
-    <xhtml:link rel="alternate" hreflang="pt" href="https://pageguides.com/pt/" />
-    <xhtml:link rel="alternate" hreflang="hi" href="https://pageguides.com/hi/" />
+    <loc>https://www.pageguides.com/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pageguides.com/es/" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.pageguides.com/fr/" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://www.pageguides.com/pt/" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://www.pageguides.com/hi/" />
   </url>
   <url>
-    <loc>https://pageguides.com/es/</loc>
+    <loc>https://www.pageguides.com/es/</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/fr/</loc>
+    <loc>https://www.pageguides.com/fr/</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/pt/</loc>
+    <loc>https://www.pageguides.com/pt/</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/hi/</loc>
+    <loc>https://www.pageguides.com/hi/</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/open-graph-generator.html</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://pageguides.com/es/open-graph-generator.html" />
-    <xhtml:link rel="alternate" hreflang="fr" href="https://pageguides.com/fr/open-graph-generator.html" />
-    <xhtml:link rel="alternate" hreflang="pt" href="https://pageguides.com/pt/open-graph-generator.html" />
-    <xhtml:link rel="alternate" hreflang="hi" href="https://pageguides.com/hi/open-graph-generator.html" />
+    <loc>https://www.pageguides.com/open-graph-generator.html</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pageguides.com/es/open-graph-generator.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.pageguides.com/fr/open-graph-generator.html" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://www.pageguides.com/pt/open-graph-generator.html" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://www.pageguides.com/hi/open-graph-generator.html" />
   </url>
   <url>
-    <loc>https://pageguides.com/es/open-graph-generator.html</loc>
+    <loc>https://www.pageguides.com/es/open-graph-generator.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/fr/open-graph-generator.html</loc>
+    <loc>https://www.pageguides.com/fr/open-graph-generator.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/pt/open-graph-generator.html</loc>
+    <loc>https://www.pageguides.com/pt/open-graph-generator.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/hi/open-graph-generator.html</loc>
+    <loc>https://www.pageguides.com/hi/open-graph-generator.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/readability-checker.html</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://pageguides.com/es/readability-checker.html" />
-    <xhtml:link rel="alternate" hreflang="fr" href="https://pageguides.com/fr/readability-checker.html" />
-    <xhtml:link rel="alternate" hreflang="pt" href="https://pageguides.com/pt/readability-checker.html" />
-    <xhtml:link rel="alternate" hreflang="hi" href="https://pageguides.com/hi/readability-checker.html" />
+    <loc>https://www.pageguides.com/readability-checker.html</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pageguides.com/es/readability-checker.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.pageguides.com/fr/readability-checker.html" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://www.pageguides.com/pt/readability-checker.html" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://www.pageguides.com/hi/readability-checker.html" />
   </url>
   <url>
-    <loc>https://pageguides.com/es/readability-checker.html</loc>
+    <loc>https://www.pageguides.com/es/readability-checker.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/fr/readability-checker.html</loc>
+    <loc>https://www.pageguides.com/fr/readability-checker.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/pt/readability-checker.html</loc>
+    <loc>https://www.pageguides.com/pt/readability-checker.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/hi/readability-checker.html</loc>
+    <loc>https://www.pageguides.com/hi/readability-checker.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/event-schema-generator.html</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://pageguides.com/es/event-schema-generator.html" />
-    <xhtml:link rel="alternate" hreflang="fr" href="https://pageguides.com/fr/event-schema-generator.html" />
-    <xhtml:link rel="alternate" hreflang="pt" href="https://pageguides.com/pt/event-schema-generator.html" />
-    <xhtml:link rel="alternate" hreflang="hi" href="https://pageguides.com/hi/event-schema-generator.html" />
+    <loc>https://www.pageguides.com/event-schema-generator.html</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pageguides.com/es/event-schema-generator.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.pageguides.com/fr/event-schema-generator.html" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://www.pageguides.com/pt/event-schema-generator.html" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://www.pageguides.com/hi/event-schema-generator.html" />
   </url>
   <url>
-    <loc>https://pageguides.com/es/event-schema-generator.html</loc>
+    <loc>https://www.pageguides.com/es/event-schema-generator.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/fr/event-schema-generator.html</loc>
+    <loc>https://www.pageguides.com/fr/event-schema-generator.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/pt/event-schema-generator.html</loc>
+    <loc>https://www.pageguides.com/pt/event-schema-generator.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/hi/event-schema-generator.html</loc>
+    <loc>https://www.pageguides.com/hi/event-schema-generator.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/serp-simulator.html</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://pageguides.com/es/serp-simulator.html" />
-    <xhtml:link rel="alternate" hreflang="fr" href="https://pageguides.com/fr/serp-simulator.html" />
-    <xhtml:link rel="alternate" hreflang="pt" href="https://pageguides.com/pt/serp-simulator.html" />
-    <xhtml:link rel="alternate" hreflang="hi" href="https://pageguides.com/hi/serp-simulator.html" />
+    <loc>https://www.pageguides.com/serp-simulator.html</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pageguides.com/es/serp-simulator.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.pageguides.com/fr/serp-simulator.html" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://www.pageguides.com/pt/serp-simulator.html" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://www.pageguides.com/hi/serp-simulator.html" />
   </url>
   <url>
-    <loc>https://pageguides.com/es/serp-simulator.html</loc>
+    <loc>https://www.pageguides.com/es/serp-simulator.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/fr/serp-simulator.html</loc>
+    <loc>https://www.pageguides.com/fr/serp-simulator.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/pt/serp-simulator.html</loc>
+    <loc>https://www.pageguides.com/pt/serp-simulator.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/hi/serp-simulator.html</loc>
+    <loc>https://www.pageguides.com/hi/serp-simulator.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/md-to-html.html</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://pageguides.com/es/md-to-html.html" />
-    <xhtml:link rel="alternate" hreflang="fr" href="https://pageguides.com/fr/md-to-html.html" />
-    <xhtml:link rel="alternate" hreflang="pt" href="https://pageguides.com/pt/md-to-html.html" />
-    <xhtml:link rel="alternate" hreflang="hi" href="https://pageguides.com/hi/md-to-html.html" />
+    <loc>https://www.pageguides.com/md-to-html.html</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pageguides.com/es/md-to-html.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.pageguides.com/fr/md-to-html.html" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://www.pageguides.com/pt/md-to-html.html" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://www.pageguides.com/hi/md-to-html.html" />
   </url>
   <url>
-    <loc>https://pageguides.com/es/md-to-html.html</loc>
+    <loc>https://www.pageguides.com/es/md-to-html.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/fr/md-to-html.html</loc>
+    <loc>https://www.pageguides.com/fr/md-to-html.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/pt/md-to-html.html</loc>
+    <loc>https://www.pageguides.com/pt/md-to-html.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/hi/md-to-html.html</loc>
+    <loc>https://www.pageguides.com/hi/md-to-html.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/xml-sitemap-generator.html</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://pageguides.com/es/xml-sitemap-generator.html" />
-    <xhtml:link rel="alternate" hreflang="fr" href="https://pageguides.com/fr/xml-sitemap-generator.html" />
-    <xhtml:link rel="alternate" hreflang="pt" href="https://pageguides.com/pt/xml-sitemap-generator.html" />
-    <xhtml:link rel="alternate" hreflang="hi" href="https://pageguides.com/hi/xml-sitemap-generator.html" />
+    <loc>https://www.pageguides.com/xml-sitemap-generator.html</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pageguides.com/es/xml-sitemap-generator.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.pageguides.com/fr/xml-sitemap-generator.html" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://www.pageguides.com/pt/xml-sitemap-generator.html" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://www.pageguides.com/hi/xml-sitemap-generator.html" />
   </url>
   <url>
-    <loc>https://pageguides.com/es/xml-sitemap-generator.html</loc>
+    <loc>https://www.pageguides.com/es/xml-sitemap-generator.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/fr/xml-sitemap-generator.html</loc>
+    <loc>https://www.pageguides.com/fr/xml-sitemap-generator.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/pt/xml-sitemap-generator.html</loc>
+    <loc>https://www.pageguides.com/pt/xml-sitemap-generator.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/hi/xml-sitemap-generator.html</loc>
+    <loc>https://www.pageguides.com/hi/xml-sitemap-generator.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/twitter-card-generator.html</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://pageguides.com/es/twitter-card-generator.html" />
-    <xhtml:link rel="alternate" hreflang="fr" href="https://pageguides.com/fr/twitter-card-generator.html" />
-    <xhtml:link rel="alternate" hreflang="pt" href="https://pageguides.com/pt/twitter-card-generator.html" />
-    <xhtml:link rel="alternate" hreflang="hi" href="https://pageguides.com/hi/twitter-card-generator.html" />
+    <loc>https://www.pageguides.com/twitter-card-generator.html</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pageguides.com/es/twitter-card-generator.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.pageguides.com/fr/twitter-card-generator.html" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://www.pageguides.com/pt/twitter-card-generator.html" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://www.pageguides.com/hi/twitter-card-generator.html" />
   </url>
   <url>
-    <loc>https://pageguides.com/es/twitter-card-generator.html</loc>
+    <loc>https://www.pageguides.com/es/twitter-card-generator.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/fr/twitter-card-generator.html</loc>
+    <loc>https://www.pageguides.com/fr/twitter-card-generator.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/pt/twitter-card-generator.html</loc>
+    <loc>https://www.pageguides.com/pt/twitter-card-generator.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/hi/twitter-card-generator.html</loc>
+    <loc>https://www.pageguides.com/hi/twitter-card-generator.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/robots-generator.html</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://pageguides.com/es/robots-generator.html" />
-    <xhtml:link rel="alternate" hreflang="fr" href="https://pageguides.com/fr/robots-generator.html" />
-    <xhtml:link rel="alternate" hreflang="pt" href="https://pageguides.com/pt/robots-generator.html" />
-    <xhtml:link rel="alternate" hreflang="hi" href="https://pageguides.com/hi/robots-generator.html" />
+    <loc>https://www.pageguides.com/robots-generator.html</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pageguides.com/es/robots-generator.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.pageguides.com/fr/robots-generator.html" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://www.pageguides.com/pt/robots-generator.html" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://www.pageguides.com/hi/robots-generator.html" />
   </url>
   <url>
-    <loc>https://pageguides.com/es/robots-generator.html</loc>
+    <loc>https://www.pageguides.com/es/robots-generator.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/fr/robots-generator.html</loc>
+    <loc>https://www.pageguides.com/fr/robots-generator.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/pt/robots-generator.html</loc>
+    <loc>https://www.pageguides.com/pt/robots-generator.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/hi/robots-generator.html</loc>
+    <loc>https://www.pageguides.com/hi/robots-generator.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/favicon-gen.html</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://pageguides.com/es/favicon-gen.html" />
-    <xhtml:link rel="alternate" hreflang="fr" href="https://pageguides.com/fr/favicon-gen.html" />
-    <xhtml:link rel="alternate" hreflang="pt" href="https://pageguides.com/pt/favicon-gen.html" />
-    <xhtml:link rel="alternate" hreflang="hi" href="https://pageguides.com/hi/favicon-gen.html" />
+    <loc>https://www.pageguides.com/favicon-gen.html</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pageguides.com/es/favicon-gen.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.pageguides.com/fr/favicon-gen.html" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://www.pageguides.com/pt/favicon-gen.html" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://www.pageguides.com/hi/favicon-gen.html" />
   </url>
   <url>
-    <loc>https://pageguides.com/es/favicon-gen.html</loc>
+    <loc>https://www.pageguides.com/es/favicon-gen.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/fr/favicon-gen.html</loc>
+    <loc>https://www.pageguides.com/fr/favicon-gen.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/pt/favicon-gen.html</loc>
+    <loc>https://www.pageguides.com/pt/favicon-gen.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/hi/favicon-gen.html</loc>
+    <loc>https://www.pageguides.com/hi/favicon-gen.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/meta-tag-optimizer.html</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://pageguides.com/es/meta-tag-optimizer.html" />
-    <xhtml:link rel="alternate" hreflang="fr" href="https://pageguides.com/fr/meta-tag-optimizer.html" />
-    <xhtml:link rel="alternate" hreflang="pt" href="https://pageguides.com/pt/meta-tag-optimizer.html" />
-    <xhtml:link rel="alternate" hreflang="hi" href="https://pageguides.com/hi/meta-tag-optimizer.html" />
+    <loc>https://www.pageguides.com/meta-tag-optimizer.html</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pageguides.com/es/meta-tag-optimizer.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.pageguides.com/fr/meta-tag-optimizer.html" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://www.pageguides.com/pt/meta-tag-optimizer.html" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://www.pageguides.com/hi/meta-tag-optimizer.html" />
   </url>
   <url>
-    <loc>https://pageguides.com/es/meta-tag-optimizer.html</loc>
+    <loc>https://www.pageguides.com/es/meta-tag-optimizer.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/fr/meta-tag-optimizer.html</loc>
+    <loc>https://www.pageguides.com/fr/meta-tag-optimizer.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/pt/meta-tag-optimizer.html</loc>
+    <loc>https://www.pageguides.com/pt/meta-tag-optimizer.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/hi/meta-tag-optimizer.html</loc>
+    <loc>https://www.pageguides.com/hi/meta-tag-optimizer.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/color-contrast-checker.html</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://pageguides.com/es/color-contrast-checker.html" />
-    <xhtml:link rel="alternate" hreflang="fr" href="https://pageguides.com/fr/color-contrast-checker.html" />
-    <xhtml:link rel="alternate" hreflang="pt" href="https://pageguides.com/pt/color-contrast-checker.html" />
-    <xhtml:link rel="alternate" hreflang="hi" href="https://pageguides.com/hi/color-contrast-checker.html" />
+    <loc>https://www.pageguides.com/color-contrast-checker.html</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pageguides.com/es/color-contrast-checker.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.pageguides.com/fr/color-contrast-checker.html" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://www.pageguides.com/pt/color-contrast-checker.html" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://www.pageguides.com/hi/color-contrast-checker.html" />
   </url>
   <url>
-    <loc>https://pageguides.com/es/color-contrast-checker.html</loc>
+    <loc>https://www.pageguides.com/es/color-contrast-checker.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/fr/color-contrast-checker.html</loc>
+    <loc>https://www.pageguides.com/fr/color-contrast-checker.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/pt/color-contrast-checker.html</loc>
+    <loc>https://www.pageguides.com/pt/color-contrast-checker.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/hi/color-contrast-checker.html</loc>
+    <loc>https://www.pageguides.com/hi/color-contrast-checker.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/rss-feed-gen.html</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://pageguides.com/es/rss-feed-gen.html" />
-    <xhtml:link rel="alternate" hreflang="fr" href="https://pageguides.com/fr/rss-feed-gen.html" />
-    <xhtml:link rel="alternate" hreflang="pt" href="https://pageguides.com/pt/rss-feed-gen.html" />
-    <xhtml:link rel="alternate" hreflang="hi" href="https://pageguides.com/hi/rss-feed-gen.html" />
+    <loc>https://www.pageguides.com/rss-feed-gen.html</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pageguides.com/es/rss-feed-gen.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.pageguides.com/fr/rss-feed-gen.html" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://www.pageguides.com/pt/rss-feed-gen.html" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://www.pageguides.com/hi/rss-feed-gen.html" />
   </url>
   <url>
-    <loc>https://pageguides.com/es/rss-feed-gen.html</loc>
+    <loc>https://www.pageguides.com/es/rss-feed-gen.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/fr/rss-feed-gen.html</loc>
+    <loc>https://www.pageguides.com/fr/rss-feed-gen.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/pt/rss-feed-gen.html</loc>
+    <loc>https://www.pageguides.com/pt/rss-feed-gen.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/hi/rss-feed-gen.html</loc>
+    <loc>https://www.pageguides.com/hi/rss-feed-gen.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/og-preview.html</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://pageguides.com/es/og-preview.html" />
-    <xhtml:link rel="alternate" hreflang="fr" href="https://pageguides.com/fr/og-preview.html" />
-    <xhtml:link rel="alternate" hreflang="pt" href="https://pageguides.com/pt/og-preview.html" />
-    <xhtml:link rel="alternate" hreflang="hi" href="https://pageguides.com/hi/og-preview.html" />
+    <loc>https://www.pageguides.com/og-preview.html</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pageguides.com/es/og-preview.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.pageguides.com/fr/og-preview.html" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://www.pageguides.com/pt/og-preview.html" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://www.pageguides.com/hi/og-preview.html" />
   </url>
   <url>
-    <loc>https://pageguides.com/es/og-preview.html</loc>
+    <loc>https://www.pageguides.com/es/og-preview.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/fr/og-preview.html</loc>
+    <loc>https://www.pageguides.com/fr/og-preview.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/pt/og-preview.html</loc>
+    <loc>https://www.pageguides.com/pt/og-preview.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/hi/og-preview.html</loc>
+    <loc>https://www.pageguides.com/hi/og-preview.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/canonical-tag-generator.html</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://pageguides.com/es/canonical-tag-generator.html" />
-    <xhtml:link rel="alternate" hreflang="fr" href="https://pageguides.com/fr/canonical-tag-generator.html" />
-    <xhtml:link rel="alternate" hreflang="pt" href="https://pageguides.com/pt/canonical-tag-generator.html" />
-    <xhtml:link rel="alternate" hreflang="hi" href="https://pageguides.com/hi/canonical-tag-generator.html" />
+    <loc>https://www.pageguides.com/canonical-tag-generator.html</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pageguides.com/es/canonical-tag-generator.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.pageguides.com/fr/canonical-tag-generator.html" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://www.pageguides.com/pt/canonical-tag-generator.html" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://www.pageguides.com/hi/canonical-tag-generator.html" />
   </url>
   <url>
-    <loc>https://pageguides.com/es/canonical-tag-generator.html</loc>
+    <loc>https://www.pageguides.com/es/canonical-tag-generator.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/fr/canonical-tag-generator.html</loc>
+    <loc>https://www.pageguides.com/fr/canonical-tag-generator.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/pt/canonical-tag-generator.html</loc>
+    <loc>https://www.pageguides.com/pt/canonical-tag-generator.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/hi/canonical-tag-generator.html</loc>
+    <loc>https://www.pageguides.com/hi/canonical-tag-generator.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/json-formatter.html</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://pageguides.com/es/json-formatter.html" />
-    <xhtml:link rel="alternate" hreflang="fr" href="https://pageguides.com/fr/json-formatter.html" />
-    <xhtml:link rel="alternate" hreflang="pt" href="https://pageguides.com/pt/json-formatter.html" />
-    <xhtml:link rel="alternate" hreflang="hi" href="https://pageguides.com/hi/json-formatter.html" />
+    <loc>https://www.pageguides.com/json-formatter.html</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pageguides.com/es/json-formatter.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.pageguides.com/fr/json-formatter.html" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://www.pageguides.com/pt/json-formatter.html" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://www.pageguides.com/hi/json-formatter.html" />
   </url>
   <url>
-    <loc>https://pageguides.com/es/json-formatter.html</loc>
+    <loc>https://www.pageguides.com/es/json-formatter.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/fr/json-formatter.html</loc>
+    <loc>https://www.pageguides.com/fr/json-formatter.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/pt/json-formatter.html</loc>
+    <loc>https://www.pageguides.com/pt/json-formatter.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/hi/json-formatter.html</loc>
+    <loc>https://www.pageguides.com/hi/json-formatter.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/local-business-schema-generator.html</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://pageguides.com/es/local-business-schema-generator.html" />
-    <xhtml:link rel="alternate" hreflang="fr" href="https://pageguides.com/fr/local-business-schema-generator.html" />
-    <xhtml:link rel="alternate" hreflang="pt" href="https://pageguides.com/pt/local-business-schema-generator.html" />
-    <xhtml:link rel="alternate" hreflang="hi" href="https://pageguides.com/hi/local-business-schema-generator.html" />
+    <loc>https://www.pageguides.com/local-business-schema-generator.html</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pageguides.com/es/local-business-schema-generator.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.pageguides.com/fr/local-business-schema-generator.html" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://www.pageguides.com/pt/local-business-schema-generator.html" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://www.pageguides.com/hi/local-business-schema-generator.html" />
   </url>
   <url>
-    <loc>https://pageguides.com/es/local-business-schema-generator.html</loc>
+    <loc>https://www.pageguides.com/es/local-business-schema-generator.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/fr/local-business-schema-generator.html</loc>
+    <loc>https://www.pageguides.com/fr/local-business-schema-generator.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/pt/local-business-schema-generator.html</loc>
+    <loc>https://www.pageguides.com/pt/local-business-schema-generator.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/hi/local-business-schema-generator.html</loc>
+    <loc>https://www.pageguides.com/hi/local-business-schema-generator.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/sitemap-index-gen.html</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://pageguides.com/es/sitemap-index-gen.html" />
-    <xhtml:link rel="alternate" hreflang="fr" href="https://pageguides.com/fr/sitemap-index-gen.html" />
-    <xhtml:link rel="alternate" hreflang="pt" href="https://pageguides.com/pt/sitemap-index-gen.html" />
-    <xhtml:link rel="alternate" hreflang="hi" href="https://pageguides.com/hi/sitemap-index-gen.html" />
+    <loc>https://www.pageguides.com/sitemap-index-gen.html</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pageguides.com/es/sitemap-index-gen.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.pageguides.com/fr/sitemap-index-gen.html" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://www.pageguides.com/pt/sitemap-index-gen.html" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://www.pageguides.com/hi/sitemap-index-gen.html" />
   </url>
   <url>
-    <loc>https://pageguides.com/es/sitemap-index-gen.html</loc>
+    <loc>https://www.pageguides.com/es/sitemap-index-gen.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/fr/sitemap-index-gen.html</loc>
+    <loc>https://www.pageguides.com/fr/sitemap-index-gen.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/pt/sitemap-index-gen.html</loc>
+    <loc>https://www.pageguides.com/pt/sitemap-index-gen.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/hi/sitemap-index-gen.html</loc>
+    <loc>https://www.pageguides.com/hi/sitemap-index-gen.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/faq-schema-generator.html</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://pageguides.com/es/faq-schema-generator.html" />
-    <xhtml:link rel="alternate" hreflang="fr" href="https://pageguides.com/fr/faq-schema-generator.html" />
-    <xhtml:link rel="alternate" hreflang="pt" href="https://pageguides.com/pt/faq-schema-generator.html" />
-    <xhtml:link rel="alternate" hreflang="hi" href="https://pageguides.com/hi/faq-schema-generator.html" />
+    <loc>https://www.pageguides.com/faq-schema-generator.html</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pageguides.com/es/faq-schema-generator.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.pageguides.com/fr/faq-schema-generator.html" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://www.pageguides.com/pt/faq-schema-generator.html" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://www.pageguides.com/hi/faq-schema-generator.html" />
   </url>
   <url>
-    <loc>https://pageguides.com/es/faq-schema-generator.html</loc>
+    <loc>https://www.pageguides.com/es/faq-schema-generator.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/fr/faq-schema-generator.html</loc>
+    <loc>https://www.pageguides.com/fr/faq-schema-generator.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/pt/faq-schema-generator.html</loc>
+    <loc>https://www.pageguides.com/pt/faq-schema-generator.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/hi/faq-schema-generator.html</loc>
+    <loc>https://www.pageguides.com/hi/faq-schema-generator.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/keyword-grouper.html</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://pageguides.com/es/keyword-grouper.html" />
-    <xhtml:link rel="alternate" hreflang="fr" href="https://pageguides.com/fr/keyword-grouper.html" />
-    <xhtml:link rel="alternate" hreflang="pt" href="https://pageguides.com/pt/keyword-grouper.html" />
-    <xhtml:link rel="alternate" hreflang="hi" href="https://pageguides.com/hi/keyword-grouper.html" />
+    <loc>https://www.pageguides.com/keyword-grouper.html</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pageguides.com/es/keyword-grouper.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.pageguides.com/fr/keyword-grouper.html" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://www.pageguides.com/pt/keyword-grouper.html" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://www.pageguides.com/hi/keyword-grouper.html" />
   </url>
   <url>
-    <loc>https://pageguides.com/es/keyword-grouper.html</loc>
+    <loc>https://www.pageguides.com/es/keyword-grouper.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/fr/keyword-grouper.html</loc>
+    <loc>https://www.pageguides.com/fr/keyword-grouper.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/pt/keyword-grouper.html</loc>
+    <loc>https://www.pageguides.com/pt/keyword-grouper.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/hi/keyword-grouper.html</loc>
+    <loc>https://www.pageguides.com/hi/keyword-grouper.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/marketing-qr-gen.html</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://pageguides.com/es/marketing-qr-gen.html" />
-    <xhtml:link rel="alternate" hreflang="fr" href="https://pageguides.com/fr/marketing-qr-gen.html" />
-    <xhtml:link rel="alternate" hreflang="pt" href="https://pageguides.com/pt/marketing-qr-gen.html" />
-    <xhtml:link rel="alternate" hreflang="hi" href="https://pageguides.com/hi/marketing-qr-gen.html" />
+    <loc>https://www.pageguides.com/marketing-qr-gen.html</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pageguides.com/es/marketing-qr-gen.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.pageguides.com/fr/marketing-qr-gen.html" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://www.pageguides.com/pt/marketing-qr-gen.html" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://www.pageguides.com/hi/marketing-qr-gen.html" />
   </url>
   <url>
-    <loc>https://pageguides.com/es/marketing-qr-gen.html</loc>
+    <loc>https://www.pageguides.com/es/marketing-qr-gen.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/fr/marketing-qr-gen.html</loc>
+    <loc>https://www.pageguides.com/fr/marketing-qr-gen.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/pt/marketing-qr-gen.html</loc>
+    <loc>https://www.pageguides.com/pt/marketing-qr-gen.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/hi/marketing-qr-gen.html</loc>
+    <loc>https://www.pageguides.com/hi/marketing-qr-gen.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/site-identity-checklist.html</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://pageguides.com/es/site-identity-checklist.html" />
-    <xhtml:link rel="alternate" hreflang="fr" href="https://pageguides.com/fr/site-identity-checklist.html" />
-    <xhtml:link rel="alternate" hreflang="pt" href="https://pageguides.com/pt/site-identity-checklist.html" />
-    <xhtml:link rel="alternate" hreflang="hi" href="https://pageguides.com/hi/site-identity-checklist.html" />
+    <loc>https://www.pageguides.com/site-identity-checklist.html</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pageguides.com/es/site-identity-checklist.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.pageguides.com/fr/site-identity-checklist.html" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://www.pageguides.com/pt/site-identity-checklist.html" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://www.pageguides.com/hi/site-identity-checklist.html" />
   </url>
   <url>
-    <loc>https://pageguides.com/es/site-identity-checklist.html</loc>
+    <loc>https://www.pageguides.com/es/site-identity-checklist.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/fr/site-identity-checklist.html</loc>
+    <loc>https://www.pageguides.com/fr/site-identity-checklist.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/pt/site-identity-checklist.html</loc>
+    <loc>https://www.pageguides.com/pt/site-identity-checklist.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/hi/site-identity-checklist.html</loc>
+    <loc>https://www.pageguides.com/hi/site-identity-checklist.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/video-schema-generator.html</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://pageguides.com/es/video-schema-generator.html" />
-    <xhtml:link rel="alternate" hreflang="fr" href="https://pageguides.com/fr/video-schema-generator.html" />
-    <xhtml:link rel="alternate" hreflang="pt" href="https://pageguides.com/pt/video-schema-generator.html" />
-    <xhtml:link rel="alternate" hreflang="hi" href="https://pageguides.com/hi/video-schema-generator.html" />
+    <loc>https://www.pageguides.com/video-schema-generator.html</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pageguides.com/es/video-schema-generator.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.pageguides.com/fr/video-schema-generator.html" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://www.pageguides.com/pt/video-schema-generator.html" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://www.pageguides.com/hi/video-schema-generator.html" />
   </url>
   <url>
-    <loc>https://pageguides.com/es/video-schema-generator.html</loc>
+    <loc>https://www.pageguides.com/es/video-schema-generator.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/fr/video-schema-generator.html</loc>
+    <loc>https://www.pageguides.com/fr/video-schema-generator.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/pt/video-schema-generator.html</loc>
+    <loc>https://www.pageguides.com/pt/video-schema-generator.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/hi/video-schema-generator.html</loc>
+    <loc>https://www.pageguides.com/hi/video-schema-generator.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/ai-content-detector.html</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://pageguides.com/es/ai-content-detector.html" />
-    <xhtml:link rel="alternate" hreflang="fr" href="https://pageguides.com/fr/ai-content-detector.html" />
-    <xhtml:link rel="alternate" hreflang="pt" href="https://pageguides.com/pt/ai-content-detector.html" />
-    <xhtml:link rel="alternate" hreflang="hi" href="https://pageguides.com/hi/ai-content-detector.html" />
+    <loc>https://www.pageguides.com/ai-content-detector.html</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pageguides.com/es/ai-content-detector.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.pageguides.com/fr/ai-content-detector.html" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://www.pageguides.com/pt/ai-content-detector.html" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://www.pageguides.com/hi/ai-content-detector.html" />
   </url>
   <url>
-    <loc>https://pageguides.com/es/ai-content-detector.html</loc>
+    <loc>https://www.pageguides.com/es/ai-content-detector.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/fr/ai-content-detector.html</loc>
+    <loc>https://www.pageguides.com/fr/ai-content-detector.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/pt/ai-content-detector.html</loc>
+    <loc>https://www.pageguides.com/pt/ai-content-detector.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/hi/ai-content-detector.html</loc>
+    <loc>https://www.pageguides.com/hi/ai-content-detector.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/readability-improver.html</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://pageguides.com/es/readability-improver.html" />
-    <xhtml:link rel="alternate" hreflang="fr" href="https://pageguides.com/fr/readability-improver.html" />
-    <xhtml:link rel="alternate" hreflang="pt" href="https://pageguides.com/pt/readability-improver.html" />
-    <xhtml:link rel="alternate" hreflang="hi" href="https://pageguides.com/hi/readability-improver.html" />
+    <loc>https://www.pageguides.com/readability-improver.html</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pageguides.com/es/readability-improver.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.pageguides.com/fr/readability-improver.html" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://www.pageguides.com/pt/readability-improver.html" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://www.pageguides.com/hi/readability-improver.html" />
   </url>
   <url>
-    <loc>https://pageguides.com/es/readability-improver.html</loc>
+    <loc>https://www.pageguides.com/es/readability-improver.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/fr/readability-improver.html</loc>
+    <loc>https://www.pageguides.com/fr/readability-improver.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/pt/readability-improver.html</loc>
+    <loc>https://www.pageguides.com/pt/readability-improver.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/hi/readability-improver.html</loc>
+    <loc>https://www.pageguides.com/hi/readability-improver.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/page-speed-simulator.html</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://pageguides.com/es/page-speed-simulator.html" />
-    <xhtml:link rel="alternate" hreflang="fr" href="https://pageguides.com/fr/page-speed-simulator.html" />
-    <xhtml:link rel="alternate" hreflang="pt" href="https://pageguides.com/pt/page-speed-simulator.html" />
-    <xhtml:link rel="alternate" hreflang="hi" href="https://pageguides.com/hi/page-speed-simulator.html" />
+    <loc>https://www.pageguides.com/page-speed-simulator.html</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pageguides.com/es/page-speed-simulator.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.pageguides.com/fr/page-speed-simulator.html" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://www.pageguides.com/pt/page-speed-simulator.html" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://www.pageguides.com/hi/page-speed-simulator.html" />
   </url>
   <url>
-    <loc>https://pageguides.com/es/page-speed-simulator.html</loc>
+    <loc>https://www.pageguides.com/es/page-speed-simulator.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/fr/page-speed-simulator.html</loc>
+    <loc>https://www.pageguides.com/fr/page-speed-simulator.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/pt/page-speed-simulator.html</loc>
+    <loc>https://www.pageguides.com/pt/page-speed-simulator.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/hi/page-speed-simulator.html</loc>
+    <loc>https://www.pageguides.com/hi/page-speed-simulator.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/hreflang-generator.html</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://pageguides.com/es/hreflang-generator.html" />
-    <xhtml:link rel="alternate" hreflang="fr" href="https://pageguides.com/fr/hreflang-generator.html" />
-    <xhtml:link rel="alternate" hreflang="pt" href="https://pageguides.com/pt/hreflang-generator.html" />
-    <xhtml:link rel="alternate" hreflang="hi" href="https://pageguides.com/hi/hreflang-generator.html" />
+    <loc>https://www.pageguides.com/hreflang-generator.html</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pageguides.com/es/hreflang-generator.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.pageguides.com/fr/hreflang-generator.html" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://www.pageguides.com/pt/hreflang-generator.html" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://www.pageguides.com/hi/hreflang-generator.html" />
   </url>
   <url>
-    <loc>https://pageguides.com/es/hreflang-generator.html</loc>
+    <loc>https://www.pageguides.com/es/hreflang-generator.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/fr/hreflang-generator.html</loc>
+    <loc>https://www.pageguides.com/fr/hreflang-generator.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/pt/hreflang-generator.html</loc>
+    <loc>https://www.pageguides.com/pt/hreflang-generator.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/hi/hreflang-generator.html</loc>
+    <loc>https://www.pageguides.com/hi/hreflang-generator.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/job-posting-generator.html</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://pageguides.com/es/job-posting-generator.html" />
-    <xhtml:link rel="alternate" hreflang="fr" href="https://pageguides.com/fr/job-posting-generator.html" />
-    <xhtml:link rel="alternate" hreflang="pt" href="https://pageguides.com/pt/job-posting-generator.html" />
-    <xhtml:link rel="alternate" hreflang="hi" href="https://pageguides.com/hi/job-posting-generator.html" />
+    <loc>https://www.pageguides.com/job-posting-generator.html</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pageguides.com/es/job-posting-generator.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.pageguides.com/fr/job-posting-generator.html" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://www.pageguides.com/pt/job-posting-generator.html" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://www.pageguides.com/hi/job-posting-generator.html" />
   </url>
   <url>
-    <loc>https://pageguides.com/es/job-posting-generator.html</loc>
+    <loc>https://www.pageguides.com/es/job-posting-generator.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/fr/job-posting-generator.html</loc>
+    <loc>https://www.pageguides.com/fr/job-posting-generator.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/pt/job-posting-generator.html</loc>
+    <loc>https://www.pageguides.com/pt/job-posting-generator.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/hi/job-posting-generator.html</loc>
+    <loc>https://www.pageguides.com/hi/job-posting-generator.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/character-counter.html</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://pageguides.com/es/character-counter.html" />
-    <xhtml:link rel="alternate" hreflang="fr" href="https://pageguides.com/fr/character-counter.html" />
-    <xhtml:link rel="alternate" hreflang="pt" href="https://pageguides.com/pt/character-counter.html" />
-    <xhtml:link rel="alternate" hreflang="hi" href="https://pageguides.com/hi/character-counter.html" />
+    <loc>https://www.pageguides.com/character-counter.html</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pageguides.com/es/character-counter.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.pageguides.com/fr/character-counter.html" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://www.pageguides.com/pt/character-counter.html" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://www.pageguides.com/hi/character-counter.html" />
   </url>
   <url>
-    <loc>https://pageguides.com/es/character-counter.html</loc>
+    <loc>https://www.pageguides.com/es/character-counter.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/fr/character-counter.html</loc>
+    <loc>https://www.pageguides.com/fr/character-counter.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/pt/character-counter.html</loc>
+    <loc>https://www.pageguides.com/pt/character-counter.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/hi/character-counter.html</loc>
+    <loc>https://www.pageguides.com/hi/character-counter.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/link-rel-gen.html</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://pageguides.com/es/link-rel-gen.html" />
-    <xhtml:link rel="alternate" hreflang="fr" href="https://pageguides.com/fr/link-rel-gen.html" />
-    <xhtml:link rel="alternate" hreflang="pt" href="https://pageguides.com/pt/link-rel-gen.html" />
-    <xhtml:link rel="alternate" hreflang="hi" href="https://pageguides.com/hi/link-rel-gen.html" />
+    <loc>https://www.pageguides.com/link-rel-gen.html</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pageguides.com/es/link-rel-gen.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.pageguides.com/fr/link-rel-gen.html" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://www.pageguides.com/pt/link-rel-gen.html" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://www.pageguides.com/hi/link-rel-gen.html" />
   </url>
   <url>
-    <loc>https://pageguides.com/es/link-rel-gen.html</loc>
+    <loc>https://www.pageguides.com/es/link-rel-gen.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/fr/link-rel-gen.html</loc>
+    <loc>https://www.pageguides.com/fr/link-rel-gen.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/pt/link-rel-gen.html</loc>
+    <loc>https://www.pageguides.com/pt/link-rel-gen.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/hi/link-rel-gen.html</loc>
+    <loc>https://www.pageguides.com/hi/link-rel-gen.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/hreflang-tag-generator.html</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://pageguides.com/es/hreflang-tag-generator.html" />
-    <xhtml:link rel="alternate" hreflang="fr" href="https://pageguides.com/fr/hreflang-tag-generator.html" />
-    <xhtml:link rel="alternate" hreflang="pt" href="https://pageguides.com/pt/hreflang-tag-generator.html" />
-    <xhtml:link rel="alternate" hreflang="hi" href="https://pageguides.com/hi/hreflang-tag-generator.html" />
+    <loc>https://www.pageguides.com/hreflang-tag-generator.html</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pageguides.com/es/hreflang-tag-generator.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.pageguides.com/fr/hreflang-tag-generator.html" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://www.pageguides.com/pt/hreflang-tag-generator.html" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://www.pageguides.com/hi/hreflang-tag-generator.html" />
   </url>
   <url>
-    <loc>https://pageguides.com/es/hreflang-tag-generator.html</loc>
+    <loc>https://www.pageguides.com/es/hreflang-tag-generator.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/fr/hreflang-tag-generator.html</loc>
+    <loc>https://www.pageguides.com/fr/hreflang-tag-generator.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/pt/hreflang-tag-generator.html</loc>
+    <loc>https://www.pageguides.com/pt/hreflang-tag-generator.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/hi/hreflang-tag-generator.html</loc>
+    <loc>https://www.pageguides.com/hi/hreflang-tag-generator.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/schema-generator.html</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://pageguides.com/es/schema-generator.html" />
-    <xhtml:link rel="alternate" hreflang="fr" href="https://pageguides.com/fr/schema-generator.html" />
-    <xhtml:link rel="alternate" hreflang="pt" href="https://pageguides.com/pt/schema-generator.html" />
-    <xhtml:link rel="alternate" hreflang="hi" href="https://pageguides.com/hi/schema-generator.html" />
+    <loc>https://www.pageguides.com/schema-generator.html</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pageguides.com/es/schema-generator.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.pageguides.com/fr/schema-generator.html" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://www.pageguides.com/pt/schema-generator.html" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://www.pageguides.com/hi/schema-generator.html" />
   </url>
   <url>
-    <loc>https://pageguides.com/es/schema-generator.html</loc>
+    <loc>https://www.pageguides.com/es/schema-generator.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/fr/schema-generator.html</loc>
+    <loc>https://www.pageguides.com/fr/schema-generator.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/pt/schema-generator.html</loc>
+    <loc>https://www.pageguides.com/pt/schema-generator.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/hi/schema-generator.html</loc>
+    <loc>https://www.pageguides.com/hi/schema-generator.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/html-entity-encoder.html</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://pageguides.com/es/html-entity-encoder.html" />
-    <xhtml:link rel="alternate" hreflang="fr" href="https://pageguides.com/fr/html-entity-encoder.html" />
-    <xhtml:link rel="alternate" hreflang="pt" href="https://pageguides.com/pt/html-entity-encoder.html" />
-    <xhtml:link rel="alternate" hreflang="hi" href="https://pageguides.com/hi/html-entity-encoder.html" />
+    <loc>https://www.pageguides.com/html-entity-encoder.html</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pageguides.com/es/html-entity-encoder.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.pageguides.com/fr/html-entity-encoder.html" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://www.pageguides.com/pt/html-entity-encoder.html" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://www.pageguides.com/hi/html-entity-encoder.html" />
   </url>
   <url>
-    <loc>https://pageguides.com/es/html-entity-encoder.html</loc>
+    <loc>https://www.pageguides.com/es/html-entity-encoder.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/fr/html-entity-encoder.html</loc>
+    <loc>https://www.pageguides.com/fr/html-entity-encoder.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/pt/html-entity-encoder.html</loc>
+    <loc>https://www.pageguides.com/pt/html-entity-encoder.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/hi/html-entity-encoder.html</loc>
+    <loc>https://www.pageguides.com/hi/html-entity-encoder.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/slug-optimizer.html</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://pageguides.com/es/slug-optimizer.html" />
-    <xhtml:link rel="alternate" hreflang="fr" href="https://pageguides.com/fr/slug-optimizer.html" />
-    <xhtml:link rel="alternate" hreflang="pt" href="https://pageguides.com/pt/slug-optimizer.html" />
-    <xhtml:link rel="alternate" hreflang="hi" href="https://pageguides.com/hi/slug-optimizer.html" />
+    <loc>https://www.pageguides.com/slug-optimizer.html</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pageguides.com/es/slug-optimizer.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.pageguides.com/fr/slug-optimizer.html" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://www.pageguides.com/pt/slug-optimizer.html" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://www.pageguides.com/hi/slug-optimizer.html" />
   </url>
   <url>
-    <loc>https://pageguides.com/es/slug-optimizer.html</loc>
+    <loc>https://www.pageguides.com/es/slug-optimizer.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/fr/slug-optimizer.html</loc>
+    <loc>https://www.pageguides.com/fr/slug-optimizer.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/pt/slug-optimizer.html</loc>
+    <loc>https://www.pageguides.com/pt/slug-optimizer.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/hi/slug-optimizer.html</loc>
+    <loc>https://www.pageguides.com/hi/slug-optimizer.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/keyword-typo-generator.html</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://pageguides.com/es/keyword-typo-generator.html" />
-    <xhtml:link rel="alternate" hreflang="fr" href="https://pageguides.com/fr/keyword-typo-generator.html" />
-    <xhtml:link rel="alternate" hreflang="pt" href="https://pageguides.com/pt/keyword-typo-generator.html" />
-    <xhtml:link rel="alternate" hreflang="hi" href="https://pageguides.com/hi/keyword-typo-generator.html" />
+    <loc>https://www.pageguides.com/keyword-typo-generator.html</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pageguides.com/es/keyword-typo-generator.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.pageguides.com/fr/keyword-typo-generator.html" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://www.pageguides.com/pt/keyword-typo-generator.html" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://www.pageguides.com/hi/keyword-typo-generator.html" />
   </url>
   <url>
-    <loc>https://pageguides.com/es/keyword-typo-generator.html</loc>
+    <loc>https://www.pageguides.com/es/keyword-typo-generator.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/fr/keyword-typo-generator.html</loc>
+    <loc>https://www.pageguides.com/fr/keyword-typo-generator.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/pt/keyword-typo-generator.html</loc>
+    <loc>https://www.pageguides.com/pt/keyword-typo-generator.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/hi/keyword-typo-generator.html</loc>
+    <loc>https://www.pageguides.com/hi/keyword-typo-generator.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/email-subject-tester.html</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://pageguides.com/es/email-subject-tester.html" />
-    <xhtml:link rel="alternate" hreflang="fr" href="https://pageguides.com/fr/email-subject-tester.html" />
-    <xhtml:link rel="alternate" hreflang="pt" href="https://pageguides.com/pt/email-subject-tester.html" />
-    <xhtml:link rel="alternate" hreflang="hi" href="https://pageguides.com/hi/email-subject-tester.html" />
+    <loc>https://www.pageguides.com/email-subject-tester.html</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pageguides.com/es/email-subject-tester.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.pageguides.com/fr/email-subject-tester.html" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://www.pageguides.com/pt/email-subject-tester.html" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://www.pageguides.com/hi/email-subject-tester.html" />
   </url>
   <url>
-    <loc>https://pageguides.com/es/email-subject-tester.html</loc>
+    <loc>https://www.pageguides.com/es/email-subject-tester.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/fr/email-subject-tester.html</loc>
+    <loc>https://www.pageguides.com/fr/email-subject-tester.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/pt/email-subject-tester.html</loc>
+    <loc>https://www.pageguides.com/pt/email-subject-tester.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/hi/email-subject-tester.html</loc>
+    <loc>https://www.pageguides.com/hi/email-subject-tester.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/ads-calculator.html</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://pageguides.com/es/ads-calculator.html" />
-    <xhtml:link rel="alternate" hreflang="fr" href="https://pageguides.com/fr/ads-calculator.html" />
-    <xhtml:link rel="alternate" hreflang="pt" href="https://pageguides.com/pt/ads-calculator.html" />
-    <xhtml:link rel="alternate" hreflang="hi" href="https://pageguides.com/hi/ads-calculator.html" />
+    <loc>https://www.pageguides.com/ads-calculator.html</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pageguides.com/es/ads-calculator.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.pageguides.com/fr/ads-calculator.html" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://www.pageguides.com/pt/ads-calculator.html" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://www.pageguides.com/hi/ads-calculator.html" />
   </url>
   <url>
-    <loc>https://pageguides.com/es/ads-calculator.html</loc>
+    <loc>https://www.pageguides.com/es/ads-calculator.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/fr/ads-calculator.html</loc>
+    <loc>https://www.pageguides.com/fr/ads-calculator.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/pt/ads-calculator.html</loc>
+    <loc>https://www.pageguides.com/pt/ads-calculator.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/hi/ads-calculator.html</loc>
+    <loc>https://www.pageguides.com/hi/ads-calculator.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/keyword-wrapper.html</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://pageguides.com/es/keyword-wrapper.html" />
-    <xhtml:link rel="alternate" hreflang="fr" href="https://pageguides.com/fr/keyword-wrapper.html" />
-    <xhtml:link rel="alternate" hreflang="pt" href="https://pageguides.com/pt/keyword-wrapper.html" />
-    <xhtml:link rel="alternate" hreflang="hi" href="https://pageguides.com/hi/keyword-wrapper.html" />
+    <loc>https://www.pageguides.com/keyword-wrapper.html</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pageguides.com/es/keyword-wrapper.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.pageguides.com/fr/keyword-wrapper.html" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://www.pageguides.com/pt/keyword-wrapper.html" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://www.pageguides.com/hi/keyword-wrapper.html" />
   </url>
   <url>
-    <loc>https://pageguides.com/es/keyword-wrapper.html</loc>
+    <loc>https://www.pageguides.com/es/keyword-wrapper.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/fr/keyword-wrapper.html</loc>
+    <loc>https://www.pageguides.com/fr/keyword-wrapper.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/pt/keyword-wrapper.html</loc>
+    <loc>https://www.pageguides.com/pt/keyword-wrapper.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/hi/keyword-wrapper.html</loc>
+    <loc>https://www.pageguides.com/hi/keyword-wrapper.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/serp-comparison.html</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://pageguides.com/es/serp-comparison.html" />
-    <xhtml:link rel="alternate" hreflang="fr" href="https://pageguides.com/fr/serp-comparison.html" />
-    <xhtml:link rel="alternate" hreflang="pt" href="https://pageguides.com/pt/serp-comparison.html" />
-    <xhtml:link rel="alternate" hreflang="hi" href="https://pageguides.com/hi/serp-comparison.html" />
+    <loc>https://www.pageguides.com/serp-comparison.html</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pageguides.com/es/serp-comparison.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.pageguides.com/fr/serp-comparison.html" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://www.pageguides.com/pt/serp-comparison.html" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://www.pageguides.com/hi/serp-comparison.html" />
   </url>
   <url>
-    <loc>https://pageguides.com/es/serp-comparison.html</loc>
+    <loc>https://www.pageguides.com/es/serp-comparison.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/fr/serp-comparison.html</loc>
+    <loc>https://www.pageguides.com/fr/serp-comparison.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/pt/serp-comparison.html</loc>
+    <loc>https://www.pageguides.com/pt/serp-comparison.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/hi/serp-comparison.html</loc>
+    <loc>https://www.pageguides.com/hi/serp-comparison.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/sentiment-analyzer.html</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://pageguides.com/es/sentiment-analyzer.html" />
-    <xhtml:link rel="alternate" hreflang="fr" href="https://pageguides.com/fr/sentiment-analyzer.html" />
-    <xhtml:link rel="alternate" hreflang="pt" href="https://pageguides.com/pt/sentiment-analyzer.html" />
-    <xhtml:link rel="alternate" hreflang="hi" href="https://pageguides.com/hi/sentiment-analyzer.html" />
+    <loc>https://www.pageguides.com/sentiment-analyzer.html</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pageguides.com/es/sentiment-analyzer.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.pageguides.com/fr/sentiment-analyzer.html" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://www.pageguides.com/pt/sentiment-analyzer.html" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://www.pageguides.com/hi/sentiment-analyzer.html" />
   </url>
   <url>
-    <loc>https://pageguides.com/es/sentiment-analyzer.html</loc>
+    <loc>https://www.pageguides.com/es/sentiment-analyzer.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/fr/sentiment-analyzer.html</loc>
+    <loc>https://www.pageguides.com/fr/sentiment-analyzer.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/pt/sentiment-analyzer.html</loc>
+    <loc>https://www.pageguides.com/pt/sentiment-analyzer.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/hi/sentiment-analyzer.html</loc>
+    <loc>https://www.pageguides.com/hi/sentiment-analyzer.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/page-maturity.html</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://pageguides.com/es/page-maturity.html" />
-    <xhtml:link rel="alternate" hreflang="fr" href="https://pageguides.com/fr/page-maturity.html" />
-    <xhtml:link rel="alternate" hreflang="pt" href="https://pageguides.com/pt/page-maturity.html" />
-    <xhtml:link rel="alternate" hreflang="hi" href="https://pageguides.com/hi/page-maturity.html" />
+    <loc>https://www.pageguides.com/page-maturity.html</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pageguides.com/es/page-maturity.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.pageguides.com/fr/page-maturity.html" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://www.pageguides.com/pt/page-maturity.html" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://www.pageguides.com/hi/page-maturity.html" />
   </url>
   <url>
-    <loc>https://pageguides.com/es/page-maturity.html</loc>
+    <loc>https://www.pageguides.com/es/page-maturity.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/fr/page-maturity.html</loc>
+    <loc>https://www.pageguides.com/fr/page-maturity.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/pt/page-maturity.html</loc>
+    <loc>https://www.pageguides.com/pt/page-maturity.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/hi/page-maturity.html</loc>
+    <loc>https://www.pageguides.com/hi/page-maturity.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/content-gap-planner.html</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://pageguides.com/es/content-gap-planner.html" />
-    <xhtml:link rel="alternate" hreflang="fr" href="https://pageguides.com/fr/content-gap-planner.html" />
-    <xhtml:link rel="alternate" hreflang="pt" href="https://pageguides.com/pt/content-gap-planner.html" />
-    <xhtml:link rel="alternate" hreflang="hi" href="https://pageguides.com/hi/content-gap-planner.html" />
+    <loc>https://www.pageguides.com/content-gap-planner.html</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pageguides.com/es/content-gap-planner.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.pageguides.com/fr/content-gap-planner.html" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://www.pageguides.com/pt/content-gap-planner.html" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://www.pageguides.com/hi/content-gap-planner.html" />
   </url>
   <url>
-    <loc>https://pageguides.com/es/content-gap-planner.html</loc>
+    <loc>https://www.pageguides.com/es/content-gap-planner.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/fr/content-gap-planner.html</loc>
+    <loc>https://www.pageguides.com/fr/content-gap-planner.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/pt/content-gap-planner.html</loc>
+    <loc>https://www.pageguides.com/pt/content-gap-planner.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/hi/content-gap-planner.html</loc>
+    <loc>https://www.pageguides.com/hi/content-gap-planner.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/utm-batcher.html</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://pageguides.com/es/utm-batcher.html" />
-    <xhtml:link rel="alternate" hreflang="fr" href="https://pageguides.com/fr/utm-batcher.html" />
-    <xhtml:link rel="alternate" hreflang="pt" href="https://pageguides.com/pt/utm-batcher.html" />
-    <xhtml:link rel="alternate" hreflang="hi" href="https://pageguides.com/hi/utm-batcher.html" />
+    <loc>https://www.pageguides.com/utm-batcher.html</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pageguides.com/es/utm-batcher.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.pageguides.com/fr/utm-batcher.html" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://www.pageguides.com/pt/utm-batcher.html" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://www.pageguides.com/hi/utm-batcher.html" />
   </url>
   <url>
-    <loc>https://pageguides.com/es/utm-batcher.html</loc>
+    <loc>https://www.pageguides.com/es/utm-batcher.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/fr/utm-batcher.html</loc>
+    <loc>https://www.pageguides.com/fr/utm-batcher.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/pt/utm-batcher.html</loc>
+    <loc>https://www.pageguides.com/pt/utm-batcher.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/hi/utm-batcher.html</loc>
+    <loc>https://www.pageguides.com/hi/utm-batcher.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/review-schema-generator.html</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://pageguides.com/es/review-schema-generator.html" />
-    <xhtml:link rel="alternate" hreflang="fr" href="https://pageguides.com/fr/review-schema-generator.html" />
-    <xhtml:link rel="alternate" hreflang="pt" href="https://pageguides.com/pt/review-schema-generator.html" />
-    <xhtml:link rel="alternate" hreflang="hi" href="https://pageguides.com/hi/review-schema-generator.html" />
+    <loc>https://www.pageguides.com/review-schema-generator.html</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pageguides.com/es/review-schema-generator.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.pageguides.com/fr/review-schema-generator.html" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://www.pageguides.com/pt/review-schema-generator.html" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://www.pageguides.com/hi/review-schema-generator.html" />
   </url>
   <url>
-    <loc>https://pageguides.com/es/review-schema-generator.html</loc>
+    <loc>https://www.pageguides.com/es/review-schema-generator.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/fr/review-schema-generator.html</loc>
+    <loc>https://www.pageguides.com/fr/review-schema-generator.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/pt/review-schema-generator.html</loc>
+    <loc>https://www.pageguides.com/pt/review-schema-generator.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/hi/review-schema-generator.html</loc>
+    <loc>https://www.pageguides.com/hi/review-schema-generator.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/ab-test-calculator.html</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://pageguides.com/es/ab-test-calculator.html" />
-    <xhtml:link rel="alternate" hreflang="fr" href="https://pageguides.com/fr/ab-test-calculator.html" />
-    <xhtml:link rel="alternate" hreflang="pt" href="https://pageguides.com/pt/ab-test-calculator.html" />
-    <xhtml:link rel="alternate" hreflang="hi" href="https://pageguides.com/hi/ab-test-calculator.html" />
+    <loc>https://www.pageguides.com/ab-test-calculator.html</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pageguides.com/es/ab-test-calculator.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.pageguides.com/fr/ab-test-calculator.html" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://www.pageguides.com/pt/ab-test-calculator.html" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://www.pageguides.com/hi/ab-test-calculator.html" />
   </url>
   <url>
-    <loc>https://pageguides.com/es/ab-test-calculator.html</loc>
+    <loc>https://www.pageguides.com/es/ab-test-calculator.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/fr/ab-test-calculator.html</loc>
+    <loc>https://www.pageguides.com/fr/ab-test-calculator.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/pt/ab-test-calculator.html</loc>
+    <loc>https://www.pageguides.com/pt/ab-test-calculator.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/hi/ab-test-calculator.html</loc>
+    <loc>https://www.pageguides.com/hi/ab-test-calculator.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/gsc-query-filter.html</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://pageguides.com/es/gsc-query-filter.html" />
-    <xhtml:link rel="alternate" hreflang="fr" href="https://pageguides.com/fr/gsc-query-filter.html" />
-    <xhtml:link rel="alternate" hreflang="pt" href="https://pageguides.com/pt/gsc-query-filter.html" />
-    <xhtml:link rel="alternate" hreflang="hi" href="https://pageguides.com/hi/gsc-query-filter.html" />
+    <loc>https://www.pageguides.com/gsc-query-filter.html</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pageguides.com/es/gsc-query-filter.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.pageguides.com/fr/gsc-query-filter.html" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://www.pageguides.com/pt/gsc-query-filter.html" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://www.pageguides.com/hi/gsc-query-filter.html" />
   </url>
   <url>
-    <loc>https://pageguides.com/es/gsc-query-filter.html</loc>
+    <loc>https://www.pageguides.com/es/gsc-query-filter.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/fr/gsc-query-filter.html</loc>
+    <loc>https://www.pageguides.com/fr/gsc-query-filter.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/pt/gsc-query-filter.html</loc>
+    <loc>https://www.pageguides.com/pt/gsc-query-filter.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/hi/gsc-query-filter.html</loc>
+    <loc>https://www.pageguides.com/hi/gsc-query-filter.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/keyword-density.html</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://pageguides.com/es/keyword-density.html" />
-    <xhtml:link rel="alternate" hreflang="fr" href="https://pageguides.com/fr/keyword-density.html" />
-    <xhtml:link rel="alternate" hreflang="pt" href="https://pageguides.com/pt/keyword-density.html" />
-    <xhtml:link rel="alternate" hreflang="hi" href="https://pageguides.com/hi/keyword-density.html" />
+    <loc>https://www.pageguides.com/keyword-density.html</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pageguides.com/es/keyword-density.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.pageguides.com/fr/keyword-density.html" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://www.pageguides.com/pt/keyword-density.html" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://www.pageguides.com/hi/keyword-density.html" />
   </url>
   <url>
-    <loc>https://pageguides.com/es/keyword-density.html</loc>
+    <loc>https://www.pageguides.com/es/keyword-density.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/fr/keyword-density.html</loc>
+    <loc>https://www.pageguides.com/fr/keyword-density.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/pt/keyword-density.html</loc>
+    <loc>https://www.pageguides.com/pt/keyword-density.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/hi/keyword-density.html</loc>
+    <loc>https://www.pageguides.com/hi/keyword-density.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/text-summarizer.html</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://pageguides.com/es/text-summarizer.html" />
-    <xhtml:link rel="alternate" hreflang="fr" href="https://pageguides.com/fr/text-summarizer.html" />
-    <xhtml:link rel="alternate" hreflang="pt" href="https://pageguides.com/pt/text-summarizer.html" />
-    <xhtml:link rel="alternate" hreflang="hi" href="https://pageguides.com/hi/text-summarizer.html" />
+    <loc>https://www.pageguides.com/text-summarizer.html</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pageguides.com/es/text-summarizer.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.pageguides.com/fr/text-summarizer.html" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://www.pageguides.com/pt/text-summarizer.html" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://www.pageguides.com/hi/text-summarizer.html" />
   </url>
   <url>
-    <loc>https://pageguides.com/es/text-summarizer.html</loc>
+    <loc>https://www.pageguides.com/es/text-summarizer.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/fr/text-summarizer.html</loc>
+    <loc>https://www.pageguides.com/fr/text-summarizer.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/pt/text-summarizer.html</loc>
+    <loc>https://www.pageguides.com/pt/text-summarizer.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/hi/text-summarizer.html</loc>
+    <loc>https://www.pageguides.com/hi/text-summarizer.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/keyword-gap-analyzer.html</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://pageguides.com/es/keyword-gap-analyzer.html" />
-    <xhtml:link rel="alternate" hreflang="fr" href="https://pageguides.com/fr/keyword-gap-analyzer.html" />
-    <xhtml:link rel="alternate" hreflang="pt" href="https://pageguides.com/pt/keyword-gap-analyzer.html" />
-    <xhtml:link rel="alternate" hreflang="hi" href="https://pageguides.com/hi/keyword-gap-analyzer.html" />
+    <loc>https://www.pageguides.com/keyword-gap-analyzer.html</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pageguides.com/es/keyword-gap-analyzer.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.pageguides.com/fr/keyword-gap-analyzer.html" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://www.pageguides.com/pt/keyword-gap-analyzer.html" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://www.pageguides.com/hi/keyword-gap-analyzer.html" />
   </url>
   <url>
-    <loc>https://pageguides.com/es/keyword-gap-analyzer.html</loc>
+    <loc>https://www.pageguides.com/es/keyword-gap-analyzer.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/fr/keyword-gap-analyzer.html</loc>
+    <loc>https://www.pageguides.com/fr/keyword-gap-analyzer.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/pt/keyword-gap-analyzer.html</loc>
+    <loc>https://www.pageguides.com/pt/keyword-gap-analyzer.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/hi/keyword-gap-analyzer.html</loc>
+    <loc>https://www.pageguides.com/hi/keyword-gap-analyzer.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/domain-name-generator.html</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://pageguides.com/es/domain-name-generator.html" />
-    <xhtml:link rel="alternate" hreflang="fr" href="https://pageguides.com/fr/domain-name-generator.html" />
-    <xhtml:link rel="alternate" hreflang="pt" href="https://pageguides.com/pt/domain-name-generator.html" />
-    <xhtml:link rel="alternate" hreflang="hi" href="https://pageguides.com/hi/domain-name-generator.html" />
+    <loc>https://www.pageguides.com/domain-name-generator.html</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pageguides.com/es/domain-name-generator.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.pageguides.com/fr/domain-name-generator.html" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://www.pageguides.com/pt/domain-name-generator.html" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://www.pageguides.com/hi/domain-name-generator.html" />
   </url>
   <url>
-    <loc>https://pageguides.com/es/domain-name-generator.html</loc>
+    <loc>https://www.pageguides.com/es/domain-name-generator.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/fr/domain-name-generator.html</loc>
+    <loc>https://www.pageguides.com/fr/domain-name-generator.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/pt/domain-name-generator.html</loc>
+    <loc>https://www.pageguides.com/pt/domain-name-generator.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/hi/domain-name-generator.html</loc>
+    <loc>https://www.pageguides.com/hi/domain-name-generator.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/html-structure-auditor.html</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://pageguides.com/es/html-structure-auditor.html" />
-    <xhtml:link rel="alternate" hreflang="fr" href="https://pageguides.com/fr/html-structure-auditor.html" />
-    <xhtml:link rel="alternate" hreflang="pt" href="https://pageguides.com/pt/html-structure-auditor.html" />
-    <xhtml:link rel="alternate" hreflang="hi" href="https://pageguides.com/hi/html-structure-auditor.html" />
+    <loc>https://www.pageguides.com/html-structure-auditor.html</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pageguides.com/es/html-structure-auditor.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.pageguides.com/fr/html-structure-auditor.html" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://www.pageguides.com/pt/html-structure-auditor.html" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://www.pageguides.com/hi/html-structure-auditor.html" />
   </url>
   <url>
-    <loc>https://pageguides.com/es/html-structure-auditor.html</loc>
+    <loc>https://www.pageguides.com/es/html-structure-auditor.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/fr/html-structure-auditor.html</loc>
+    <loc>https://www.pageguides.com/fr/html-structure-auditor.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/pt/html-structure-auditor.html</loc>
+    <loc>https://www.pageguides.com/pt/html-structure-auditor.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/hi/html-structure-auditor.html</loc>
+    <loc>https://www.pageguides.com/hi/html-structure-auditor.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/hashtag-generator.html</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://pageguides.com/es/hashtag-generator.html" />
-    <xhtml:link rel="alternate" hreflang="fr" href="https://pageguides.com/fr/hashtag-generator.html" />
-    <xhtml:link rel="alternate" hreflang="pt" href="https://pageguides.com/pt/hashtag-generator.html" />
-    <xhtml:link rel="alternate" hreflang="hi" href="https://pageguides.com/hi/hashtag-generator.html" />
+    <loc>https://www.pageguides.com/hashtag-generator.html</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pageguides.com/es/hashtag-generator.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.pageguides.com/fr/hashtag-generator.html" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://www.pageguides.com/pt/hashtag-generator.html" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://www.pageguides.com/hi/hashtag-generator.html" />
   </url>
   <url>
-    <loc>https://pageguides.com/es/hashtag-generator.html</loc>
+    <loc>https://www.pageguides.com/es/hashtag-generator.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/fr/hashtag-generator.html</loc>
+    <loc>https://www.pageguides.com/fr/hashtag-generator.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/pt/hashtag-generator.html</loc>
+    <loc>https://www.pageguides.com/pt/hashtag-generator.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/hi/hashtag-generator.html</loc>
+    <loc>https://www.pageguides.com/hi/hashtag-generator.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/html-to-markdown.html</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://pageguides.com/es/html-to-markdown.html" />
-    <xhtml:link rel="alternate" hreflang="fr" href="https://pageguides.com/fr/html-to-markdown.html" />
-    <xhtml:link rel="alternate" hreflang="pt" href="https://pageguides.com/pt/html-to-markdown.html" />
-    <xhtml:link rel="alternate" hreflang="hi" href="https://pageguides.com/hi/html-to-markdown.html" />
+    <loc>https://www.pageguides.com/html-to-markdown.html</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pageguides.com/es/html-to-markdown.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.pageguides.com/fr/html-to-markdown.html" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://www.pageguides.com/pt/html-to-markdown.html" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://www.pageguides.com/hi/html-to-markdown.html" />
   </url>
   <url>
-    <loc>https://pageguides.com/es/html-to-markdown.html</loc>
+    <loc>https://www.pageguides.com/es/html-to-markdown.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/fr/html-to-markdown.html</loc>
+    <loc>https://www.pageguides.com/fr/html-to-markdown.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/pt/html-to-markdown.html</loc>
+    <loc>https://www.pageguides.com/pt/html-to-markdown.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/hi/html-to-markdown.html</loc>
+    <loc>https://www.pageguides.com/hi/html-to-markdown.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/social-preview-all.html</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://pageguides.com/es/social-preview-all.html" />
-    <xhtml:link rel="alternate" hreflang="fr" href="https://pageguides.com/fr/social-preview-all.html" />
-    <xhtml:link rel="alternate" hreflang="pt" href="https://pageguides.com/pt/social-preview-all.html" />
-    <xhtml:link rel="alternate" hreflang="hi" href="https://pageguides.com/hi/social-preview-all.html" />
+    <loc>https://www.pageguides.com/social-preview-all.html</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pageguides.com/es/social-preview-all.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.pageguides.com/fr/social-preview-all.html" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://www.pageguides.com/pt/social-preview-all.html" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://www.pageguides.com/hi/social-preview-all.html" />
   </url>
   <url>
-    <loc>https://pageguides.com/es/social-preview-all.html</loc>
+    <loc>https://www.pageguides.com/es/social-preview-all.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/fr/social-preview-all.html</loc>
+    <loc>https://www.pageguides.com/fr/social-preview-all.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/pt/social-preview-all.html</loc>
+    <loc>https://www.pageguides.com/pt/social-preview-all.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/hi/social-preview-all.html</loc>
+    <loc>https://www.pageguides.com/hi/social-preview-all.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/ad-copy-gen.html</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://pageguides.com/es/ad-copy-gen.html" />
-    <xhtml:link rel="alternate" hreflang="fr" href="https://pageguides.com/fr/ad-copy-gen.html" />
-    <xhtml:link rel="alternate" hreflang="pt" href="https://pageguides.com/pt/ad-copy-gen.html" />
-    <xhtml:link rel="alternate" hreflang="hi" href="https://pageguides.com/hi/ad-copy-gen.html" />
+    <loc>https://www.pageguides.com/ad-copy-gen.html</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pageguides.com/es/ad-copy-gen.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.pageguides.com/fr/ad-copy-gen.html" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://www.pageguides.com/pt/ad-copy-gen.html" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://www.pageguides.com/hi/ad-copy-gen.html" />
   </url>
   <url>
-    <loc>https://pageguides.com/es/ad-copy-gen.html</loc>
+    <loc>https://www.pageguides.com/es/ad-copy-gen.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/fr/ad-copy-gen.html</loc>
+    <loc>https://www.pageguides.com/fr/ad-copy-gen.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/pt/ad-copy-gen.html</loc>
+    <loc>https://www.pageguides.com/pt/ad-copy-gen.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/hi/ad-copy-gen.html</loc>
+    <loc>https://www.pageguides.com/hi/ad-copy-gen.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/cwv-calculator.html</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://pageguides.com/es/cwv-calculator.html" />
-    <xhtml:link rel="alternate" hreflang="fr" href="https://pageguides.com/fr/cwv-calculator.html" />
-    <xhtml:link rel="alternate" hreflang="pt" href="https://pageguides.com/pt/cwv-calculator.html" />
-    <xhtml:link rel="alternate" hreflang="hi" href="https://pageguides.com/hi/cwv-calculator.html" />
+    <loc>https://www.pageguides.com/cwv-calculator.html</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pageguides.com/es/cwv-calculator.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.pageguides.com/fr/cwv-calculator.html" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://www.pageguides.com/pt/cwv-calculator.html" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://www.pageguides.com/hi/cwv-calculator.html" />
   </url>
   <url>
-    <loc>https://pageguides.com/es/cwv-calculator.html</loc>
+    <loc>https://www.pageguides.com/es/cwv-calculator.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/fr/cwv-calculator.html</loc>
+    <loc>https://www.pageguides.com/fr/cwv-calculator.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/pt/cwv-calculator.html</loc>
+    <loc>https://www.pageguides.com/pt/cwv-calculator.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/hi/cwv-calculator.html</loc>
+    <loc>https://www.pageguides.com/hi/cwv-calculator.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/security-headers-gen.html</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://pageguides.com/es/security-headers-gen.html" />
-    <xhtml:link rel="alternate" hreflang="fr" href="https://pageguides.com/fr/security-headers-gen.html" />
-    <xhtml:link rel="alternate" hreflang="pt" href="https://pageguides.com/pt/security-headers-gen.html" />
-    <xhtml:link rel="alternate" hreflang="hi" href="https://pageguides.com/hi/security-headers-gen.html" />
+    <loc>https://www.pageguides.com/security-headers-gen.html</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pageguides.com/es/security-headers-gen.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.pageguides.com/fr/security-headers-gen.html" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://www.pageguides.com/pt/security-headers-gen.html" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://www.pageguides.com/hi/security-headers-gen.html" />
   </url>
   <url>
-    <loc>https://pageguides.com/es/security-headers-gen.html</loc>
+    <loc>https://www.pageguides.com/es/security-headers-gen.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/fr/security-headers-gen.html</loc>
+    <loc>https://www.pageguides.com/fr/security-headers-gen.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/pt/security-headers-gen.html</loc>
+    <loc>https://www.pageguides.com/pt/security-headers-gen.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/hi/security-headers-gen.html</loc>
+    <loc>https://www.pageguides.com/hi/security-headers-gen.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/da-checker.html</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://pageguides.com/es/da-checker.html" />
-    <xhtml:link rel="alternate" hreflang="fr" href="https://pageguides.com/fr/da-checker.html" />
-    <xhtml:link rel="alternate" hreflang="pt" href="https://pageguides.com/pt/da-checker.html" />
-    <xhtml:link rel="alternate" hreflang="hi" href="https://pageguides.com/hi/da-checker.html" />
+    <loc>https://www.pageguides.com/da-checker.html</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pageguides.com/es/da-checker.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.pageguides.com/fr/da-checker.html" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://www.pageguides.com/pt/da-checker.html" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://www.pageguides.com/hi/da-checker.html" />
   </url>
   <url>
-    <loc>https://pageguides.com/es/da-checker.html</loc>
+    <loc>https://www.pageguides.com/es/da-checker.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/fr/da-checker.html</loc>
+    <loc>https://www.pageguides.com/fr/da-checker.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/pt/da-checker.html</loc>
+    <loc>https://www.pageguides.com/pt/da-checker.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/hi/da-checker.html</loc>
+    <loc>https://www.pageguides.com/hi/da-checker.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/utm-builder.html</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://pageguides.com/es/utm-builder.html" />
-    <xhtml:link rel="alternate" hreflang="fr" href="https://pageguides.com/fr/utm-builder.html" />
-    <xhtml:link rel="alternate" hreflang="pt" href="https://pageguides.com/pt/utm-builder.html" />
-    <xhtml:link rel="alternate" hreflang="hi" href="https://pageguides.com/hi/utm-builder.html" />
+    <loc>https://www.pageguides.com/utm-builder.html</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pageguides.com/es/utm-builder.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.pageguides.com/fr/utm-builder.html" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://www.pageguides.com/pt/utm-builder.html" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://www.pageguides.com/hi/utm-builder.html" />
   </url>
   <url>
-    <loc>https://pageguides.com/es/utm-builder.html</loc>
+    <loc>https://www.pageguides.com/es/utm-builder.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/fr/utm-builder.html</loc>
+    <loc>https://www.pageguides.com/fr/utm-builder.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/pt/utm-builder.html</loc>
+    <loc>https://www.pageguides.com/pt/utm-builder.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/hi/utm-builder.html</loc>
+    <loc>https://www.pageguides.com/hi/utm-builder.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/headline-analyzer.html</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://pageguides.com/es/headline-analyzer.html" />
-    <xhtml:link rel="alternate" hreflang="fr" href="https://pageguides.com/fr/headline-analyzer.html" />
-    <xhtml:link rel="alternate" hreflang="pt" href="https://pageguides.com/pt/headline-analyzer.html" />
-    <xhtml:link rel="alternate" hreflang="hi" href="https://pageguides.com/hi/headline-analyzer.html" />
+    <loc>https://www.pageguides.com/headline-analyzer.html</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pageguides.com/es/headline-analyzer.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.pageguides.com/fr/headline-analyzer.html" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://www.pageguides.com/pt/headline-analyzer.html" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://www.pageguides.com/hi/headline-analyzer.html" />
   </url>
   <url>
-    <loc>https://pageguides.com/es/headline-analyzer.html</loc>
+    <loc>https://www.pageguides.com/es/headline-analyzer.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/fr/headline-analyzer.html</loc>
+    <loc>https://www.pageguides.com/fr/headline-analyzer.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/pt/headline-analyzer.html</loc>
+    <loc>https://www.pageguides.com/pt/headline-analyzer.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/hi/headline-analyzer.html</loc>
+    <loc>https://www.pageguides.com/hi/headline-analyzer.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/htaccess-redirect-generator.html</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://pageguides.com/es/htaccess-redirect-generator.html" />
-    <xhtml:link rel="alternate" hreflang="fr" href="https://pageguides.com/fr/htaccess-redirect-generator.html" />
-    <xhtml:link rel="alternate" hreflang="pt" href="https://pageguides.com/pt/htaccess-redirect-generator.html" />
-    <xhtml:link rel="alternate" hreflang="hi" href="https://pageguides.com/hi/htaccess-redirect-generator.html" />
+    <loc>https://www.pageguides.com/htaccess-redirect-generator.html</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pageguides.com/es/htaccess-redirect-generator.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.pageguides.com/fr/htaccess-redirect-generator.html" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://www.pageguides.com/pt/htaccess-redirect-generator.html" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://www.pageguides.com/hi/htaccess-redirect-generator.html" />
   </url>
   <url>
-    <loc>https://pageguides.com/es/htaccess-redirect-generator.html</loc>
+    <loc>https://www.pageguides.com/es/htaccess-redirect-generator.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/fr/htaccess-redirect-generator.html</loc>
+    <loc>https://www.pageguides.com/fr/htaccess-redirect-generator.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/pt/htaccess-redirect-generator.html</loc>
+    <loc>https://www.pageguides.com/pt/htaccess-redirect-generator.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/hi/htaccess-redirect-generator.html</loc>
+    <loc>https://www.pageguides.com/hi/htaccess-redirect-generator.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/meta-tag-extractor.html</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://pageguides.com/es/meta-tag-extractor.html" />
-    <xhtml:link rel="alternate" hreflang="fr" href="https://pageguides.com/fr/meta-tag-extractor.html" />
-    <xhtml:link rel="alternate" hreflang="pt" href="https://pageguides.com/pt/meta-tag-extractor.html" />
-    <xhtml:link rel="alternate" hreflang="hi" href="https://pageguides.com/hi/meta-tag-extractor.html" />
+    <loc>https://www.pageguides.com/meta-tag-extractor.html</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pageguides.com/es/meta-tag-extractor.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.pageguides.com/fr/meta-tag-extractor.html" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://www.pageguides.com/pt/meta-tag-extractor.html" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://www.pageguides.com/hi/meta-tag-extractor.html" />
   </url>
   <url>
-    <loc>https://pageguides.com/es/meta-tag-extractor.html</loc>
+    <loc>https://www.pageguides.com/es/meta-tag-extractor.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/fr/meta-tag-extractor.html</loc>
+    <loc>https://www.pageguides.com/fr/meta-tag-extractor.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/pt/meta-tag-extractor.html</loc>
+    <loc>https://www.pageguides.com/pt/meta-tag-extractor.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/hi/meta-tag-extractor.html</loc>
+    <loc>https://www.pageguides.com/hi/meta-tag-extractor.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/internal-link-logic.html</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://pageguides.com/es/internal-link-logic.html" />
-    <xhtml:link rel="alternate" hreflang="fr" href="https://pageguides.com/fr/internal-link-logic.html" />
-    <xhtml:link rel="alternate" hreflang="pt" href="https://pageguides.com/pt/internal-link-logic.html" />
-    <xhtml:link rel="alternate" hreflang="hi" href="https://pageguides.com/hi/internal-link-logic.html" />
+    <loc>https://www.pageguides.com/internal-link-logic.html</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pageguides.com/es/internal-link-logic.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.pageguides.com/fr/internal-link-logic.html" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://www.pageguides.com/pt/internal-link-logic.html" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://www.pageguides.com/hi/internal-link-logic.html" />
   </url>
   <url>
-    <loc>https://pageguides.com/es/internal-link-logic.html</loc>
+    <loc>https://www.pageguides.com/es/internal-link-logic.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/fr/internal-link-logic.html</loc>
+    <loc>https://www.pageguides.com/fr/internal-link-logic.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/pt/internal-link-logic.html</loc>
+    <loc>https://www.pageguides.com/pt/internal-link-logic.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/hi/internal-link-logic.html</loc>
+    <loc>https://www.pageguides.com/hi/internal-link-logic.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/alt-text-helper.html</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://pageguides.com/es/alt-text-helper.html" />
-    <xhtml:link rel="alternate" hreflang="fr" href="https://pageguides.com/fr/alt-text-helper.html" />
-    <xhtml:link rel="alternate" hreflang="pt" href="https://pageguides.com/pt/alt-text-helper.html" />
-    <xhtml:link rel="alternate" hreflang="hi" href="https://pageguides.com/hi/alt-text-helper.html" />
+    <loc>https://www.pageguides.com/alt-text-helper.html</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pageguides.com/es/alt-text-helper.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.pageguides.com/fr/alt-text-helper.html" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://www.pageguides.com/pt/alt-text-helper.html" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://www.pageguides.com/hi/alt-text-helper.html" />
   </url>
   <url>
-    <loc>https://pageguides.com/es/alt-text-helper.html</loc>
+    <loc>https://www.pageguides.com/es/alt-text-helper.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/fr/alt-text-helper.html</loc>
+    <loc>https://www.pageguides.com/fr/alt-text-helper.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/pt/alt-text-helper.html</loc>
+    <loc>https://www.pageguides.com/pt/alt-text-helper.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/hi/alt-text-helper.html</loc>
+    <loc>https://www.pageguides.com/hi/alt-text-helper.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/base64-encoder.html</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://pageguides.com/es/base64-encoder.html" />
-    <xhtml:link rel="alternate" hreflang="fr" href="https://pageguides.com/fr/base64-encoder.html" />
-    <xhtml:link rel="alternate" hreflang="pt" href="https://pageguides.com/pt/base64-encoder.html" />
-    <xhtml:link rel="alternate" hreflang="hi" href="https://pageguides.com/hi/base64-encoder.html" />
+    <loc>https://www.pageguides.com/base64-encoder.html</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pageguides.com/es/base64-encoder.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.pageguides.com/fr/base64-encoder.html" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://www.pageguides.com/pt/base64-encoder.html" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://www.pageguides.com/hi/base64-encoder.html" />
   </url>
   <url>
-    <loc>https://pageguides.com/es/base64-encoder.html</loc>
+    <loc>https://www.pageguides.com/es/base64-encoder.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/fr/base64-encoder.html</loc>
+    <loc>https://www.pageguides.com/fr/base64-encoder.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/pt/base64-encoder.html</loc>
+    <loc>https://www.pageguides.com/pt/base64-encoder.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/hi/base64-encoder.html</loc>
+    <loc>https://www.pageguides.com/hi/base64-encoder.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/keyword-combiner.html</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://pageguides.com/es/keyword-combiner.html" />
-    <xhtml:link rel="alternate" hreflang="fr" href="https://pageguides.com/fr/keyword-combiner.html" />
-    <xhtml:link rel="alternate" hreflang="pt" href="https://pageguides.com/pt/keyword-combiner.html" />
-    <xhtml:link rel="alternate" hreflang="hi" href="https://pageguides.com/hi/keyword-combiner.html" />
+    <loc>https://www.pageguides.com/keyword-combiner.html</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pageguides.com/es/keyword-combiner.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.pageguides.com/fr/keyword-combiner.html" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://www.pageguides.com/pt/keyword-combiner.html" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://www.pageguides.com/hi/keyword-combiner.html" />
   </url>
   <url>
-    <loc>https://pageguides.com/es/keyword-combiner.html</loc>
+    <loc>https://www.pageguides.com/es/keyword-combiner.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/fr/keyword-combiner.html</loc>
+    <loc>https://www.pageguides.com/fr/keyword-combiner.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/pt/keyword-combiner.html</loc>
+    <loc>https://www.pageguides.com/pt/keyword-combiner.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/hi/keyword-combiner.html</loc>
+    <loc>https://www.pageguides.com/hi/keyword-combiner.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/uniqueness-checker.html</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://pageguides.com/es/uniqueness-checker.html" />
-    <xhtml:link rel="alternate" hreflang="fr" href="https://pageguides.com/fr/uniqueness-checker.html" />
-    <xhtml:link rel="alternate" hreflang="pt" href="https://pageguides.com/pt/uniqueness-checker.html" />
-    <xhtml:link rel="alternate" hreflang="hi" href="https://pageguides.com/hi/uniqueness-checker.html" />
+    <loc>https://www.pageguides.com/uniqueness-checker.html</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pageguides.com/es/uniqueness-checker.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.pageguides.com/fr/uniqueness-checker.html" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://www.pageguides.com/pt/uniqueness-checker.html" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://www.pageguides.com/hi/uniqueness-checker.html" />
   </url>
   <url>
-    <loc>https://pageguides.com/es/uniqueness-checker.html</loc>
+    <loc>https://www.pageguides.com/es/uniqueness-checker.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/fr/uniqueness-checker.html</loc>
+    <loc>https://www.pageguides.com/fr/uniqueness-checker.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/pt/uniqueness-checker.html</loc>
+    <loc>https://www.pageguides.com/pt/uniqueness-checker.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/hi/uniqueness-checker.html</loc>
+    <loc>https://www.pageguides.com/hi/uniqueness-checker.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/robots-editor.html</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://pageguides.com/es/robots-editor.html" />
-    <xhtml:link rel="alternate" hreflang="fr" href="https://pageguides.com/fr/robots-editor.html" />
-    <xhtml:link rel="alternate" hreflang="pt" href="https://pageguides.com/pt/robots-editor.html" />
-    <xhtml:link rel="alternate" hreflang="hi" href="https://pageguides.com/hi/robots-editor.html" />
+    <loc>https://www.pageguides.com/robots-editor.html</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pageguides.com/es/robots-editor.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.pageguides.com/fr/robots-editor.html" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://www.pageguides.com/pt/robots-editor.html" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://www.pageguides.com/hi/robots-editor.html" />
   </url>
   <url>
-    <loc>https://pageguides.com/es/robots-editor.html</loc>
+    <loc>https://www.pageguides.com/es/robots-editor.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/fr/robots-editor.html</loc>
+    <loc>https://www.pageguides.com/fr/robots-editor.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/pt/robots-editor.html</loc>
+    <loc>https://www.pageguides.com/pt/robots-editor.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/hi/robots-editor.html</loc>
+    <loc>https://www.pageguides.com/hi/robots-editor.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/stop-word-remover.html</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://pageguides.com/es/stop-word-remover.html" />
-    <xhtml:link rel="alternate" hreflang="fr" href="https://pageguides.com/fr/stop-word-remover.html" />
-    <xhtml:link rel="alternate" hreflang="pt" href="https://pageguides.com/pt/stop-word-remover.html" />
-    <xhtml:link rel="alternate" hreflang="hi" href="https://pageguides.com/hi/stop-word-remover.html" />
+    <loc>https://www.pageguides.com/stop-word-remover.html</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pageguides.com/es/stop-word-remover.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.pageguides.com/fr/stop-word-remover.html" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://www.pageguides.com/pt/stop-word-remover.html" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://www.pageguides.com/hi/stop-word-remover.html" />
   </url>
   <url>
-    <loc>https://pageguides.com/es/stop-word-remover.html</loc>
+    <loc>https://www.pageguides.com/es/stop-word-remover.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/fr/stop-word-remover.html</loc>
+    <loc>https://www.pageguides.com/fr/stop-word-remover.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/pt/stop-word-remover.html</loc>
+    <loc>https://www.pageguides.com/pt/stop-word-remover.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/hi/stop-word-remover.html</loc>
+    <loc>https://www.pageguides.com/hi/stop-word-remover.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/ppc-roi-calculator.html</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://pageguides.com/es/ppc-roi-calculator.html" />
-    <xhtml:link rel="alternate" hreflang="fr" href="https://pageguides.com/fr/ppc-roi-calculator.html" />
-    <xhtml:link rel="alternate" hreflang="pt" href="https://pageguides.com/pt/ppc-roi-calculator.html" />
-    <xhtml:link rel="alternate" hreflang="hi" href="https://pageguides.com/hi/ppc-roi-calculator.html" />
+    <loc>https://www.pageguides.com/ppc-roi-calculator.html</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pageguides.com/es/ppc-roi-calculator.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.pageguides.com/fr/ppc-roi-calculator.html" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://www.pageguides.com/pt/ppc-roi-calculator.html" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://www.pageguides.com/hi/ppc-roi-calculator.html" />
   </url>
   <url>
-    <loc>https://pageguides.com/es/ppc-roi-calculator.html</loc>
+    <loc>https://www.pageguides.com/es/ppc-roi-calculator.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/fr/ppc-roi-calculator.html</loc>
+    <loc>https://www.pageguides.com/fr/ppc-roi-calculator.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/pt/ppc-roi-calculator.html</loc>
+    <loc>https://www.pageguides.com/pt/ppc-roi-calculator.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/hi/ppc-roi-calculator.html</loc>
+    <loc>https://www.pageguides.com/hi/ppc-roi-calculator.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/breadcrumb-generator.html</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://pageguides.com/es/breadcrumb-generator.html" />
-    <xhtml:link rel="alternate" hreflang="fr" href="https://pageguides.com/fr/breadcrumb-generator.html" />
-    <xhtml:link rel="alternate" hreflang="pt" href="https://pageguides.com/pt/breadcrumb-generator.html" />
-    <xhtml:link rel="alternate" hreflang="hi" href="https://pageguides.com/hi/breadcrumb-generator.html" />
+    <loc>https://www.pageguides.com/breadcrumb-generator.html</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pageguides.com/es/breadcrumb-generator.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.pageguides.com/fr/breadcrumb-generator.html" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://www.pageguides.com/pt/breadcrumb-generator.html" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://www.pageguides.com/hi/breadcrumb-generator.html" />
   </url>
   <url>
-    <loc>https://pageguides.com/es/breadcrumb-generator.html</loc>
+    <loc>https://www.pageguides.com/es/breadcrumb-generator.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/fr/breadcrumb-generator.html</loc>
+    <loc>https://www.pageguides.com/fr/breadcrumb-generator.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/pt/breadcrumb-generator.html</loc>
+    <loc>https://www.pageguides.com/pt/breadcrumb-generator.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/hi/breadcrumb-generator.html</loc>
+    <loc>https://www.pageguides.com/hi/breadcrumb-generator.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/url-slug-generator.html</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://pageguides.com/es/url-slug-generator.html" />
-    <xhtml:link rel="alternate" hreflang="fr" href="https://pageguides.com/fr/url-slug-generator.html" />
-    <xhtml:link rel="alternate" hreflang="pt" href="https://pageguides.com/pt/url-slug-generator.html" />
-    <xhtml:link rel="alternate" hreflang="hi" href="https://pageguides.com/hi/url-slug-generator.html" />
+    <loc>https://www.pageguides.com/url-slug-generator.html</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pageguides.com/es/url-slug-generator.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.pageguides.com/fr/url-slug-generator.html" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://www.pageguides.com/pt/url-slug-generator.html" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://www.pageguides.com/hi/url-slug-generator.html" />
   </url>
   <url>
-    <loc>https://pageguides.com/es/url-slug-generator.html</loc>
+    <loc>https://www.pageguides.com/es/url-slug-generator.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/fr/url-slug-generator.html</loc>
+    <loc>https://www.pageguides.com/fr/url-slug-generator.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/pt/url-slug-generator.html</loc>
+    <loc>https://www.pageguides.com/pt/url-slug-generator.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/hi/url-slug-generator.html</loc>
+    <loc>https://www.pageguides.com/hi/url-slug-generator.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/lsi-suggester.html</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://pageguides.com/es/lsi-suggester.html" />
-    <xhtml:link rel="alternate" hreflang="fr" href="https://pageguides.com/fr/lsi-suggester.html" />
-    <xhtml:link rel="alternate" hreflang="pt" href="https://pageguides.com/pt/lsi-suggester.html" />
-    <xhtml:link rel="alternate" hreflang="hi" href="https://pageguides.com/hi/lsi-suggester.html" />
+    <loc>https://www.pageguides.com/lsi-suggester.html</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pageguides.com/es/lsi-suggester.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.pageguides.com/fr/lsi-suggester.html" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://www.pageguides.com/pt/lsi-suggester.html" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://www.pageguides.com/hi/lsi-suggester.html" />
   </url>
   <url>
-    <loc>https://pageguides.com/es/lsi-suggester.html</loc>
+    <loc>https://www.pageguides.com/es/lsi-suggester.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/fr/lsi-suggester.html</loc>
+    <loc>https://www.pageguides.com/fr/lsi-suggester.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/pt/lsi-suggester.html</loc>
+    <loc>https://www.pageguides.com/pt/lsi-suggester.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/hi/lsi-suggester.html</loc>
+    <loc>https://www.pageguides.com/hi/lsi-suggester.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/pwa-manifest-generator.html</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://pageguides.com/es/pwa-manifest-generator.html" />
-    <xhtml:link rel="alternate" hreflang="fr" href="https://pageguides.com/fr/pwa-manifest-generator.html" />
-    <xhtml:link rel="alternate" hreflang="pt" href="https://pageguides.com/pt/pwa-manifest-generator.html" />
-    <xhtml:link rel="alternate" hreflang="hi" href="https://pageguides.com/hi/pwa-manifest-generator.html" />
+    <loc>https://www.pageguides.com/pwa-manifest-generator.html</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pageguides.com/es/pwa-manifest-generator.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.pageguides.com/fr/pwa-manifest-generator.html" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://www.pageguides.com/pt/pwa-manifest-generator.html" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://www.pageguides.com/hi/pwa-manifest-generator.html" />
   </url>
   <url>
-    <loc>https://pageguides.com/es/pwa-manifest-generator.html</loc>
+    <loc>https://www.pageguides.com/es/pwa-manifest-generator.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/fr/pwa-manifest-generator.html</loc>
+    <loc>https://www.pageguides.com/fr/pwa-manifest-generator.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/pt/pwa-manifest-generator.html</loc>
+    <loc>https://www.pageguides.com/pt/pwa-manifest-generator.html</loc>
   </url>
   <url>
-    <loc>https://pageguides.com/hi/pwa-manifest-generator.html</loc>
+    <loc>https://www.pageguides.com/hi/pwa-manifest-generator.html</loc>
   </url>
 </urlset>

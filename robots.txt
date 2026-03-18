@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://pageguides.com/sitemap.xml
+Sitemap: https://www.pageguides.com/sitemap.xml
